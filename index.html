@@ -87,6 +87,10 @@
   .top3 .nm{flex:1;font-size:13.5px}.top3 .nm b{font-weight:600}.top3 .vl{font-weight:700;color:var(--purple);font-size:14px}
   /* Creator cards */
   .grid-cr{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .cre-controls{display:flex;justify-content:flex-end;margin-bottom:18px}
+  .cre-table{display:none}
+  .cre-table table{min-width:900px}
+  .cre-table td{vertical-align:middle}
   .cr{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;position:relative}
   .cr .name{font-size:17px;font-weight:600}
   .cr .tier{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:7px;background:var(--navy);color:#fff;margin-left:8px;vertical-align:middle}
@@ -189,7 +193,7 @@
       </div>
       <div class="grid-camp" id="camp-cards"></div>
       <div class="panel" id="camp-table" style="display:none"><div class="tbl-scroll"><table>
-        <thead><tr><th>Marca / Campaña</th><th>Creador</th><th>Industria</th><th class="num-r">Monto</th><th class="num-r">Comisión</th><th>Estado</th><th>Cobro</th><th>Titular</th></tr></thead>
+        <thead><tr><th>Marca / Campaña</th><th>Creador</th><th>Industria</th><th class="num-r">Monto</th><th class="num-r">% Comisión</th><th class="num-r">Comisión</th><th>Estado</th><th>Cobro</th><th>Titular</th></tr></thead>
         <tbody id="camp-rows"></tbody></table></div></div>
       <div id="camp-resumen" style="display:none">
         <div class="mini3" id="ciclo-mini"></div>
@@ -205,7 +209,17 @@
     <section class="page" id="page-cre">
       <div class="top"><div><h1>Base de creadores</h1><p id="cre-count"></p></div>
         <button class="btn btn-grad" onclick="openCre()">+ Nuevo creador</button></div>
+      <div class="cre-controls">
+        <div class="toggle">
+          <button id="tg-cre-cards" class="on" onclick="setCreView('cards')">▦ Cards</button>
+          <button id="tg-cre-table" onclick="setCreView('table')">☰ Tabla</button>
+        </div>
+      </div>
       <div class="grid-cr" id="cre-grid"></div>
+      <div class="panel cre-table" id="cre-table"><div class="tbl-scroll"><table>
+        <thead><tr><th>Creador</th><th>Tier</th><th>Seguidores</th><th>Engagement</th><th>Campañas activas</th><th>Por pagar</th><th>Media kit</th><th>Acciones</th></tr></thead>
+        <tbody id="cre-rows"></tbody>
+      </table></div></div>
     </section>
   </main>
 </div>
@@ -222,7 +236,7 @@
   </div>
   <div class="two">
     <div class="field"><label>Monto total ($)</label><input id="c-monto" type="number" oninput="cCalc()" placeholder="3500"></div>
-    <div class="field"><label>Pago al creador ($)</label><input id="c-pago" type="number" oninput="cCalc()" placeholder="2750"></div>
+    <div class="field"><label>% de comisión</label><input id="c-com-pct" type="number" min="0" max="100" step="0.1" oninput="cCalc()" placeholder="20"></div>
   </div>
   <div class="calc"><span class="l" id="c-com-l">Tu comisión</span><span class="v" id="c-com">$0</span></div>
   <div class="two">
@@ -240,8 +254,12 @@
     <div class="field"><label>Cobro</label><select id="c-cobro"></select></div>
   </div>
   <div class="two">
-    <div class="field"><label>Fecha de inicio</label><input id="c-inicio" type="date"></div>
-    <div class="field"><label>¿Pagado al creador?</label><select id="c-pagcr"><option value="no">No</option><option value="si">Sí</option></select></div>
+    <div class="field"><label>Brief</label><select id="c-brief"><option value="no">❌ No recibido</option><option value="si">✅ Recibido</option></select></div>
+    <div class="field"><label>¿Pagado al creador?</label><select id="c-pagcr"><option value="no">⏳ No</option><option value="si">✅ Sí</option></select></div>
+  </div>
+  <div class="two">
+    <div class="field"><label>Inicio del acuerdo / contrato</label><input id="c-inicio-acuerdo" type="date"></div>
+    <div class="field"><label>Inicio de la campaña</label><input id="c-inicio-campana" type="date"></div>
   </div>
   <div class="modal-act"><button class="btn btn-ghost" onclick="close_('ov-camp')">Cancelar</button><button class="btn btn-grad" onclick="saveCamp()">Guardar</button></div>
 </div></div>
@@ -273,11 +291,11 @@
 
 <script>
 const K_C="briev:campanas4", K_R="briev:creadores4";
-const ESTADOS=[["Prospecto","🔍"],["Propuesta enviada","📤"],["Negociación","🤝"],["Firmado","✍️"],["En producción","🎬"],["Entregado","📦"],["Facturado","🧾"],["Pagado","💰"]];
+const ESTADOS=[["Prospecto","🔍"],["Propuesta enviada","📤"],["Negociación","🤝"],["Acuerdo alcanzado","🤝"],["Contrato firmado","✍️"],["En producción","🎬"],["En aprobación","📤"],["Contenido aprobado","✅"],["Entregado","📦"],["Facturado","🧾"],["Pagado","💰"]];
 const COBROS=[["Pendiente","⏳"],["Facturado","🧾"],["Pagado","✅"]];
 const INDUS=[["Fintech","💳"],["Belleza","💄"],["Comida y bebida","🍔"],["Moda","👗"],["Tecnología","📱"],["Salud y bienestar","🌿"],["Turismo","✈️"],["Educación","🎓"],["Hogar","🏠"],["Automotriz","🚗"],["Entretenimiento","🎬"],["Otro","🎯"]];
 const CICLOS=[["Activa","🟢"],["Renovada","🔄"],["Finalizada","🏁"]];
-const ACTIVOS=["Firmado","En producción","Entregado","Facturado"];
+const ACTIVOS=["Contrato firmado","En producción","En aprobación","Contenido aprobado","Entregado","Facturado"];
 const em=(l,v)=>{const f=l.find(x=>x[0]===v);return f?f[1]:"";};
 const money=n=>"$"+(Number(n)||0).toLocaleString("es-GT");
 let camps=[],cres=[],editC=null,editR=null,charts={},charts2={},campView="cards";
@@ -287,7 +305,15 @@ async function save(k,v){try{await window.storage.set(k,JSON.stringify(v));}catc
 
 async function init(){
   cres=await load(K_R,[{nombre:"Frank",tier:"Micro",followers:"48K",engage:"6.1%",kit:"",tarifas:{reel:1400,replica:1900,dos:2500,hist:600,set:1000,pauta:800}}]);
-  camps=await load(K_C,[{marca:"Remitly",nombre:"Lanzamiento remesas Q1",creador:"Frank",industria:"Fintech",monto:3500,pago:2750,titular:"Agencia",ciclo:"Activa",entregables:"2 videos TikTok",pauta:30,excl:60,diaspago:30,estado:"Firmado",cobro:"Pendiente",inicio:"2026-02-15",pagcr:"no"}]);
+  camps=await load(K_C,[{marca:"Remitly",nombre:"Lanzamiento remesas Q1",creador:"Frank",industria:"Fintech",monto:3500,pago:2750,comPct:21.4286,comision:750,titular:"Agencia",ciclo:"Activa",entregables:"2 videos TikTok",pauta:30,excl:60,diaspago:30,estado:"Contrato firmado",cobro:"Pendiente",brief:"si",inicioAcuerdo:"2026-02-15",inicioCampana:"2026-02-15",pagcr:"no"}]);
+  camps=camps.map(c=>({...c,
+    comPct:c.comPct!==undefined?c.comPct:(c.monto?((+c.monto-+c.pago)/+c.monto*100):0),
+    comision:c.comision!==undefined?c.comision:(+c.monto-+c.pago),
+    brief:c.brief||"no",
+    inicioAcuerdo:c.inicioAcuerdo||c.inicio||"",
+    inicioCampana:c.inicioCampana||c.inicio||"",
+    estado:c.estado==="Firmado"?"Contrato firmado":c.estado
+  }));
   fillModalSelects();buildFilters();renderAll();
 }
 function opt(l){return l.map(x=>`<option value="${x[0]}">${x[1]} ${x[0]}</option>`).join("");}
@@ -312,11 +338,11 @@ function renderAll(){renderDash();buildFilters();renderCamps();renderCres();}
 /* Dashboard */
 function renderDash(){
   const fact=camps.reduce((s,c)=>s+ +c.monto,0);
-  const com=camps.reduce((s,c)=>s+(+c.monto-+c.pago),0);
-  const comAg=camps.filter(c=>c.titular!=="Propia").reduce((s,c)=>s+(+c.monto-+c.pago),0);
+  const com=camps.reduce((s,c)=>s+(c.comision!==undefined?+c.comision:(+c.monto-+c.pago)),0);
+  const comAg=camps.filter(c=>c.titular!=="Propia").reduce((s,c)=>s+(c.comision!==undefined?+c.comision:(+c.monto-+c.pago)),0);
   const comPr=com-comAg;
   const activas=camps.filter(c=>ACTIVOS.includes(c.estado)).length;
-  const porCobrar=camps.filter(c=>c.cobro!=="Pagado").reduce((s,c)=>s+(+c.monto-+c.pago),0);
+  const porCobrar=camps.filter(c=>c.cobro!=="Pagado").reduce((s,c)=>s+(c.comision!==undefined?+c.comision:(+c.monto-+c.pago)),0);
   const porPagar=camps.filter(c=>c.pagcr!=="si").reduce((s,c)=>s+ +c.pago,0);
   g("kpis").innerHTML=`
     <div class="kpi"><div class="label">Facturación</div><div class="num">${money(fact)}</div><div class="sub">${camps.length} campañas</div></div>
@@ -326,7 +352,7 @@ function renderDash(){
     <div class="kpi"><div class="label">Por pagar a creadores</div><div class="num">${money(porPagar)}</div><div class="sub">salidas pendientes</div></div>`;
   drawCharts();
   const today=new Date(),soon=[];
-  camps.forEach(c=>{if(!c.inicio)return;const base=new Date(c.inicio);
+  camps.forEach(c=>{if(!c.inicioCampana)return;const base=new Date(c.inicioCampana);
     [["Pauta",+c.pauta],["Exclusividad",+c.excl]].forEach(([t,d])=>{if(d>0){const e=new Date(base);e.setDate(e.getDate()+d);const diff=Math.ceil((e-today)/86400000);
       if(diff>=0&&diff<=30)soon.push(`${t} de <b>${c.marca} · ${c.creador}</b> vence en ${diff} día${diff!==1?"s":""} (${e.toLocaleDateString("es-GT")})`);}});});
   g("alertList").innerHTML=soon.length?soon.map(s=>`<div class="a">${s}</div>`).join(""):`<div class="none">Nada por vencer pronto. 👌</div>`;
@@ -337,13 +363,13 @@ function drawCharts(){
   ["c0","c1","c2","c3"].forEach(k=>charts[k]&&charts[k].destroy());
   const pal=["#b677b1","#81a4d0","#5ec4e6","#26224f","#a783b9","#9bb8dd","#c9a0c5"];
   // ingreso por mes
-  const bm={};camps.forEach(c=>{if(!c.inicio)return;const d=new Date(c.inicio);const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");bm[k]=(bm[k]||0)+(+c.monto-+c.pago);});
+  const bm={};camps.forEach(c=>{const baseDate=c.inicioCampana||c.inicioAcuerdo;if(!baseDate)return;const d=new Date(baseDate);const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");bm[k]=(bm[k]||0)+(c.comision!==undefined?+c.comision:(+c.monto-+c.pago));});
   const mk=Object.keys(bm).sort();
   const ml=mk.map(k=>{const[y,m]=k.split("-");return new Date(y,m-1,1).toLocaleDateString("es-GT",{month:"short",year:"2-digit"});});
   charts.c0=new Chart(g("chMonth"),{type:"line",data:{labels:ml,datasets:[{data:mk.map(k=>bm[k]),borderColor:"#b677b1",backgroundColor:"rgba(182,119,177,.12)",fill:true,tension:.35,pointBackgroundColor:"#5ec4e6",pointRadius:4,borderWidth:2.5}]},options:opt2(true)});
   const marcas={};camps.forEach(c=>marcas[c.marca]=(marcas[c.marca]||0)+(+c.monto-+c.pago));
   charts.c1=new Chart(g("ch1"),{type:"bar",data:{labels:Object.keys(marcas),datasets:[{data:Object.values(marcas),backgroundColor:"#b677b1",borderRadius:8,maxBarThickness:46}]},options:opt2(true)});
-  const cob={Cobrado:0,"Por cobrar":0};camps.forEach(c=>{const m=+c.monto-+c.pago;if(c.cobro==="Pagado")cob.Cobrado+=m;else cob["Por cobrar"]+=m;});
+  const cob={Cobrado:0,"Por cobrar":0};camps.forEach(c=>{const m=c.comision!==undefined?+c.comision:(+c.monto-+c.pago);if(c.cobro==="Pagado")cob.Cobrado+=m;else cob["Por cobrar"]+=m;});
   charts.c2=new Chart(g("ch2"),{type:"doughnut",data:{labels:Object.keys(cob),datasets:[{data:Object.values(cob),backgroundColor:["#5ec4e6","#b677b1"],borderWidth:0}]},options:opt2(false,true)});
   const ind={};camps.forEach(c=>ind[c.industria]=(ind[c.industria]||0)+1);
   charts.c3=new Chart(g("ch3"),{type:"doughnut",data:{labels:Object.keys(ind),datasets:[{data:Object.values(ind),backgroundColor:pal,borderWidth:0}]},options:opt2(false,true)});
@@ -371,14 +397,14 @@ function renderCamps(){
     <div class="ccard ${c.titular==="Propia"?"propia":""}" onclick="detail(${i})">
       <div class="cc-top"><div><div class="cc-marca">${c.marca}</div><div class="cc-name">${c.nombre||"—"}</div></div>${titBadge(c.titular)}</div>
       <div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${c.industria}</span><span style="font-size:12.5px;color:var(--muted)">✨ ${c.creador}</span></div>
-      <div class="cc-com"><div><div class="c">${money(+c.monto-+c.pago)}</div><div class="t">comisión · monto ${money(c.monto)}</div></div></div>
+      <div class="cc-com"><div><div class="c">${money(c.comision!==undefined?c.comision:(+c.monto-+c.pago))}</div><div class="t">comisión · ${Number(c.comPct||0)}% · monto ${money(c.monto)}</div></div></div>
       <div class="cc-pills"><span class="pill">${em(ESTADOS,c.estado)} ${c.estado}</span><span class="pill ${c.cobro==="Pagado"?"pagado":"pend"}">${em(COBROS,c.cobro)} ${c.cobro}</span></div>
     </div>`;}).join("") : `<div class="empty" style="grid-column:1/-1">No hay campañas con estos filtros.</div>`;
   g("camp-rows").innerHTML= idx.length? idx.map(i=>{const c=camps[i];return `
     <tr onclick="detail(${i})">
       <td><div style="font-weight:600">${c.marca}</div><div style="font-size:11.5px;color:var(--muted)">${c.nombre||"—"}</div></td>
       <td>${c.creador}</td><td><span class="tag">${em(INDUS,c.industria)} ${c.industria}</span></td>
-      <td class="num-r money">${money(c.monto)}</td><td class="num-r mine">${money(+c.monto-+c.pago)}</td>
+      <td class="num-r money">${money(c.monto)}</td><td class="num-r">${Number(c.comPct||0)}%</td><td class="num-r mine">${money(+c.comision||(+c.monto-+c.pago))}</td>
       <td><span class="pill">${em(ESTADOS,c.estado)} ${c.estado}</span></td>
       <td><span class="pill ${c.cobro==="Pagado"?"pagado":"pend"}">${em(COBROS,c.cobro)} ${c.cobro}</span></td>
       <td>${titBadge(c.titular)}</td>
@@ -389,14 +415,30 @@ function renderResumen(){
   const list=camps.filter(passes);
   const cnt=c=>list.filter(x=>(x.ciclo||"Activa")===c).length;
   g("ciclo-mini").innerHTML=CICLOS.map(cy=>`<div class="mini"><div class="e">${cy[1]}</div><div><div class="n">${cnt(cy[0])}</div><div class="l">${cy[0]}${cy[0]==="Activa"?"s":cy[0]==="Renovada"?"s":""}</div></div></div>`).join("");
-  const top=[...list].sort((a,b)=>(+b.monto-+b.pago)-(+a.monto-+a.pago)).slice(0,3);
-  g("top3list").innerHTML= top.length? top.map((c,i)=>`<div class="row"><div class="rank">${i+1}</div><div class="nm"><b>${c.marca}</b> · ${c.nombre||"—"} <span style="color:var(--muted)">· ${c.creador}</span></div><div class="vl">${money(+c.monto-+c.pago)}</div></div>`).join("") : `<div class="empty">Sin datos.</div>`;
+  const top=[...list].sort((a,b)=>(b.comision!==undefined?+b.comision:(+b.monto-+b.pago))-(a.comision!==undefined?+a.comision:(+a.monto-+a.pago))).slice(0,3);
+  const monthLabel=d=>d?new Date(d+"T12:00:00").toLocaleDateString("es-GT",{month:"long",year:"numeric"}):"Sin fecha";
+  g("top3list").innerHTML= top.length? top.map((c,i)=>{
+    const start=c.inicioCampana||c.inicioAcuerdo||c.inicio;
+    return `<div class="row" style="display:block;padding:16px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+        <div class="rank">${i+1}</div>
+        <div style="flex:1"><div style="font-size:15px;font-weight:600">${c.marca}</div><div style="font-size:12px;color:var(--muted)">${c.nombre||"—"}</div></div>
+        <div class="vl">${money(c.comision!==undefined?c.comision:(+c.monto-+c.pago))}</div>
+      </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <span class="pill">${em(ESTADOS,c.estado)} ${c.estado}</span>
+        <span class="pill ${c.cobro==="Pagado"?"pagado":"pend"}">${em(COBROS,c.cobro)} ${c.cobro==="Pagado"?"Pagado":"Pendiente"}</span>
+        <span class="tag">✨ ${c.creador}</span>
+        <span class="tag">📅 ${monthLabel(start)}</span>
+      </div>
+    </div>`;
+  }).join("") : `<div class="empty">Sin datos.</div>`;
   if(typeof Chart==="undefined")return;
   ["s","cr","in"].forEach(k=>charts2[k]&&charts2[k].destroy());
   const pal=["#b677b1","#81a4d0","#5ec4e6","#26224f","#a783b9","#9bb8dd","#c9a0c5"];
   const st={};list.forEach(c=>st[c.estado]=(st[c.estado]||0)+1);
-  charts2.s=new Chart(g("rsStatus"),{type:"bar",data:{labels:Object.keys(st).map(k=>em(ESTADOS,k)+" "+k),datasets:[{data:Object.values(st),backgroundColor:"#81a4d0",borderRadius:8,maxBarThickness:34}]},options:opt2(true)});
-  const cr={};list.forEach(c=>cr[c.creador]=(cr[c.creador]||0)+(+c.monto-+c.pago));
+  charts2.s=new Chart(g("rsStatus"),{type:"doughnut",data:{labels:Object.keys(st).map(k=>em(ESTADOS,k)+" "+k),datasets:[{data:Object.values(st),backgroundColor:pal,borderWidth:0}]},options:opt2(false,true)});
+  const cr={};list.forEach(c=>cr[c.creador]=(cr[c.creador]||0)+(c.comision!==undefined?+c.comision:(+c.monto-+c.pago)));
   charts2.cr=new Chart(g("rsCre"),{type:"bar",data:{labels:Object.keys(cr),datasets:[{data:Object.values(cr),backgroundColor:"#b677b1",borderRadius:8,maxBarThickness:34}]},options:opt2(true)});
   const ind={};list.forEach(c=>ind[c.industria]=(ind[c.industria]||0)+1);
   charts2.in=new Chart(g("rsInd"),{type:"doughnut",data:{labels:Object.keys(ind),datasets:[{data:Object.values(ind),backgroundColor:pal,borderWidth:0}]},options:opt2(false,true)});
@@ -404,20 +446,29 @@ function renderResumen(){
 function openCamp(i){
   editC=(i===undefined)?null:i;
   g("camp-title").textContent=editC===null?"Nueva campaña":"Editar campaña";
-  const c=editC!==null?camps[editC]:{marca:"",nombre:"",creador:cres[0]?.nombre||"",industria:"Fintech",monto:"",pago:"",titular:"Agencia",ciclo:"Activa",entregables:"",pauta:"",excl:"",diaspago:"",estado:"Prospecto",cobro:"Pendiente",inicio:"",pagcr:"no"};
+  const c=editC!==null?camps[editC]:{marca:"",nombre:"",creador:cres[0]?.nombre||"",industria:"Fintech",monto:"",pago:"",comPct:"",comision:0,titular:"Agencia",ciclo:"Activa",entregables:"",pauta:"",excl:"",diaspago:"",estado:"Prospecto",cobro:"Pendiente",brief:"no",inicioAcuerdo:"",inicioCampana:"",pagcr:"no"};
   g("c-marca").value=c.marca;g("c-nombre").value=c.nombre||"";g("c-creador").value=c.creador;g("c-industria").value=c.industria;
-  g("c-monto").value=c.monto;g("c-pago").value=c.pago;g("c-titular").value=c.titular||"Agencia";g("c-ciclo").value=c.ciclo||"Activa";g("c-entregables").value=c.entregables;
+  g("c-monto").value=c.monto;g("c-com-pct").value=c.comPct!==undefined?c.comPct:"";g("c-titular").value=c.titular||"Agencia";g("c-ciclo").value=c.ciclo||"Activa";g("c-entregables").value=c.entregables;
   g("c-pauta").value=c.pauta;g("c-excl").value=c.excl;g("c-diaspago").value=c.diaspago;
-  g("c-estado").value=c.estado;g("c-cobro").value=c.cobro;g("c-inicio").value=c.inicio;g("c-pagcr").value=c.pagcr;
+  g("c-estado").value=c.estado;g("c-cobro").value=c.cobro;g("c-brief").value=c.brief||"no";g("c-inicio-acuerdo").value=c.inicioAcuerdo||c.inicio||"";g("c-inicio-campana").value=c.inicioCampana||c.inicio||"";g("c-pagcr").value=c.pagcr;
   cCalc();open_("ov-camp");
 }
-function cCalc(){const v=(+g("c-monto").value||0)-(+g("c-pago").value||0);g("c-com").textContent=money(v);g("c-com-l").textContent=g("c-titular").value==="Propia"?"Ingreso (100% tuyo)":"Tu comisión";}
+function cCalc(){
+  const monto=+g("c-monto").value||0;
+  let pct=+g("c-com-pct").value||0;
+  if(pct<0)pct=0;if(pct>100)pct=100;
+  const com=monto*pct/100;
+  const pago=Math.max(0,monto-com);
+  g("c-com").textContent=money(com);
+  g("c-com-l").textContent=g("c-titular").value==="Propia"?"Ingreso (100% tuyo)":`Tu comisión · ${pct}%`;
+}
 async function saveCamp(){
   if(!g("c-marca").value.trim()){alert("Escribe la marca.");return;}
+  const monto=+g("c-monto").value||0,pct=+g("c-com-pct").value||0,comision=monto*pct/100,pago=Math.max(0,monto-comision);
   const c={marca:g("c-marca").value.trim(),nombre:g("c-nombre").value.trim(),creador:g("c-creador").value,industria:g("c-industria").value,
-    monto:+g("c-monto").value||0,pago:+g("c-pago").value||0,titular:g("c-titular").value,ciclo:g("c-ciclo").value,entregables:g("c-entregables").value.trim(),
+    monto,pago,comPct:pct,comision,titular:g("c-titular").value,ciclo:g("c-ciclo").value,entregables:g("c-entregables").value.trim(),
     pauta:+g("c-pauta").value||0,excl:+g("c-excl").value||0,diaspago:+g("c-diaspago").value||0,
-    estado:g("c-estado").value,cobro:g("c-cobro").value,inicio:g("c-inicio").value,pagcr:g("c-pagcr").value};
+    estado:g("c-estado").value,cobro:g("c-cobro").value,brief:g("c-brief").value,inicioAcuerdo:g("c-inicio-acuerdo").value,inicioCampana:g("c-inicio-campana").value,pagcr:g("c-pagcr").value};
   if(editC===null)camps.push(c);else camps[editC]=c;
   await save(K_C,camps);close_("ov-camp");renderAll();
 }
@@ -427,15 +478,18 @@ function detail(i){
     <div class="det-head"><div><div class="m">${c.marca}</div><div class="c">${c.nombre||"—"} · ${em(INDUS,c.industria)} ${c.industria}</div></div>
       <div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">Editar</button><button class="ico" onclick="delCamp(${i})">Eliminar</button></div></div>
     <div style="margin:6px 0 2px">${titBadge(c.titular)} <span class="tag">${em(CICLOS,c.ciclo||"Activa")} ${c.ciclo||"Activa"}</span></div>
-    <div class="det-com"><span>${c.titular==="Propia"?"Ingreso (100% tuyo)":"Tu comisión"}</span><span class="v">${money(+c.monto-+c.pago)}</span></div>
+    <div class="det-com"><span>${c.titular==="Propia"?"Ingreso (100% tuyo)":`Tu comisión · ${Number(c.comPct||0)}%`}</span><span class="v">${money(c.comision!==undefined?c.comision:(+c.monto-+c.pago))}</span></div>
     <div class="det-row"><span class="k">Creador</span><span class="v">✨ ${c.creador}</span></div>
     <div class="det-row"><span class="k">Monto total</span><span class="v">${money(c.monto)}</span></div>
+    <div class="det-row"><span class="k">% de comisión</span><span class="v">${Number(c.comPct||0)}%</span></div>
     <div class="det-row"><span class="k">Pago al creador</span><span class="v">${money(c.pago)}</span></div>
     <div class="det-row"><span class="k">Entregables</span><span class="v">${c.entregables||"—"}</span></div>
     <div class="det-row"><span class="k">Derechos de pauta</span><span class="v">${yn(c.pauta)}</span></div>
     <div class="det-row"><span class="k">Exclusividad</span><span class="v">${yn(c.excl)}</span></div>
     <div class="det-row"><span class="k">Días de pago</span><span class="v">${c.diaspago?c.diaspago+" días":"—"}</span></div>
-    <div class="det-row"><span class="k">Fecha de inicio</span><span class="v">${c.inicio?new Date(c.inicio).toLocaleDateString("es-GT"):"—"}</span></div>
+    <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${(c.inicioAcuerdo||c.inicio)?new Date(c.inicioAcuerdo||c.inicio).toLocaleDateString("es-GT"):"—"}</span></div>
+    <div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${c.inicioCampana?new Date(c.inicioCampana).toLocaleDateString("es-GT"):"—"}</span></div>
+    <div class="det-row"><span class="k">Brief</span><span class="v">${c.brief==="si"?"✅ Recibido":"❌ No recibido"}</span></div>
     <div class="det-row"><span class="k">Estado</span><span class="v"><span class="pill">${em(ESTADOS,c.estado)} ${c.estado}</span></span></div>
     <div class="det-row"><span class="k">Cobro</span><span class="v"><span class="pill ${c.cobro==="Pagado"?"pagado":"pend"}">${em(COBROS,c.cobro)} ${c.cobro}</span></span></div>
     <div class="det-row"><span class="k">Pagado al creador</span><span class="v">${c.pagcr==="si"?"✅ Sí":"⏳ No"}</span></div>
@@ -468,6 +522,27 @@ function renderCres(){
         ${rate("Set 2 historias",t.set)}${rate("Derechos de pauta",t.pauta)}
       </div></div>`;
   }).join("") : `<div class="empty" style="grid-column:1/-1">Sin creadores todavía. Agrega el primero. ✨</div>`;
+  g("cre-rows").innerHTML=cres.length?cres.map((c,i)=>{
+    const act=camps.filter(x=>x.creador===c.nombre&&ACTIVOS.includes(x.estado));
+    const porPagar=camps.filter(x=>x.creador===c.nombre&&x.pagcr!=="si").reduce((sum,x)=>sum+(+x.pago||0),0);
+    const kit=c.kit?`<a class="kit" href="${c.kit}" target="_blank" rel="noopener">📄 Ver</a>`:"—";
+    return `<tr>
+      <td style="font-weight:600">${c.nombre}</td>
+      <td><span class="tier" style="margin-left:0">${c.tier||"—"}</span></td>
+      <td>${c.followers||"—"}</td>
+      <td>${c.engage||"—"}</td>
+      <td>${act.length}</td>
+      <td class="money">${money(porPagar)}</td>
+      <td>${kit}</td>
+      <td><button class="ico" onclick="openCre(${i})">Editar</button><button class="ico" onclick="delCre(${i})">✕</button></td>
+    </tr>`;
+  }).join(""):`<tr><td colspan="8" class="empty">Sin creadores todavía. Agrega el primero. ✨</td></tr>`;
+}
+function setCreView(v){
+  g("tg-cre-cards").classList.toggle("on",v==="cards");
+  g("tg-cre-table").classList.toggle("on",v==="table");
+  g("cre-grid").style.display=v==="cards"?"grid":"none";
+  g("cre-table").style.display=v==="table"?"block":"none";
 }
 function openCre(i){
   editR=(i===undefined)?null:i;
