@@ -224,6 +224,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 <div class="field"><label for="login-email">Correo electrónico</label><input id="login-email" type="email" autocomplete="username" required></div>
 <div class="field"><label for="login-password">Contraseña</label><input id="login-password" type="password" autocomplete="current-password" required></div>
 <button class="btn btn-primary" type="submit">Entrar a Briev</button><button type="button" class="btn btn-ghost" onclick="resetPassword()">Olvidé mi contraseña</button></form>
+<button type="button" class="btn btn-ghost" onclick="checkAuthConnection()">Comprobar conexión</button><p class="form-hint" id="auth-diagnostic" role="status"></p>
 <div id="setup-info" hidden><p class="form-hint">La conexión con Supabase aún no está configurada. Sigue la guía incluida para activar tu cuenta y guardar en la nube.</p></div>
 <div id="local-options" hidden><button class="btn btn-grad" onclick="startLocal()">Abrir modo local</button><button class="btn btn-ghost" onclick="startDemo()">Explorar demo sin guardar</button><small>El modo local guarda solo en este navegador. La demo usa datos ficticios y se descarta al salir.</small></div>
 <p class="auth-error" id="auth-error" role="alert"></p></div></section>
@@ -443,6 +444,35 @@ function friendly(e){
   if(/fetch|network|offline/i.test(e?.message||''))return 'No se pudo conectar. No se confirmó el guardado; revisa tu conexión y vuelve a intentarlo.';
   return e?.message||'No se pudo completar la operación.';
 }
+function authFailure(e){
+  const code=String(e?.code||''),status=Number(e?.status)||0,message=String(e?.message||'');
+  if(code==='invalid_credentials'||/invalid login credentials/i.test(message))return 'Supabase no reconoce esa combinación de correo y contraseña. Verifica que el correo esté en Authentication → Users de este proyecto y usa la contraseña de ese usuario, no la de la base de datos ni la de tu cuenta del panel de Supabase. [invalid_credentials]';
+  if(code==='email_not_confirmed')return 'Tu correo aún no está confirmado. Confírmalo con el enlace recibido o revisa tu propio usuario en Supabase → Authentication → Users. No necesitas reinstalar el SQL. [email_not_confirmed]';
+  if(code==='email_provider_disabled'||code==='provider_disabled')return 'El acceso por email no está habilitado en este proyecto. Revisa Authentication → Sign In / Providers → Email. ['+code+']';
+  if(status===429||code.startsWith('over_'))return 'Supabase recibió demasiados intentos. Espera unos minutos antes de volver a intentar. [rate_limit]';
+  if(code==='user_banned')return 'Supabase indica que este usuario está bloqueado. Revisa su estado en Authentication → Users. [user_banned]';
+  if(/invalid api key/i.test(message)||code==='bad_jwt'||code==='invalid_jwt')return 'Supabase rechazó la configuración pública de conexión. No cambies tu contraseña: revisa la URL y la Publishable key. [connection_key]';
+  if(e?.name==='AbortError'||e?.name==='AuthRetryableFetchError'||/failed to fetch|network|load failed|timeout|timed out|fetch failed/i.test(message))return 'Este navegador no pudo comunicarse con Supabase. Pulsa Comprobar conexión para distinguir un problema de red de un problema con tu usuario. [network_error]';
+  if(e?.name==='SecurityError')return 'El navegador bloqueó el almacenamiento necesario para mantener la sesión. Revisa sus permisos de almacenamiento. [browser_storage]';
+  if(code==='session_missing')return 'Supabase respondió sin una sesión válida. Intenta nuevamente y comparte este código si se repite. [session_missing]';
+  if(status>=500)return 'Supabase devolvió un error interno. Revisa Authentication → Logs de tu proyecto o vuelve a intentar más tarde. [HTTP '+status+']';
+  const safeCode=/^[a-z0-9_]{1,60}$/i.test(code)?code:'';
+  return 'No se pudo completar el acceso. Pulsa Comprobar conexión y comparte únicamente este aviso, sin contraseñas.'+(safeCode||status?' ['+[safeCode,status?'HTTP '+status:''].filter(Boolean).join(' · ')+']':'');
+}
+async function checkAuthConnection(){
+  if(busy)return;setBusy(true);g('auth-diagnostic').textContent='Comprobando conexión, sin usar tu correo ni contraseña…';
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
+  try{
+    const config=window.BRIEV_CONFIG||{};
+    if(!validConfig(config))throw {code:'connection_missing'};
+    const response=await fetch(config.supabaseUrl+'/auth/v1/settings',{method:'GET',headers:{apikey:config.supabaseKey,Accept:'application/json'},signal:controller.signal,credentials:'omit',cache:'no-store'});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw {code:data.code,status:response.status,message:data.msg||data.message||''};
+    if(data.external?.email!==true){g('auth-diagnostic').textContent='Supabase responde, pero no informa que el acceso por email esté habilitado. Revisa Authentication → Sign In / Providers.';return;}
+    g('auth-diagnostic').textContent='Conexión correcta: Supabase responde, acepta la clave pública y tiene email habilitado. Esta comprobación no valida tu usuario ni contraseña. Reintenta Entrar a Briev para ver el motivo concreto si falla.';
+  }catch(e){g('auth-diagnostic').textContent=e?.code==='connection_missing'?'Falta configurar la conexión con Supabase.':e?.name==='AbortError'||e?.name==='AuthRetryableFetchError'||/fetch|network|load failed/i.test(String(e?.message||''))?'No se pudo conectar con Supabase desde este navegador. Revisa internet y si algún bloqueo de red está impidiendo el acceso. No cambies tu contraseña por este error. [network_error]':authFailure(e);}
+  finally{clearTimeout(timer);setBusy(false);}
+}
 function showApp(){g('auth-screen').hidden=true;g('app').hidden=false;g('session-label').textContent=mode==='cloud'?'☁ Supabase · '+user.email:mode==='demo'?'◉ Demo · datos ficticios, sin guardar':'◉ Modo local · solo en este navegador';}
 function clearSession(){
   epoch++;user=null;mode='locked';camps=[];cres=[];pendingImport=null;rankingData={};editCampSnapshot=null;editCreSnapshot=null;
@@ -453,6 +483,7 @@ function clearSession(){
   g('month-details').open=false;
   document.querySelectorAll('.modal input').forEach(el=>el.value='');
   g('login-password').value='';g('toast').textContent='';setView('cards');
+  g('login-password').value='';g('auth-diagnostic').textContent='';g('toast').textContent='';setView('cards');
 }
 function isLocalHost(){return location.protocol==='file:'||['localhost','127.0.0.1','[::1]'].includes(location.hostname);}
 function validConfig(config){
@@ -499,9 +530,14 @@ async function acceptSession(session){
   await refreshData(true);
 }
 async function signIn(){
+  if(busy)return;
+  if(!db){g('auth-error').textContent='La conexión de acceso no está lista. Recarga esta página y pulsa Comprobar conexión si persiste.';return;}
   if(busy||!db)return;setBusy(true);g('auth-error').textContent='';
   try{const {data,error}=await db.auth.signInWithPassword({email:g('login-email').value.trim(),password:g('login-password').value});if(error)throw new Error('No se pudo iniciar sesión. Revisa tu correo, contraseña o conexión.');g('login-password').value='';await acceptSession(data.session);}
   catch(e){g('auth-error').textContent=friendly(e);}finally{setBusy(false);}
+  setBusy(true);g('auth-error').textContent='';
+  try{const {data,error}=await db.auth.signInWithPassword({email:g('login-email').value.trim(),password:g('login-password').value});if(error)throw error;if(!data?.session)throw {code:'session_missing'};g('login-password').value='';await acceptSession(data.session);}
+  catch(e){g('auth-error').textContent=authFailure(e);}finally{setBusy(false);}
 }
 async function signOut(){
   if(busy)return;
@@ -510,6 +546,7 @@ async function signOut(){
 }
 async function resetPassword(){
   if(!db||busy)return;
+  if(location.protocol==='file:'){g('auth-error').textContent='La recuperación necesita una dirección web publicada para recibir el enlace. Por ahora revisa tu usuario en Supabase → Authentication → Users; no elimines el usuario ni reinstales el SQL.';return;}
   if(!g('login-email').value||!g('login-email').checkValidity()){g('auth-error').textContent='Escribe un correo válido para recuperar tu contraseña.';return;}
   setBusy(true);
   try{const {error}=await db.auth.resetPasswordForEmail(g('login-email').value.trim(),{redirectTo:location.origin+location.pathname});if(error)throw error;g('auth-error').textContent='Si el correo está registrado, recibirás un enlace. Revisa también spam.';}catch(e){g('auth-error').textContent=friendly(e);}finally{setBusy(false);}
