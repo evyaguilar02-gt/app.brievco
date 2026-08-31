@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#26224f">
-<title>Briev Co. · Campañas · Versión 6</title>
 <title>Briev Co. · Plataforma de campañas</title>
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./apple-touch-icon.png">
@@ -176,7 +175,6 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 /* Paired charts keep equal geometry; rankings close each dashboard. */
 .dashboard-ranking{margin-top:22px}.dashboard-ranking .rank-controls{max-width:580px}.dashboard-ranking .rank-list{max-height:460px}
-.version-label{display:inline-block;font-size:9px;letter-spacing:.08em;font-weight:600;padding:4px 8px;border-radius:6px;background:#e9e0ef;color:#51426e}.auth-card>.version-label{margin-bottom:10px}
 .rank-name{min-width:0}.rank-value{flex-shrink:0}.session-bar>span{min-width:0;overflow-wrap:anywhere}
 @media(max-width:800px){.btn,.ico,.nav a,.toggle button{min-height:44px}.rank-controls input,.rank-controls select,.filters select,.field input,.field select,.search{font-size:16px;min-height:44px}.modal{max-height:90dvh}.calc,.det-com{gap:12px;flex-wrap:wrap}.det-row .k,.det-row .v{min-width:0;overflow-wrap:anywhere}}
 @media(max-width:520px){.mini3 .mini{flex-direction:column;align-items:flex-start;padding:12px 10px;gap:6px}.kpi:not(.hero) .num{font-size:clamp(16px,4.5vw,20px)}.top-actions{width:100%}.top-actions .btn{flex:1}.modal-act .btn{flex:1}.rank-controls{flex-wrap:wrap}.rank-controls input{flex:1 1 110px}.rank-controls select{flex:0 1 auto;max-width:100%}.dashboard-ranking .rank-foot{font-size:11px;line-height:1.6}}
@@ -229,7 +227,6 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
       <path fill="#26224f" d="M170.29,90.37c-14.18-14.18-31.21-21.26-51.11-21.26-13.98,0-26.55,3.5-37.7,10.5v41.4c7.24-13.35,21.38-22.42,37.64-22.42,18.3,0,33.91,11.49,40.02,27.65h-46.3c-6.76,0-12.24,5.48-12.24,12.24h0c0,6.76,5.48,12.24,12.24,12.24h78.46l.26-9.22c0-19.9-7.09-36.94-21.26-51.11Z"/>
       <path fill="#26224f" d="M122.26,184.02c-.07,0-.14.01-.21.02-.97.07-1.94.11-2.93.11-1.29,0-2.56-.07-3.82-.18-.11,0-.22-.02-.33-.03-1-.1-1.98-.23-2.96-.4-4.44-.71-8.62-2.1-12.52-4.17-13.75-7.12-23.15-21.46-23.15-38.01,0-.42,0-.84.02-1.26h-.16v-63.21h.08v-33.92c0-12.59-10.21-22.8-22.8-22.8h-6.79v193.81h29.59v-14.09c12.41,9.4,26.71,14.09,42.91,14.09,14,0,26.86-3.76,38.56-11.27,11.44-7.17,21.01-18.45,28.69-33.82l-27.49-11.89c-5.88,14.96-19.94,25.8-36.68,27.02Z"/>
     </svg></div>
-<span class="version-label">VERSIÓN 6 · GRÁFICAS</span><h1>Tu operación, en un lugar.</h1><p id="auth-description">Campañas, creadores y comisiones de Briev Co.</p>
 <h1>Tu operación, en un lugar.</h1><p id="auth-description">Campañas, creadores y comisiones de Briev Co.</p>
 <form id="login-form" onsubmit="event.preventDefault();signIn()" hidden>
 <div class="field"><label for="login-email">Correo electrónico</label><input id="login-email" type="email" autocomplete="username" required></div>
@@ -262,7 +259,6 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
     </nav><div class="session-actions"><button class="btn btn-small" onclick="openData()">↗ Datos</button><button class="btn btn-small" onclick="signOut()">Salir</button></div>
   </header>
 
-  <main class="main"><div class="session-bar"><span id="session-label"></span><span class="version-label">VERSIÓN 6 · GRÁFICAS</span><span id="sync-state" role="status"></span></div><div id="global-notice" class="notice" role="status"></div>
   <main class="main"><div class="session-bar"><span id="session-label"></span><span id="sync-state" role="status"></span></div><div id="global-notice" class="notice" role="status"></div>
     <section class="page on" id="page-dash">
       <div class="top"><div><div class="eyebrow">Briev Co. / Vista general</div><h1>Dashboard</h1><p>El pulso de tus campañas, tus ingresos y lo que necesita atención.</p></div><div class="top-actions"><button class="btn btn-ghost" onclick="refreshData(true)">↻ Actualizar</button><button class="btn btn-grad" onclick="openCamp()">+ Nueva campaña</button></div></div>
@@ -341,14 +337,11 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
   </div>
   <div class="field"><label for="c-finance-mode">¿Cómo definir tu comisión?</label><select id="c-finance-mode" onchange="cCalc()"><option value="pago">Pago acordado al creador</option><option value="porcentaje">Porcentaje del total</option></select><p class="form-hint">El monto recibido no cambia. En pago acordado, tu comisión es la diferencia; el porcentaje es solo una referencia.</p></div>
   <div class="two">
-    <div class="field"><label for="c-monto">Monto total ($)</label><input id="c-monto" type="number" min="0" step="0.01" max="9999999999.99" oninput="cCalc(true)" placeholder="3500"></div>
-    <div class="field"><label for="c-com-pct">% de comisión</label><input id="c-com-pct" type="number" min="0" max="100" step="0.01" oninput="cCalc(true)" placeholder="20"></div>
     <div class="field"><label for="c-monto">Monto acordado con la marca ($)</label><input id="c-monto" type="number" required min="0" step="0.01" max="9999999999.99" oninput="cCalc(true)" placeholder="3500"></div>
     <div class="field" id="finance-pct-field" hidden><label for="c-com-pct">Comisión sobre el total (%)</label><input id="c-com-pct" type="number" min="0" max="100" step="0.01" oninput="cCalc(true)" placeholder="20"></div>
     <div class="field" id="finance-pay-field"><label for="c-pago">Pago acordado al creador ($)</label><input id="c-pago" type="number" min="0" max="9999999999.99" step="0.01" oninput="cCalc(true)" placeholder="2750"><p class="form-hint">Escribe el importe real que le pagarás, sin sumar la comisión de Briev.</p></div>
   </div>
   <div class="calc"><span class="l" id="c-com-l">Tu comisión</span><span class="v" id="c-com">$0.00</span></div><p class="calc-pay" id="c-payment-preview"></p>
-  <div class="field"><label for="c-entregables">Entregables</label><input id="c-entregables" maxlength="4000" placeholder="2 TikToks + 1 historia"></div>
   <section class="delivery-editor" aria-labelledby="delivery-title"><div class="delivery-head"><h4 id="delivery-title">📦 Entregables</h4><button type="button" class="btn btn-ghost" id="delivery-add" onclick="addDelivery()">＋ Agregar entregable</button></div><p class="form-hint">Agrega una línea por formato y escribe su cantidad. No modifica el monto ni el pago acordado.</p><div id="delivery-rows"></div><p id="delivery-empty" class="form-hint">Todavía no hay formatos seleccionados.</p><div class="field"><label for="c-entregables">Notas adicionales / entregables anteriores</label><textarea id="c-entregables" rows="2" maxlength="4000" placeholder="Detalles del contenido, fechas o condiciones…" oninput="updateDeliverableSummary(true)"></textarea><p id="delivery-legacy" class="form-hint" hidden>Conservamos tu texto anterior sin convertirlo automáticamente. Si lo reemplazas por líneas, elimina de las notas lo que ya agregaste para no duplicarlo.</p></div><div class="delivery-preview"><span>Resumen</span><p id="delivery-summary" role="status"></p></div></section>
   <div class="three">
     <div class="field"><label for="c-pauta">Pauta (días)</label><input id="c-pauta" type="number" min="0" step="1" max="36500" placeholder="0"></div>
@@ -382,15 +375,6 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
     <div class="field"><label for="r-ig">Seguidores Instagram</label><input id="r-ig" maxlength="60" placeholder="45K"></div>
     <div class="field"><label for="r-tt">Seguidores TikTok</label><input id="r-tt" maxlength="60" placeholder="62K"></div>
   </div>
-  <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:6px 0 10px;font-weight:500">Tarifario ($)</p>
-  <div class="two">
-    <div class="field"><label for="r-reel">1 TikTok / Reel</label><input id="r-reel" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0"></div>
-    <div class="field"><label for="r-replica">1 TikTok con réplica</label><input id="r-replica" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0"></div>
-    <div class="field"><label for="r-dos">2 TikToks</label><input id="r-dos" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0"></div>
-    <div class="field"><label for="r-hist">1 Historia</label><input id="r-hist" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0"></div>
-    <div class="field"><label for="r-set">Set 2 historias</label><input id="r-set" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0"></div>
-    <div class="field"><label for="r-pauta">Derechos de pauta</label><input id="r-pauta" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0"></div>
-  </div>
   <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:6px 0 10px;font-weight:500">Tarifario del creador ($)</p><p class="form-hint">Registra lo que cobra el creador, sin sumar la comisión de Briev. Cambiar estas tarifas no recalcula campañas guardadas.</p>
   <p class="form-hint">Todos los precios son opcionales. Vacío significa sin definir; 0 significa una tarifa de $0.00.</p><p class="legacy-rate form-hint" id="r-legacy-rate" hidden></p><div class="two"><div class="field"><label for="r-post">Post / carrusel ($)</label><input id="r-post" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-tiktok">1 TikTok ($)</label><input id="r-tiktok" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-reel">1 Reel ($)</label><input id="r-reel" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-replica">TikTok con réplica ($)</label><input id="r-replica" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-videos">Paq. videos ($)</label><input id="r-videos" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-hist">1 Historia ($)</label><input id="r-hist" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-set">Set historias ($)</label><input id="r-set" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-pauta">Derechos de pauta ($)</label><input id="r-pauta" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div></div><div class="two"><div class="field"><label for="r-videosDetalle">¿Qué incluye el paquete de videos?</label><input id="r-videosDetalle" maxlength="200" placeholder="Ej. 3 videos: 2 TikToks y 1 Reel"></div><div class="field"><label for="r-setDetalle">¿Qué incluye el set de historias?</label><input id="r-setDetalle" maxlength="200" placeholder="Ej. 3 historias de Instagram"></div></div>
   <div class="modal-act"><button class="btn btn-ghost" onclick="close_('ov-cre')">Cancelar</button><button class="btn btn-grad" onclick="saveCre()">Guardar</button></div>
@@ -401,7 +385,6 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 <div class="toast" id="toast" role="status"></div>
 <script>
 /* BRIEV_CONFIG_START */
-window.BRIEV_CONFIG = {supabaseUrl:"",supabaseKey:""};
 window.BRIEV_CONFIG = {"supabaseUrl": "https://nawjceqtvbbxxqqhwmgx.supabase.co", "supabaseKey": "sb_publishable_qu5c-GJQRE1FaoghHFrPSg_6bCnvDsE"};
 /* BRIEV_CONFIG_END */
 </script>
@@ -509,11 +492,8 @@ function clearSession(){
   Object.values(charts).forEach(c=>c?.destroy?.());charts={};
   document.querySelectorAll('.overlay.on').forEach(o=>o.classList.remove('on'));
   g('app').hidden=true;g('app').inert=false;g('auth-screen').hidden=false;
-  ['kpis','camp-cards','camp-rows','cre-grid','cre-rows','top3list','ciclo-mini','alertList','month-values','month-total','month-missing','det-body','collection','dash-status','dash-industry','summary-status','summary-industry','brand-list','creator-list','brand-total','creator-total','brand-contributors','creator-contributors','brand-foot','creator-foot','import-preview'].forEach(id=>g(id).replaceChildren());
   ['kpis','camp-cards','camp-rows','cre-grid','cre-rows','top3list','ciclo-mini','alertList','month-values','month-total','month-missing','det-body','collection','dash-status','dash-industry','summary-status','summary-industry','brand-list','creator-list','brand-total','creator-total','brand-contributors','creator-contributors','brand-foot','creator-foot','import-preview','delivery-summary','r-legacy-rate','c-payment-preview'].forEach(id=>g(id).replaceChildren());
   g('month-details').open=false;
-  document.querySelectorAll('.modal input').forEach(el=>el.value='');
-  g('login-password').value='';g('toast').textContent='';setView('cards');
   document.querySelectorAll('.modal input, .modal textarea').forEach(el=>el.value='');
   g('login-password').value='';g('auth-diagnostic').textContent='';g('toast').textContent='';setView('cards');
 }
@@ -564,9 +544,6 @@ async function acceptSession(session){
 async function signIn(){
   if(busy)return;
   if(!db){g('auth-error').textContent='La conexión de acceso no está lista. Recarga esta página y pulsa Comprobar conexión si persiste.';return;}
-  if(busy||!db)return;setBusy(true);g('auth-error').textContent='';
-  try{const {data,error}=await db.auth.signInWithPassword({email:g('login-email').value.trim(),password:g('login-password').value});if(error)throw new Error('No se pudo iniciar sesión. Revisa tu correo, contraseña o conexión.');g('login-password').value='';await acceptSession(data.session);}
-  catch(e){g('auth-error').textContent=friendly(e);}finally{setBusy(false);}
   setBusy(true);g('auth-error').textContent='';
   try{const {data,error}=await db.auth.signInWithPassword({email:g('login-email').value.trim(),password:g('login-password').value});if(error)throw error;if(!data?.session)throw {code:'session_missing'};g('login-password').value='';await acceptSession(data.session);}
   catch(e){g('auth-error').textContent=authFailure(e);}finally{setBusy(false);}
@@ -624,7 +601,6 @@ function normalizeCreator(r){
   const tarifas={};for(const k of ['reel','replica','dos','hist','set','pauta']){tarifas[k]=roundMoney(r.tarifas?.[k]||0);if(tarifas[k]<0)throw new Error('Las tarifas no pueden ser negativas.');}
   tarifas.post=postRate(r.tarifas?.post===undefined?r.extras?.tarifa_post:r.tarifas.post);
   const nombre=textField(r.nombre);if(!nombre)throw new Error('Hay un creador sin nombre.');
-  return {...r,id:validId(r.id)?r.id:uuid(),nombre,tier:member(r.tier,[['Nano'],['Micro'],['Influencer']],'Micro'),igFollowers:textField(r.igFollowers||r.followers,60),ttFollowers:textField(r.ttFollowers,60),tarifas};
   return {...r,id:validId(r.id)?r.id:uuid(),nombre,tier:member(r.tier,[['Nano'],['Micro'],['Influencer']],'Micro'),igFollowers:textField(r.igFollowers||r.followers,60),ttFollowers:textField(r.ttFollowers,60),tarifas,tarifario:normalizeRateCard(r)};
 }
 function normalizeCamp(c,creators){
@@ -671,8 +647,6 @@ function startDemo(){
   cres=rs;camps=cs;mode='demo';showApp();fillModalSelects();renderAll();notice('DEMO · 24 campañas ficticias, 16 marcas y 12 creadores. Puedes explorar y editar; nada se guarda.');syncLabel('Sesión de prueba');
 }
 
-const creatorToDb=r=>({id:r.id,nombre:r.nombre,tier:r.tier,ig_followers:r.igFollowers,tt_followers:r.ttFollowers,reel:r.tarifas.reel,replica:r.tarifas.replica,dos:r.tarifas.dos,hist:r.tarifas.hist,set:r.tarifas.set,pauta:r.tarifas.pauta,extras:r.extras||{}});
-const creatorFromDb=r=>({id:r.id,nombre:r.nombre,tier:r.tier,igFollowers:r.ig_followers,ttFollowers:r.tt_followers,tarifas:{reel:r.reel,replica:r.replica,dos:r.dos,hist:r.hist,set:r.set,pauta:r.pauta},updatedAt:r.updated_at,extras:r.extras});
 // Store the new optional rate in the existing extras field; no SQL migration or bulk update.
 const creatorToDb=r=>({id:r.id,nombre:r.nombre,tier:r.tier,ig_followers:r.igFollowers,tt_followers:r.ttFollowers,reel:r.tarifas.reel,replica:r.tarifas.replica,dos:r.tarifas.dos,hist:r.tarifas.hist,set:r.tarifas.set,pauta:r.tarifas.pauta,extras:{...r.extras,tarifa_post:postRate(r.tarifas.post),tarifario_v2:normalizeRateCard(r)}});
 const creatorFromDb=r=>{const creator={id:r.id,nombre:r.nombre,tier:r.tier,igFollowers:r.ig_followers,ttFollowers:r.tt_followers,tarifas:{reel:r.reel,replica:r.replica,dos:r.dos,hist:r.hist,set:r.set,pauta:r.pauta,post:postRate(r.extras?.tarifa_post)},updatedAt:r.updated_at,extras:r.extras};return {...creator,tarifario:normalizeRateCard(creator)};};
@@ -952,15 +926,12 @@ function openCamp(i){
   for(const [field,key] of Object.entries({'marca':'marca','nombre':'nombre','industria':'industria','titular':'titular','ciclo':'ciclo','monto':'monto','com-pct':'comPct','entregables':'entregables','pauta':'pauta','excl':'excl','diaspago':'diaspago','estado':'estado','cobro':'cobro','brief':'brief','inicio-acuerdo':'inicioAcuerdo','inicio-campana':'inicioCampana','pagcr':'pagcr'}))g('c-'+field).value=c[key]??'';
   g('c-industria').value=industryOptions().find(([label])=>industryKey(label)===industryKey(c.industria))?.[0]||'Otro';
   g('c-new-industry').value='';toggleNewIndustry();
-  g('c-creador').value=c.creadorId||'other';g('c-other').value=c.creadorId?'':c.creador;toggleOtherCreator();cCalc();open_('ov-camp');
   g('c-creador').value=c.creadorId||'other';g('c-other').value=c.creadorId?'':c.creador;toggleOtherCreator();
   g('c-finance-mode').value=c.extras?.finanzas_modo==='porcentaje'?'porcentaje':'pago';g('c-pago').value=c.pago??'';
   financeDraft=editCampSnapshot?{monto:c.monto,pago:c.pago,comision:comOf(c),comPct:c.comPct}:null;financeError='';
   const deliveries=deliveryData(c);draftDeliverables=deliveries.items.map(row=>({...row,id:++deliverySequence}));deliverablesDirty=false;g('c-entregables').value=deliveries.nota;g('delivery-legacy').hidden=!deliveries.legacy;renderDeliveryRows();cCalc();open_('ov-camp');
 }
 function cCalc(changed=false){
-  financeDirty=financeDirty||changed;const own=g('c-titular').value==='Propia';g('c-com-pct').disabled=own;
-  try{const f=editCampSnapshot&&!financeDirty?editCampSnapshot:computeFinance(g('c-monto').value,g('c-com-pct').value,own);g('c-com').textContent=money(f.comision);g('c-com-l').textContent=own?'Ingreso propio':`Tu comisión · ${fmtPct(f.comPct)}%`;g('c-payment-preview').textContent='Pago al creador: '+money(f.pago)+(editCampSnapshot&&!financeDirty?' · importes guardados conservados':'');}catch(e){g('c-com').textContent='—';g('c-payment-preview').textContent=e.message;}
   financeDirty=financeDirty||changed;const own=g('c-titular').value==='Propia',fixed=g('c-finance-mode').value!=='porcentaje';
   g('c-com-pct').disabled=own||fixed;g('c-pago').disabled=own||!fixed;g('c-finance-mode').disabled=own;
   g('finance-pct-field').hidden=own||fixed;g('finance-pay-field').hidden=own||!fixed;
@@ -978,7 +949,6 @@ function cCalc(changed=false){
     g('c-payment-preview').textContent='Pago al creador: '+money(f.pago)+(editCampSnapshot&&!financeDirty?' · importes guardados conservados':fixed?' · comisión = monto recibido − pago al creador':'');
   }catch(e){financeDraft=null;financeError=e.message;g('c-com').textContent='—';g('c-payment-preview').textContent=e.message;}
 }
-function validateInputs(prefix){const inputs=[...document.querySelectorAll('#ov-'+prefix+' input')];for(const el of inputs){if(!el.checkValidity()){el.reportValidity();throw new Error('Revisa los campos del formulario.');}}}
 function validateInputs(prefix){const inputs=[...document.querySelectorAll('#ov-'+prefix+' input, #ov-'+prefix+' select, #ov-'+prefix+' textarea')];for(const el of inputs){if(!el.checkValidity()){el.reportValidity();throw new Error('Revisa los campos del formulario.');}}}
 async function saveCamp(){
   if(busy||mode==='locked')return;
@@ -986,8 +956,6 @@ async function saveCamp(){
     validateInputs('camp');if(!g('c-marca').value.trim())throw new Error('Escribe la marca.');
     const creator=cres.find(r=>r.id===g('c-creador').value);if(!creator&&!g('c-other').value.trim())throw new Error('Selecciona un creador o escribe su nombre.');
     const previous=editCampSnapshot;
-    const f=previous&&!financeDirty?{monto:previous.monto,comPct:previous.comPct,comision:previous.comision,pago:previous.pago}:computeFinance(g('c-monto').value,g('c-com-pct').value,g('c-titular').value==='Propia');
-    const candidate=normalizeCamp({...previous,id:previous?.id||newCampId,...f,marca:g('c-marca').value,nombre:g('c-nombre').value,creadorId:creator?.id||null,creador:creator?.nombre||g('c-other').value,industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,entregables:g('c-entregables').value,pauta:g('c-pauta').value,excl:g('c-excl').value,diaspago:g('c-diaspago').value,estado:g('c-estado').value,cobro:g('c-cobro').value,brief:g('c-brief').value,inicioAcuerdo:g('c-inicio-acuerdo').value,inicioCampana:g('c-inicio-campana').value,pagcr:g('c-pagcr').value},cres);
     cCalc();if(!financeDraft)throw new Error(financeError||'Revisa los importes.');const f=financeDraft,deliveries=collectDeliverables(previous);
     const candidate=normalizeCamp({...previous,id:previous?.id||newCampId,...f,...deliveries,extras:{...deliveries.extras,finanzas_modo:g('c-finance-mode').value},marca:g('c-marca').value,nombre:g('c-nombre').value,creadorId:creator?.id||null,creador:creator?.nombre||g('c-other').value,industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,pauta:g('c-pauta').value,excl:g('c-excl').value,diaspago:g('c-diaspago').value,estado:g('c-estado').value,cobro:g('c-cobro').value,brief:g('c-brief').value,inicioAcuerdo:g('c-inicio-acuerdo').value,inicioCampana:g('c-inicio-campana').value,pagcr:g('c-pagcr').value},cres);
     setBusy(true);syncLabel('Guardando campaña…');const token=epoch;const saved=await writeRecord('camp',candidate,previous);if(token!==epoch)return;
@@ -1003,7 +971,6 @@ async function delCamp(i){
 function openCre(i){
   if(busy||mode==='locked')return;editR=i??null;newCreId=uuid();editCreSnapshot=i===undefined?null:structuredClone(cres[i]);const r=editCreSnapshot||{nombre:'',tier:'Micro',igFollowers:'',ttFollowers:'',tarifas:{}};
   g('cre-title').textContent=editCreSnapshot?'Editar creador':'Nuevo creador';for(const [id,k] of [['nombre','nombre'],['tier','tier'],['ig','igFollowers'],['tt','ttFollowers']])g('r-'+id).value=r[k]||'';
-  for(const key of ['reel','replica','dos','hist','set','pauta'])g('r-'+key).value=r.tarifas[key]??'';open_('ov-cre');
   const card=normalizeRateCard(r);for(const [key] of RATE_FIELDS)g('r-'+key).value=card[key]??'';
   for(const key of ['videosDetalle','setDetalle'])g('r-'+key).value=card[key];
   g('r-legacy-rate').hidden=!r.tarifas?.reel;g('r-legacy-rate').textContent=r.tarifas?.reel?'Tarifa anterior TikTok / Reel: '+money(r.tarifas.reel)+'. Se conserva como referencia; define los dos precios por separado.':'';open_('ov-cre');
@@ -1011,8 +978,6 @@ function openCre(i){
 async function saveCre(){
   if(busy||mode==='locked')return;
   try{
-    validateInputs('cre');const previous=editCreSnapshot,tarifas={};for(const key of ['reel','replica','dos','hist','set','pauta'])tarifas[key]=g('r-'+key).value||0;
-    const candidate=normalizeCreator({...previous,id:previous?.id||newCreId,nombre:g('r-nombre').value,tier:g('r-tier').value,igFollowers:g('r-ig').value,ttFollowers:g('r-tt').value,tarifas});
     validateInputs('cre');const previous=editCreSnapshot,tarifas={...previous?.tarifas},tarifario=normalizeRateCard(previous||{});
     for(const [key] of RATE_FIELDS)tarifario[key]=g('r-'+key).value;
     for(const key of ['videosDetalle','setDetalle'])tarifario[key]=g('r-'+key).value;
@@ -1042,7 +1007,6 @@ function presentImport(data){
 async function previewImport(file){pendingImport=null;g('import-confirm').hidden=true;if(!file)return;try{if(file.size>10*1024*1024)throw new Error('El respaldo supera 10 MB.');presentImport(JSON.parse(await file.text()));}catch(e){g('import-preview').textContent=friendly(e);}}
 function previewLegacy(){pendingImport=null;g('import-confirm').hidden=true;try{const data=readLegacy();if(!data)throw new Error('No se encontraron datos anteriores en este origen y navegador. Abre el exportador incluido en la dirección anterior para crear un respaldo.');presentImport(data);}catch(e){g('import-preview').textContent=friendly(e);}}
 function withExtras(record,kind){
-  const known=kind==='creator'?['id','nombre','tier','igFollowers','ttFollowers','tarifas','updatedAt','extras']:['id','marca','nombre','creadorId','creador','industria','monto','pago','comPct','comision','titular','ciclo','entregables','pauta','excl','diaspago','estado','cobro','brief','inicioAcuerdo','inicioCampana','pagcr','updatedAt','extras'];
   const known=kind==='creator'?['id','nombre','tier','igFollowers','ttFollowers','tarifas','tarifario','updatedAt','extras']:['id','marca','nombre','creadorId','creador','industria','monto','pago','comPct','comision','titular','ciclo','entregables','pauta','excl','diaspago','estado','cobro','brief','inicioAcuerdo','inicioCampana','pagcr','updatedAt','extras'];
   return {...record,extras:{...record.extras,...Object.fromEntries(Object.entries(record).filter(([k])=>!known.includes(k)))}};
 }
@@ -1062,7 +1026,6 @@ function go(page,el){document.querySelectorAll('.page').forEach(p=>p.classList.r
 function hasModal(){return !!document.querySelector('.overlay.on');}
 function open_(id){lastFocus=document.activeElement;g(id).classList.add('on');g('app').inert=true;const modal=g(id).querySelector('.modal');const title=modal.querySelector('h3[id]');if(title)modal.setAttribute('aria-labelledby',title.id);setTimeout(()=>modal.focus(),0);}
 function close_(id,force=false){if(busy&&!force)return;g(id).classList.remove('on');g('app').inert=hasModal();if(!hasModal())lastFocus?.focus?.();}
-function modalKeys(e){const overlay=document.querySelector('.overlay.on');if(!overlay)return;if(e.key==='Escape'&&overlay.id!=='ov-password'){close_(overlay.id);return;}if(e.key!=='Tab')return;const nodes=[...overlay.querySelectorAll('button,input,select,a[href]')].filter(x=>!x.disabled&&!x.hidden&&x.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&(document.activeElement===first||document.activeElement===overlay.querySelector('.modal'))){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
 function modalKeys(e){const overlay=document.querySelector('.overlay.on');if(!overlay)return;if(e.key==='Escape'&&overlay.id!=='ov-password'){close_(overlay.id);return;}if(e.key!=='Tab')return;const nodes=[...overlay.querySelectorAll('button,input,select,textarea,a[href]')].filter(x=>!x.disabled&&!x.hidden&&x.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&(document.activeElement===first||document.activeElement===overlay.querySelector('.modal'))){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
 
 function renderCamps(){
@@ -1104,7 +1067,6 @@ function detail(i){
     <div class="det-com"><span>${c.titular==="Propia"?"Ingreso (100% tuyo)":`Tu comisión · ${fmtPct(c.comPct)}%`}</span><span class="v">${money(comOf(c))}</span></div>
     <div class="det-row"><span class="k">Creador</span><span class="v">👤 ${esc(creatorName(c))}</span></div>
     <div class="det-row"><span class="k">Monto total</span><span class="v">${money(c.monto)}</span></div>
-    <div class="det-row"><span class="k">% de comisión</span><span class="v">${fmtPct(c.comPct)}%</span></div>
     <div class="det-row"><span class="k">% de comisión (aprox.)</span><span class="v">${fmtPct(c.comPct)}%</span></div>
     <div class="det-row"><span class="k">Pago al creador</span><span class="v">${money(c.pago)}</span></div>
     <div class="det-row"><span class="k">Entregables</span><span class="v">${esc(c.entregables||"—")}</span></div>
@@ -1139,11 +1101,6 @@ function renderCres(){
       <div class="metrics">${metrics||'<span class="m" style="color:var(--muted)">Sin seguidores</span>'}</div>
       <div class="badges"><span class="badge">🎯 ${act.length} activa${act.length!==1?"s":""}</span><span class="badge inc">💰 Genera ${money(generado)}</span><span class="badge pay">💸 Por pagarle ${money(porPagar)}</span></div>
       <div class="act-list"><div class="h">Campañas activas</div>${actHtml}</div>
-      <div class="rate-grid">
-        ${rate("1 TikTok / Reel",t.reel)}${rate("1 TikTok c/ réplica",t.replica)}
-        ${rate("2 TikToks",t.dos)}${rate("1 Historia",t.hist)}
-        ${rate("Set 2 historias",t.set)}${rate("Derechos de pauta",t.pauta)}
-      </div></div>`;
       ${creatorRatesHtml(c)}</div>`;
   }).join("") : `<div class="empty" style="grid-column:1/-1">No hay creadores con estos filtros.</div>`;
   g("cre-rows").innerHTML= items.length? items.map(({c,i})=>{

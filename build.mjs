@@ -18,6 +18,8 @@ if(!allowed)throw new Error('Usa una clave publishable o anon. NUNCA service_rol
 const config=JSON.stringify({supabaseUrl:url.origin,supabaseKey}).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
 const marker=/\/\* BRIEV_CONFIG_START \*\/[\s\S]*?\/\* BRIEV_CONFIG_END \*\//;
 if(!marker.test(html))throw new Error('No se encontró el bloque de configuración del HTML.');
+const icon=await readFile('apple-touch-icon.png').catch(()=>{throw new Error('Falta apple-touch-icon.png. Sube el icono junto con index.html y build.mjs en la misma carpeta del proyecto.');});
 await mkdir('dist',{recursive:true});
 await writeFile('dist/index.html',html.replace(marker,()=>`/* BRIEV_CONFIG_START */\nwindow.BRIEV_CONFIG = ${config};\n/* BRIEV_CONFIG_END */`));
-console.log('Briev listo: dist/index.html. No se imprimieron claves.');
+await writeFile('dist/apple-touch-icon.png',icon);
+console.log('Briev listo: HTML e icono del iPhone publicados en dist. No se imprimieron claves.');
