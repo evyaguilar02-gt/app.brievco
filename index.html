@@ -6,6 +6,13 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#26224f">
 <title>Briev Co. · Campañas · Versión 6</title>
+<title>Briev Co. · Plataforma de campañas</title>
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="180x180" href="./apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Briev Co.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -201,6 +208,9 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 .legend-emoji{display:inline-block;flex:0 0 auto;line-height:1.5;font-size:14px}.distribution-card .legend .name{display:flex;align-items:baseline;gap:5px;min-width:0}.distribution-card .legend .name>span:last-child{min-width:0;overflow-wrap:anywhere}
 .status-bars{width:100%;min-width:0}.status-bar-total{display:flex;gap:10px;align-items:baseline;margin:0 0 17px}.status-bar-total strong{font-size:32px;font-weight:500;letter-spacing:-1px;color:var(--ink)}.status-bar-total>span{font-size:11px;color:var(--muted)}.status-bar-list{list-style:none;margin:0;padding:0;display:grid;gap:19px}.status-bar-label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:11px;margin-bottom:7px}.status-bar-label .name{display:flex;align-items:baseline;gap:5px;min-width:0;color:var(--ink)}.status-bar-label .name>span:last-child{min-width:0;overflow-wrap:anywhere}.status-bar-label .val{flex-shrink:0;font-variant-numeric:tabular-nums;font-weight:500}.status-bar-label .val small{font-size:11px;font-weight:400;color:var(--muted)}.status-bar-track{height:7px;background:#efecf5;border-radius:5px;overflow:hidden}.status-bar-track>span{display:block;height:100%;border-radius:5px}.status-bars .legend-details{margin-top:13px}.status-bars .legend-details>.status-bar-list{padding-top:12px;border-top:1px solid var(--line)}.status-bar-note,.status-bar-empty{font-size:11px;line-height:1.6;color:var(--muted)}.status-bar-note{margin:14px 0 0}
 @media(max-width:400px){.status-bar-label .name{gap:4px}.distribution-card .legend .name{gap:4px}.legend-emoji{font-size:13px}}
+/* Campaign agreement and quantity-based deliverables. */
+.delivery-editor{margin:20px 0;padding:16px;border:1px solid var(--line);border-radius:14px;background:#faf9fd;min-width:0}.delivery-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.delivery-head h4{font-size:14px;font-weight:600;margin:0}.delivery-row{display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}.delivery-row .field{margin:0;min-width:0}.delivery-row input,.delivery-row select{min-height:44px;min-width:0;width:100%}.delivery-remove{margin-top:23px;min-height:44px}.delivery-editor>.field{margin-top:16px}.delivery-preview{background:#eee8f4;border-radius:10px;padding:12px;margin-top:12px}.delivery-preview>span{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#62517b}.delivery-preview p{font-size:12px;line-height:1.6;margin:5px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}.modal textarea{width:100%;min-height:76px;max-width:100%;resize:vertical;font:inherit;font-size:12px;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:white}.legacy-rate{font-size:11px;margin-top:12px;line-height:1.6;padding:9px 12px;background:#f5f2f8;border-radius:8px;overflow-wrap:anywhere}.legacy-rate summary{cursor:pointer}.rate-detail{display:block;color:var(--muted);font-size:10px;line-height:1.5;margin-top:5px;overflow-wrap:anywhere}.rate-grid .rate{min-width:0}.rate-grid .r-v{overflow-wrap:anywhere}#c-payment-preview{line-height:1.6}#r-legacy-rate[hidden],#finance-pct-field[hidden],#finance-pay-field[hidden]{display:none!important}
+@media(max-width:540px){.delivery-editor{padding:12px}.delivery-head{align-items:stretch}.delivery-head h4{flex-basis:100%}.delivery-head .btn{width:100%;min-height:44px}.delivery-row{grid-template-columns:70px minmax(0,1fr);gap:8px}.delivery-remove{grid-column:1/-1;justify-self:end;margin-top:0;padding:8px 12px}.modal .field input,.modal .field select,.modal .field textarea{font-size:16px;min-height:44px}.legacy-rate summary{min-height:44px;display:flex;align-items:center}}
 
 </style>
 </head>
@@ -220,6 +230,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
       <path fill="#26224f" d="M122.26,184.02c-.07,0-.14.01-.21.02-.97.07-1.94.11-2.93.11-1.29,0-2.56-.07-3.82-.18-.11,0-.22-.02-.33-.03-1-.1-1.98-.23-2.96-.4-4.44-.71-8.62-2.1-12.52-4.17-13.75-7.12-23.15-21.46-23.15-38.01,0-.42,0-.84.02-1.26h-.16v-63.21h.08v-33.92c0-12.59-10.21-22.8-22.8-22.8h-6.79v193.81h29.59v-14.09c12.41,9.4,26.71,14.09,42.91,14.09,14,0,26.86-3.76,38.56-11.27,11.44-7.17,21.01-18.45,28.69-33.82l-27.49-11.89c-5.88,14.96-19.94,25.8-36.68,27.02Z"/>
     </svg></div>
 <span class="version-label">VERSIÓN 6 · GRÁFICAS</span><h1>Tu operación, en un lugar.</h1><p id="auth-description">Campañas, creadores y comisiones de Briev Co.</p>
+<h1>Tu operación, en un lugar.</h1><p id="auth-description">Campañas, creadores y comisiones de Briev Co.</p>
 <form id="login-form" onsubmit="event.preventDefault();signIn()" hidden>
 <div class="field"><label for="login-email">Correo electrónico</label><input id="login-email" type="email" autocomplete="username" required></div>
 <div class="field"><label for="login-password">Contraseña</label><input id="login-password" type="password" autocomplete="current-password" required></div>
@@ -252,6 +263,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
   </header>
 
   <main class="main"><div class="session-bar"><span id="session-label"></span><span class="version-label">VERSIÓN 6 · GRÁFICAS</span><span id="sync-state" role="status"></span></div><div id="global-notice" class="notice" role="status"></div>
+  <main class="main"><div class="session-bar"><span id="session-label"></span><span id="sync-state" role="status"></span></div><div id="global-notice" class="notice" role="status"></div>
     <section class="page on" id="page-dash">
       <div class="top"><div><div class="eyebrow">Briev Co. / Vista general</div><h1>Dashboard</h1><p>El pulso de tus campañas, tus ingresos y lo que necesita atención.</p></div><div class="top-actions"><button class="btn btn-ghost" onclick="refreshData(true)">↻ Actualizar</button><button class="btn btn-grad" onclick="openCamp()">+ Nueva campaña</button></div></div>
       <div class="kpis" id="kpis"></div>
@@ -327,12 +339,17 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
     <div class="field"><label for="c-titular">Titular (¿a quién ingresa?)</label><select id="c-titular"><option>Agencia</option><option>Propia</option></select></div>
     <div class="field"><label for="c-ciclo">Ciclo</label><select id="c-ciclo"></select></div>
   </div>
+  <div class="field"><label for="c-finance-mode">¿Cómo definir tu comisión?</label><select id="c-finance-mode" onchange="cCalc()"><option value="pago">Pago acordado al creador</option><option value="porcentaje">Porcentaje del total</option></select><p class="form-hint">El monto recibido no cambia. En pago acordado, tu comisión es la diferencia; el porcentaje es solo una referencia.</p></div>
   <div class="two">
     <div class="field"><label for="c-monto">Monto total ($)</label><input id="c-monto" type="number" min="0" step="0.01" max="9999999999.99" oninput="cCalc(true)" placeholder="3500"></div>
     <div class="field"><label for="c-com-pct">% de comisión</label><input id="c-com-pct" type="number" min="0" max="100" step="0.01" oninput="cCalc(true)" placeholder="20"></div>
+    <div class="field"><label for="c-monto">Monto acordado con la marca ($)</label><input id="c-monto" type="number" required min="0" step="0.01" max="9999999999.99" oninput="cCalc(true)" placeholder="3500"></div>
+    <div class="field" id="finance-pct-field" hidden><label for="c-com-pct">Comisión sobre el total (%)</label><input id="c-com-pct" type="number" min="0" max="100" step="0.01" oninput="cCalc(true)" placeholder="20"></div>
+    <div class="field" id="finance-pay-field"><label for="c-pago">Pago acordado al creador ($)</label><input id="c-pago" type="number" min="0" max="9999999999.99" step="0.01" oninput="cCalc(true)" placeholder="2750"><p class="form-hint">Escribe el importe real que le pagarás, sin sumar la comisión de Briev.</p></div>
   </div>
   <div class="calc"><span class="l" id="c-com-l">Tu comisión</span><span class="v" id="c-com">$0.00</span></div><p class="calc-pay" id="c-payment-preview"></p>
   <div class="field"><label for="c-entregables">Entregables</label><input id="c-entregables" maxlength="4000" placeholder="2 TikToks + 1 historia"></div>
+  <section class="delivery-editor" aria-labelledby="delivery-title"><div class="delivery-head"><h4 id="delivery-title">📦 Entregables</h4><button type="button" class="btn btn-ghost" id="delivery-add" onclick="addDelivery()">＋ Agregar entregable</button></div><p class="form-hint">Agrega una línea por formato y escribe su cantidad. No modifica el monto ni el pago acordado.</p><div id="delivery-rows"></div><p id="delivery-empty" class="form-hint">Todavía no hay formatos seleccionados.</p><div class="field"><label for="c-entregables">Notas adicionales / entregables anteriores</label><textarea id="c-entregables" rows="2" maxlength="4000" placeholder="Detalles del contenido, fechas o condiciones…" oninput="updateDeliverableSummary(true)"></textarea><p id="delivery-legacy" class="form-hint" hidden>Conservamos tu texto anterior sin convertirlo automáticamente. Si lo reemplazas por líneas, elimina de las notas lo que ya agregaste para no duplicarlo.</p></div><div class="delivery-preview"><span>Resumen</span><p id="delivery-summary" role="status"></p></div></section>
   <div class="three">
     <div class="field"><label for="c-pauta">Pauta (días)</label><input id="c-pauta" type="number" min="0" step="1" max="36500" placeholder="0"></div>
     <div class="field"><label for="c-excl">Exclusividad (días)</label><input id="c-excl" type="number" min="0" step="1" max="36500" placeholder="0"></div>
@@ -374,6 +391,8 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
     <div class="field"><label for="r-set">Set 2 historias</label><input id="r-set" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0"></div>
     <div class="field"><label for="r-pauta">Derechos de pauta</label><input id="r-pauta" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0"></div>
   </div>
+  <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:6px 0 10px;font-weight:500">Tarifario del creador ($)</p><p class="form-hint">Registra lo que cobra el creador, sin sumar la comisión de Briev. Cambiar estas tarifas no recalcula campañas guardadas.</p>
+  <p class="form-hint">Todos los precios son opcionales. Vacío significa sin definir; 0 significa una tarifa de $0.00.</p><p class="legacy-rate form-hint" id="r-legacy-rate" hidden></p><div class="two"><div class="field"><label for="r-post">Post / carrusel ($)</label><input id="r-post" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-tiktok">1 TikTok ($)</label><input id="r-tiktok" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-reel">1 Reel ($)</label><input id="r-reel" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-replica">TikTok con réplica ($)</label><input id="r-replica" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-videos">Paq. videos ($)</label><input id="r-videos" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-hist">1 Historia ($)</label><input id="r-hist" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-set">Set historias ($)</label><input id="r-set" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div><div class="field"><label for="r-pauta">Derechos de pauta ($)</label><input id="r-pauta" type="number" min="0" step="0.01" max="9999999999.99" placeholder="Sin definir"></div></div><div class="two"><div class="field"><label for="r-videosDetalle">¿Qué incluye el paquete de videos?</label><input id="r-videosDetalle" maxlength="200" placeholder="Ej. 3 videos: 2 TikToks y 1 Reel"></div><div class="field"><label for="r-setDetalle">¿Qué incluye el set de historias?</label><input id="r-setDetalle" maxlength="200" placeholder="Ej. 3 historias de Instagram"></div></div>
   <div class="modal-act"><button class="btn btn-ghost" onclick="close_('ov-cre')">Cancelar</button><button class="btn btn-grad" onclick="saveCre()">Guardar</button></div>
 </div></div>
 
@@ -419,6 +438,15 @@ function computeFinance(monto,p,propia=false){
   const commission=Number((BigInt(m)*BigInt(bp)+5000n)/10000n);
   return {monto:m/100,comPct:bp/100,comision:commission/100,pago:(m-commission)/100};
 }
+function computeAgreedFinance(monto,pago,propia=false){
+  for(const value of [monto,...(propia?[]:[pago])])if(!Number.isFinite(Number(value))||Number(value)<0||Number(value)>9999999999.99)throw new Error('Revisa los importes: deben ser montos válidos y no negativos.');
+  const m=cents(monto),p=propia?0:cents(pago);
+  if(p>m)throw new Error('El pago al creador no puede superar el monto que recibirás de la marca.');
+  const commission=m-p,bp=m?Number((BigInt(commission)*10000n+BigInt(m)/2n)/BigInt(m)):0;
+  return {monto:m/100,pago:p/100,comision:commission/100,comPct:propia?100:bp/100};
+}
+const RATE_FIELDS=[['post','Post / carrusel'],['tiktok','1 TikTok'],['reel','1 Reel'],['replica','TikTok con réplica'],['videos','Paq. videos'],['hist','1 Historia'],['set','Set historias'],['pauta','Derechos de pauta']];
+const DELIVERY_TYPES=[['post','Post'],['tiktok','TikTok'],['reel','Reel'],['replica','TikTok con réplica'],['historia','Historia'],['carrusel','Post / carrusel']];
 const parseDay=d=>d?new Date(d+'T12:00:00'):null;
 const mesCorto=d=>d?parseDay(d).toLocaleDateString('es-GT',{month:'short',year:'2-digit'}):'—';
 const mesLargo=d=>d?parseDay(d).toLocaleDateString('es-GT',{month:'long',year:'numeric'}):'Sin fecha';
@@ -430,6 +458,7 @@ const uuid=()=>crypto.randomUUID();
 let camps=[],cres=[],editC=null,editR=null,charts={},charts2={},campView='cards';
 let mode='locked',db=null,user=null,busy=false,refreshing=false,epoch=0,pendingImport=null,financeDirty=false,editCampSnapshot=null,editCreSnapshot=null,lastFocus=null,toastTimer=null;
 let rankingData={},newCampId=null,newCreId=null;
+let financeDraft=null,financeError='',draftDeliverables=[],deliverablesDirty=false,deliverySequence=0;
 
 function notice(message,error=false){g('global-notice').textContent=message;g('global-notice').classList.toggle('error',error);}
 function toast(message){g('toast').textContent=message;clearTimeout(toastTimer);toastTimer=setTimeout(()=>g('toast').textContent='',5000);}
@@ -476,13 +505,16 @@ async function checkAuthConnection(){
 function showApp(){g('auth-screen').hidden=true;g('app').hidden=false;g('session-label').textContent=mode==='cloud'?'☁ Supabase · '+user.email:mode==='demo'?'◉ Demo · datos ficticios, sin guardar':'◉ Modo local · solo en este navegador';}
 function clearSession(){
   epoch++;user=null;mode='locked';camps=[];cres=[];pendingImport=null;rankingData={};editCampSnapshot=null;editCreSnapshot=null;
+  financeDraft=null;financeError='';draftDeliverables=[];deliverablesDirty=false;g('delivery-rows').replaceChildren();
   Object.values(charts).forEach(c=>c?.destroy?.());charts={};
   document.querySelectorAll('.overlay.on').forEach(o=>o.classList.remove('on'));
   g('app').hidden=true;g('app').inert=false;g('auth-screen').hidden=false;
   ['kpis','camp-cards','camp-rows','cre-grid','cre-rows','top3list','ciclo-mini','alertList','month-values','month-total','month-missing','det-body','collection','dash-status','dash-industry','summary-status','summary-industry','brand-list','creator-list','brand-total','creator-total','brand-contributors','creator-contributors','brand-foot','creator-foot','import-preview'].forEach(id=>g(id).replaceChildren());
+  ['kpis','camp-cards','camp-rows','cre-grid','cre-rows','top3list','ciclo-mini','alertList','month-values','month-total','month-missing','det-body','collection','dash-status','dash-industry','summary-status','summary-industry','brand-list','creator-list','brand-total','creator-total','brand-contributors','creator-contributors','brand-foot','creator-foot','import-preview','delivery-summary','r-legacy-rate','c-payment-preview'].forEach(id=>g(id).replaceChildren());
   g('month-details').open=false;
   document.querySelectorAll('.modal input').forEach(el=>el.value='');
   g('login-password').value='';g('toast').textContent='';setView('cards');
+  document.querySelectorAll('.modal input, .modal textarea').forEach(el=>el.value='');
   g('login-password').value='';g('auth-diagnostic').textContent='';g('toast').textContent='';setView('cards');
 }
 function isLocalHost(){return location.protocol==='file:'||['localhost','127.0.0.1','[::1]'].includes(location.hostname);}
@@ -568,11 +600,32 @@ function validDate(value){
 function natural(v){const n=Number(v||0);if(!Number.isInteger(n)||n<0||n>36500)throw new Error('Los días deben ser enteros entre 0 y 36500.');return n;}
 function member(value,list,fallback){const v=value||fallback;if(!list.some(x=>x[0]===v))throw new Error('Valor no reconocido: '+v);return v;}
 const validId=id=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id||'');
+function postRate(value){
+  if(value===undefined||value===null||String(value).trim()==='')return null;
+  const n=Number(value);if(!Number.isFinite(n)||n<0||n>9999999999.99)throw new Error('La tarifa por post debe ser un monto válido entre 0 y 9,999,999,999.99.');
+  return roundMoney(n);
+}
+function normalizeRateCard(r){
+  const saved=r.tarifario??r.extras?.tarifario_v2;
+  if(saved!==undefined&&(!saved||typeof saved!=='object'||Array.isArray(saved)))throw new Error('El tarifario del creador no es válido.');
+  const old=r.tarifas||{};
+  const source=saved||{post:old.post??r.extras?.tarifa_post,tiktok:null,reel:null,replica:old.replica,videos:old.dos,hist:old.hist,set:old.set,pauta:old.pauta,videosDetalle:old.dos?'2 TikToks (tarifa anterior)':'',setDetalle:old.set?'2 historias (tarifa anterior)':''};
+  const card={...source};for(const [key,label] of RATE_FIELDS){try{card[key]=postRate(source[key]);}catch{throw new Error('Revisa la tarifa de '+label+': usa un monto válido, no negativo, o deja el campo vacío.');}}
+  const sharedPost=old.post===undefined?r.extras?.tarifa_post:old.post;if(sharedPost!==undefined)card.post=postRate(sharedPost);
+  card.videosDetalle=textField(source.videosDetalle||'',200);card.setDetalle=textField(source.setDetalle||'',200);
+  return card;
+}
+function creatorRatesHtml(r){
+  const t=normalizeRateCard(r);
+  return '<p class="form-hint">Tarifas del creador · sin comisión de Briev</p><div class="rate-grid">'+RATE_FIELDS.map(([key,label])=>`<div class="rate"><div class="r-l">${label}</div><div class="r-v">${t[key]===null?'Sin definir':money(t[key])}</div>${['videos','set'].includes(key)&&t[key+'Detalle']?`<small class="rate-detail">${esc(t[key+'Detalle'])}</small>`:''}</div>`).join('')+'</div>'+(r.tarifas?.reel?`<details class="legacy-rate"><summary>Tarifa anterior TikTok / Reel: ${money(r.tarifas.reel)}</summary><p class="form-hint">Referencia conservada. Los nuevos precios de TikTok y Reel se definen por separado.</p></details>`:'');
+}
 function normalizeCreator(r){
   if(!r||typeof r!=='object'||Array.isArray(r))throw new Error('Registro de creador inválido.');
   const tarifas={};for(const k of ['reel','replica','dos','hist','set','pauta']){tarifas[k]=roundMoney(r.tarifas?.[k]||0);if(tarifas[k]<0)throw new Error('Las tarifas no pueden ser negativas.');}
+  tarifas.post=postRate(r.tarifas?.post===undefined?r.extras?.tarifa_post:r.tarifas.post);
   const nombre=textField(r.nombre);if(!nombre)throw new Error('Hay un creador sin nombre.');
   return {...r,id:validId(r.id)?r.id:uuid(),nombre,tier:member(r.tier,[['Nano'],['Micro'],['Influencer']],'Micro'),igFollowers:textField(r.igFollowers||r.followers,60),ttFollowers:textField(r.ttFollowers,60),tarifas};
+  return {...r,id:validId(r.id)?r.id:uuid(),nombre,tier:member(r.tier,[['Nano'],['Micro'],['Influencer']],'Micro'),igFollowers:textField(r.igFollowers||r.followers,60),ttFollowers:textField(r.ttFollowers,60),tarifas,tarifario:normalizeRateCard(r)};
 }
 function normalizeCamp(c,creators){
   if(!c||typeof c!=='object'||Array.isArray(c))throw new Error('Registro de campaña inválido.');
@@ -620,6 +673,9 @@ function startDemo(){
 
 const creatorToDb=r=>({id:r.id,nombre:r.nombre,tier:r.tier,ig_followers:r.igFollowers,tt_followers:r.ttFollowers,reel:r.tarifas.reel,replica:r.tarifas.replica,dos:r.tarifas.dos,hist:r.tarifas.hist,set:r.tarifas.set,pauta:r.tarifas.pauta,extras:r.extras||{}});
 const creatorFromDb=r=>({id:r.id,nombre:r.nombre,tier:r.tier,igFollowers:r.ig_followers,ttFollowers:r.tt_followers,tarifas:{reel:r.reel,replica:r.replica,dos:r.dos,hist:r.hist,set:r.set,pauta:r.pauta},updatedAt:r.updated_at,extras:r.extras});
+// Store the new optional rate in the existing extras field; no SQL migration or bulk update.
+const creatorToDb=r=>({id:r.id,nombre:r.nombre,tier:r.tier,ig_followers:r.igFollowers,tt_followers:r.ttFollowers,reel:r.tarifas.reel,replica:r.tarifas.replica,dos:r.tarifas.dos,hist:r.tarifas.hist,set:r.tarifas.set,pauta:r.tarifas.pauta,extras:{...r.extras,tarifa_post:postRate(r.tarifas.post),tarifario_v2:normalizeRateCard(r)}});
+const creatorFromDb=r=>{const creator={id:r.id,nombre:r.nombre,tier:r.tier,igFollowers:r.ig_followers,ttFollowers:r.tt_followers,tarifas:{reel:r.reel,replica:r.replica,dos:r.dos,hist:r.hist,set:r.set,pauta:r.pauta,post:postRate(r.extras?.tarifa_post)},updatedAt:r.updated_at,extras:r.extras};return {...creator,tarifario:normalizeRateCard(creator)};};
 const campToDb=c=>({id:c.id,creador_id:c.creadorId||null,creador:c.creador,marca:c.marca,nombre:c.nombre,industria:c.industria,monto:c.monto,pago:c.pago,com_pct:c.comPct,titular:c.titular,ciclo:c.ciclo,entregables:c.entregables,pauta:c.pauta,excl:c.excl,diaspago:c.diaspago,estado:c.estado,cobro:c.cobro,brief:c.brief,inicio_acuerdo:c.inicioAcuerdo||null,inicio_campana:c.inicioCampana||null,pagcr:c.pagcr,extras:c.extras||{}});
 const campFromDb=c=>({id:c.id,creadorId:c.creador_id,creador:c.creador,marca:c.marca,nombre:c.nombre,industria:c.industria,monto:c.monto,pago:c.pago,comPct:c.com_pct,comision:c.comision,titular:c.titular,ciclo:c.ciclo,entregables:c.entregables,pauta:c.pauta,excl:c.excl,diaspago:c.diaspago,estado:c.estado,cobro:c.cobro,brief:c.brief,inicioAcuerdo:c.inicio_acuerdo||'',inicioCampana:c.inicio_campana||'',pagcr:c.pagcr,updatedAt:c.updated_at,extras:c.extras});
 async function fetchAll(table){
@@ -845,6 +901,50 @@ function setView(v){campView=v;for(const [key,value] of [['res','resumen'],['car
 function setCreView(v){for(const t of ['cards','table']){g('tg-cre-'+t).classList.toggle('on',v===t);g('tg-cre-'+t).setAttribute('aria-pressed',String(v===t));}g('cre-grid').style.display=v==='cards'?'grid':'none';g('cre-table').style.display=v==='table'?'block':'none';}
 
 function toggleOtherCreator(){g('other-creator-field').hidden=g('c-creador').value!=='other';}
+function normalizeDeliveryItems(items){
+  if(!Array.isArray(items)||items.length>50)throw new Error('Puedes agregar hasta 50 líneas de entregables.');
+  return items.map(row=>{
+    const quantity=Number(row?.cantidad),type=row?.tipo;
+    if(!Number.isInteger(quantity)||quantity<1||quantity>9999)throw new Error('Cada entregable necesita una cantidad entera entre 1 y 9999.');
+    if(!DELIVERY_TYPES.some(([key])=>key===type))throw new Error('Selecciona un formato para cada entregable.');
+    return {cantidad:quantity,tipo:type};
+  });
+}
+function formatDeliverables(items,note=''){
+  const summary=normalizeDeliveryItems(items).map(row=>`${row.cantidad} × ${DELIVERY_TYPES.find(([key])=>key===row.tipo)[1]}`).join(' + ');
+  const notes=textField(note,4000);
+  return textField([summary,notes].filter(Boolean).join(' · '),4000);
+}
+function deliveryData(c){
+  const saved=c?.extras?.entregables_v1;
+  if(saved&&saved.texto===c.entregables){
+    try{const items=normalizeDeliveryItems(saved.items),nota=textField(saved.nota||'',4000);if(formatDeliverables(items,nota)===saved.texto)return{items,nota,legacy:false};}catch{}
+  }
+  // Never infer quantities/formats from old free text or replace text edited in an older app.
+  return {items:[],nota:c?.entregables||'',legacy:!!c?.entregables};
+}
+function renderDeliveryRows(focusId=null){
+  g('delivery-rows').innerHTML=draftDeliverables.map(row=>`<div class="delivery-row"><div class="field"><label for="delivery-quantity-${row.id}">Cantidad</label><input id="delivery-quantity-${row.id}" type="number" inputmode="numeric" min="1" max="9999" step="1" required value="${esc(row.cantidad)}" oninput="changeDelivery(${row.id},'cantidad',this.value)"></div><div class="field"><label for="delivery-type-${row.id}">Formato</label><select id="delivery-type-${row.id}" required onchange="changeDelivery(${row.id},'tipo',this.value)"><option value="">Selecciona formato</option>${DELIVERY_TYPES.map(([key,label])=>`<option value="${key}"${row.tipo===key?' selected':''}>${label}</option>`).join('')}</select></div><button type="button" class="btn btn-ghost delivery-remove" aria-label="Eliminar entregable ${row.id}" onclick="removeDelivery(${row.id})">🗑️ <span>Eliminar</span></button></div>`).join('');
+  g('delivery-empty').hidden=draftDeliverables.length>0;g('delivery-add').disabled=busy||draftDeliverables.length>=50;
+  updateDeliverableSummary();if(focusId!==null)g('delivery-quantity-'+focusId).focus();
+}
+function addDelivery(){
+  if(busy||draftDeliverables.length>=50)return;const id=++deliverySequence;draftDeliverables.push({id,cantidad:1,tipo:''});deliverablesDirty=true;renderDeliveryRows(id);
+}
+function changeDelivery(id,key,value){
+  if(busy||!['cantidad','tipo'].includes(key))return;const row=draftDeliverables.find(row=>row.id===id);if(!row)return;row[key]=value;updateDeliverableSummary(true);
+}
+function removeDelivery(id){if(busy)return;draftDeliverables=draftDeliverables.filter(row=>row.id!==id);deliverablesDirty=true;renderDeliveryRows();g('delivery-add').focus();}
+function updateDeliverableSummary(changed=false){
+  deliverablesDirty=deliverablesDirty||changed;
+  try{g('delivery-summary').textContent=formatDeliverables(draftDeliverables,g('c-entregables').value)||'Sin entregables definidos.';}
+  catch(e){g('delivery-summary').textContent=e.message;}
+}
+function collectDeliverables(previous){
+  if(previous&&!deliverablesDirty)return {entregables:previous.entregables,extras:previous.extras||{}};
+  const items=normalizeDeliveryItems(draftDeliverables),nota=textField(g('c-entregables').value,4000),texto=formatDeliverables(items,nota);
+  return {entregables:texto,extras:{...previous?.extras,entregables_v1:{items,nota,texto}}};
+}
 function openCamp(i){
   if(busy||mode==='locked')return;fillModalSelects();editC=i??null;newCampId=uuid();editCampSnapshot=i===undefined?null:structuredClone(camps[i]);financeDirty=false;
   const c=editCampSnapshot||{marca:'',nombre:'',creadorId:cres[0]?.id||null,creador:'',industria:'Fintech',monto:'',comPct:'',titular:'Agencia',ciclo:'Activa',entregables:'',pauta:0,excl:0,diaspago:30,estado:'Prospecto',cobro:'Pendiente',brief:'no',inicioAcuerdo:'',inicioCampana:'',pagcr:'no'};
@@ -853,12 +953,33 @@ function openCamp(i){
   g('c-industria').value=industryOptions().find(([label])=>industryKey(label)===industryKey(c.industria))?.[0]||'Otro';
   g('c-new-industry').value='';toggleNewIndustry();
   g('c-creador').value=c.creadorId||'other';g('c-other').value=c.creadorId?'':c.creador;toggleOtherCreator();cCalc();open_('ov-camp');
+  g('c-creador').value=c.creadorId||'other';g('c-other').value=c.creadorId?'':c.creador;toggleOtherCreator();
+  g('c-finance-mode').value=c.extras?.finanzas_modo==='porcentaje'?'porcentaje':'pago';g('c-pago').value=c.pago??'';
+  financeDraft=editCampSnapshot?{monto:c.monto,pago:c.pago,comision:comOf(c),comPct:c.comPct}:null;financeError='';
+  const deliveries=deliveryData(c);draftDeliverables=deliveries.items.map(row=>({...row,id:++deliverySequence}));deliverablesDirty=false;g('c-entregables').value=deliveries.nota;g('delivery-legacy').hidden=!deliveries.legacy;renderDeliveryRows();cCalc();open_('ov-camp');
 }
 function cCalc(changed=false){
   financeDirty=financeDirty||changed;const own=g('c-titular').value==='Propia';g('c-com-pct').disabled=own;
   try{const f=editCampSnapshot&&!financeDirty?editCampSnapshot:computeFinance(g('c-monto').value,g('c-com-pct').value,own);g('c-com').textContent=money(f.comision);g('c-com-l').textContent=own?'Ingreso propio':`Tu comisión · ${fmtPct(f.comPct)}%`;g('c-payment-preview').textContent='Pago al creador: '+money(f.pago)+(editCampSnapshot&&!financeDirty?' · importes guardados conservados':'');}catch(e){g('c-com').textContent='—';g('c-payment-preview').textContent=e.message;}
+  financeDirty=financeDirty||changed;const own=g('c-titular').value==='Propia',fixed=g('c-finance-mode').value!=='porcentaje';
+  g('c-com-pct').disabled=own||fixed;g('c-pago').disabled=own||!fixed;g('c-finance-mode').disabled=own;
+  g('finance-pct-field').hidden=own||fixed;g('finance-pay-field').hidden=own||!fixed;
+  g('c-com-pct').required=!own&&!fixed;g('c-pago').required=!own&&fixed;
+  try{
+    if(changed||!financeDraft){
+      if(String(g('c-monto').value).trim()==='')throw new Error('Ingresa el monto que recibirás de la marca.');
+      if(!own&&String(g(fixed?'c-pago':'c-com-pct').value).trim()==='')throw new Error(fixed?'Ingresa el pago acordado al creador.':'Ingresa el porcentaje de comisión.');
+      financeDraft=fixed||own?computeAgreedFinance(g('c-monto').value,g('c-pago').value,own):computeFinance(g('c-monto').value,g('c-com-pct').value);
+    }
+    financeError='';const f=financeDraft;
+    // Switching the method alone must not round an agreed payment through a percentage.
+    if(fixed)g('c-com-pct').value=f.comPct;else g('c-pago').value=f.pago;
+    g('c-com').textContent=money(f.comision);g('c-com-l').textContent=own?'Ingreso propio':`Tu comisión · ${f.monto?'≈ '+fmtPct(percent(f.comision,f.monto))+'%':'sin porcentaje'}`;
+    g('c-payment-preview').textContent='Pago al creador: '+money(f.pago)+(editCampSnapshot&&!financeDirty?' · importes guardados conservados':fixed?' · comisión = monto recibido − pago al creador':'');
+  }catch(e){financeDraft=null;financeError=e.message;g('c-com').textContent='—';g('c-payment-preview').textContent=e.message;}
 }
 function validateInputs(prefix){const inputs=[...document.querySelectorAll('#ov-'+prefix+' input')];for(const el of inputs){if(!el.checkValidity()){el.reportValidity();throw new Error('Revisa los campos del formulario.');}}}
+function validateInputs(prefix){const inputs=[...document.querySelectorAll('#ov-'+prefix+' input, #ov-'+prefix+' select, #ov-'+prefix+' textarea')];for(const el of inputs){if(!el.checkValidity()){el.reportValidity();throw new Error('Revisa los campos del formulario.');}}}
 async function saveCamp(){
   if(busy||mode==='locked')return;
   try{
@@ -867,6 +988,8 @@ async function saveCamp(){
     const previous=editCampSnapshot;
     const f=previous&&!financeDirty?{monto:previous.monto,comPct:previous.comPct,comision:previous.comision,pago:previous.pago}:computeFinance(g('c-monto').value,g('c-com-pct').value,g('c-titular').value==='Propia');
     const candidate=normalizeCamp({...previous,id:previous?.id||newCampId,...f,marca:g('c-marca').value,nombre:g('c-nombre').value,creadorId:creator?.id||null,creador:creator?.nombre||g('c-other').value,industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,entregables:g('c-entregables').value,pauta:g('c-pauta').value,excl:g('c-excl').value,diaspago:g('c-diaspago').value,estado:g('c-estado').value,cobro:g('c-cobro').value,brief:g('c-brief').value,inicioAcuerdo:g('c-inicio-acuerdo').value,inicioCampana:g('c-inicio-campana').value,pagcr:g('c-pagcr').value},cres);
+    cCalc();if(!financeDraft)throw new Error(financeError||'Revisa los importes.');const f=financeDraft,deliveries=collectDeliverables(previous);
+    const candidate=normalizeCamp({...previous,id:previous?.id||newCampId,...f,...deliveries,extras:{...deliveries.extras,finanzas_modo:g('c-finance-mode').value},marca:g('c-marca').value,nombre:g('c-nombre').value,creadorId:creator?.id||null,creador:creator?.nombre||g('c-other').value,industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,pauta:g('c-pauta').value,excl:g('c-excl').value,diaspago:g('c-diaspago').value,estado:g('c-estado').value,cobro:g('c-cobro').value,brief:g('c-brief').value,inicioAcuerdo:g('c-inicio-acuerdo').value,inicioCampana:g('c-inicio-campana').value,pagcr:g('c-pagcr').value},cres);
     setBusy(true);syncLabel('Guardando campaña…');const token=epoch;const saved=await writeRecord('camp',candidate,previous);if(token!==epoch)return;
     const i=camps.findIndex(c=>c.id===saved.id);if(i<0)camps.push(saved);else camps[i]=saved;
     close_('ov-camp',true);renderAll();syncLabel(mode==='cloud'?'Guardado en Supabase':mode==='local'?'Guardado en este navegador':'Cambios solo en la demo');toast(mode==='demo'?'Campaña actualizada en la demo.':'Campaña guardada.');
@@ -881,12 +1004,20 @@ function openCre(i){
   if(busy||mode==='locked')return;editR=i??null;newCreId=uuid();editCreSnapshot=i===undefined?null:structuredClone(cres[i]);const r=editCreSnapshot||{nombre:'',tier:'Micro',igFollowers:'',ttFollowers:'',tarifas:{}};
   g('cre-title').textContent=editCreSnapshot?'Editar creador':'Nuevo creador';for(const [id,k] of [['nombre','nombre'],['tier','tier'],['ig','igFollowers'],['tt','ttFollowers']])g('r-'+id).value=r[k]||'';
   for(const key of ['reel','replica','dos','hist','set','pauta'])g('r-'+key).value=r.tarifas[key]??'';open_('ov-cre');
+  const card=normalizeRateCard(r);for(const [key] of RATE_FIELDS)g('r-'+key).value=card[key]??'';
+  for(const key of ['videosDetalle','setDetalle'])g('r-'+key).value=card[key];
+  g('r-legacy-rate').hidden=!r.tarifas?.reel;g('r-legacy-rate').textContent=r.tarifas?.reel?'Tarifa anterior TikTok / Reel: '+money(r.tarifas.reel)+'. Se conserva como referencia; define los dos precios por separado.':'';open_('ov-cre');
 }
 async function saveCre(){
   if(busy||mode==='locked')return;
   try{
     validateInputs('cre');const previous=editCreSnapshot,tarifas={};for(const key of ['reel','replica','dos','hist','set','pauta'])tarifas[key]=g('r-'+key).value||0;
     const candidate=normalizeCreator({...previous,id:previous?.id||newCreId,nombre:g('r-nombre').value,tier:g('r-tier').value,igFollowers:g('r-ig').value,ttFollowers:g('r-tt').value,tarifas});
+    validateInputs('cre');const previous=editCreSnapshot,tarifas={...previous?.tarifas},tarifario=normalizeRateCard(previous||{});
+    for(const [key] of RATE_FIELDS)tarifario[key]=g('r-'+key).value;
+    for(const key of ['videosDetalle','setDetalle'])tarifario[key]=g('r-'+key).value;
+    tarifas.post=postRate(g('r-post').value);
+    const candidate=normalizeCreator({...previous,id:previous?.id||newCreId,nombre:g('r-nombre').value,tier:g('r-tier').value,igFollowers:g('r-ig').value,ttFollowers:g('r-tt').value,tarifas,tarifario});
     if(cres.some(r=>r.id!==candidate.id&&r.nombre.toLocaleLowerCase()===candidate.nombre.toLocaleLowerCase()))throw new Error('Ya existe un creador con este nombre.');
     setBusy(true);const token=epoch;const saved=await writeRecord('creator',candidate,previous);if(token!==epoch)return;const i=cres.findIndex(r=>r.id===saved.id);if(i<0)cres.push(saved);else cres[i]=saved;
     fillModalSelects();close_('ov-cre',true);renderAll();syncLabel(mode==='cloud'?'Guardado en Supabase':mode==='local'?'Guardado en este navegador':'Demo sin guardar');toast('Creador guardado'+(mode==='demo'?' en la demo.':'.'));
@@ -912,6 +1043,7 @@ async function previewImport(file){pendingImport=null;g('import-confirm').hidden
 function previewLegacy(){pendingImport=null;g('import-confirm').hidden=true;try{const data=readLegacy();if(!data)throw new Error('No se encontraron datos anteriores en este origen y navegador. Abre el exportador incluido en la dirección anterior para crear un respaldo.');presentImport(data);}catch(e){g('import-preview').textContent=friendly(e);}}
 function withExtras(record,kind){
   const known=kind==='creator'?['id','nombre','tier','igFollowers','ttFollowers','tarifas','updatedAt','extras']:['id','marca','nombre','creadorId','creador','industria','monto','pago','comPct','comision','titular','ciclo','entregables','pauta','excl','diaspago','estado','cobro','brief','inicioAcuerdo','inicioCampana','pagcr','updatedAt','extras'];
+  const known=kind==='creator'?['id','nombre','tier','igFollowers','ttFollowers','tarifas','tarifario','updatedAt','extras']:['id','marca','nombre','creadorId','creador','industria','monto','pago','comPct','comision','titular','ciclo','entregables','pauta','excl','diaspago','estado','cobro','brief','inicioAcuerdo','inicioCampana','pagcr','updatedAt','extras'];
   return {...record,extras:{...record.extras,...Object.fromEntries(Object.entries(record).filter(([k])=>!known.includes(k)))}};
 }
 async function commitImport(){
@@ -931,6 +1063,7 @@ function hasModal(){return !!document.querySelector('.overlay.on');}
 function open_(id){lastFocus=document.activeElement;g(id).classList.add('on');g('app').inert=true;const modal=g(id).querySelector('.modal');const title=modal.querySelector('h3[id]');if(title)modal.setAttribute('aria-labelledby',title.id);setTimeout(()=>modal.focus(),0);}
 function close_(id,force=false){if(busy&&!force)return;g(id).classList.remove('on');g('app').inert=hasModal();if(!hasModal())lastFocus?.focus?.();}
 function modalKeys(e){const overlay=document.querySelector('.overlay.on');if(!overlay)return;if(e.key==='Escape'&&overlay.id!=='ov-password'){close_(overlay.id);return;}if(e.key!=='Tab')return;const nodes=[...overlay.querySelectorAll('button,input,select,a[href]')].filter(x=>!x.disabled&&!x.hidden&&x.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&(document.activeElement===first||document.activeElement===overlay.querySelector('.modal'))){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
+function modalKeys(e){const overlay=document.querySelector('.overlay.on');if(!overlay)return;if(e.key==='Escape'&&overlay.id!=='ov-password'){close_(overlay.id);return;}if(e.key!=='Tab')return;const nodes=[...overlay.querySelectorAll('button,input,select,textarea,a[href]')].filter(x=>!x.disabled&&!x.hidden&&x.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&(document.activeElement===first||document.activeElement===overlay.querySelector('.modal'))){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
 
 function renderCamps(){
   const idx=camps.map((c,i)=>i).filter(i=>passes(camps[i]));
@@ -972,6 +1105,7 @@ function detail(i){
     <div class="det-row"><span class="k">Creador</span><span class="v">👤 ${esc(creatorName(c))}</span></div>
     <div class="det-row"><span class="k">Monto total</span><span class="v">${money(c.monto)}</span></div>
     <div class="det-row"><span class="k">% de comisión</span><span class="v">${fmtPct(c.comPct)}%</span></div>
+    <div class="det-row"><span class="k">% de comisión (aprox.)</span><span class="v">${fmtPct(c.comPct)}%</span></div>
     <div class="det-row"><span class="k">Pago al creador</span><span class="v">${money(c.pago)}</span></div>
     <div class="det-row"><span class="k">Entregables</span><span class="v">${esc(c.entregables||"—")}</span></div>
     <div class="det-row"><span class="k">Derechos de pauta</span><span class="v">${yn(c.pauta)}</span></div>
@@ -1010,6 +1144,7 @@ function renderCres(){
         ${rate("2 TikToks",t.dos)}${rate("1 Historia",t.hist)}
         ${rate("Set 2 historias",t.set)}${rate("Derechos de pauta",t.pauta)}
       </div></div>`;
+      ${creatorRatesHtml(c)}</div>`;
   }).join("") : `<div class="empty" style="grid-column:1/-1">No hay creadores con estos filtros.</div>`;
   g("cre-rows").innerHTML= items.length? items.map(({c,i})=>{
     const act=camps.filter(x=>belongs(x,c)&&isActive(x));
