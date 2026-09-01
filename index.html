@@ -212,7 +212,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 
 
 
-/* RECOVERED CURRENT UI — keeps the original Briev icons and header actions. */
+/* CURRENT BRIEV UI — recovered from the latest good index. */
 .refresh-icon{
     width:38px;height:38px;min-height:38px;padding:0;
     display:inline-grid;place-items:center;border-radius:10px;
@@ -239,8 +239,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
         border:1px solid rgba(38,34,79,.09);
         border-radius:21px;
         box-shadow:0 10px 32px rgba(38,34,79,.18);
-        backdrop-filter:blur(16px);
-        -webkit-backdrop-filter:blur(16px);
+        backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
         overflow:visible;z-index:90
     }
     .nav a{
@@ -255,15 +254,12 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
     .nav a.on{background:#eee8f4!important;color:var(--navy);font-weight:600}
     .nav a.on::after{
         content:"";position:absolute;left:50%;bottom:3px;
-        width:4px;height:4px;border-radius:50%;
-        background:var(--purple);transform:translateX(-50%)
+        width:4px;height:4px;border-radius:50%;background:var(--purple);
+        transform:translateX(-50%)
     }
-    .nav-ic{
-        width:25px;height:25px;transition:transform .18s ease;opacity:1
-    }
+    .nav-ic{width:25px;height:25px;transition:transform .18s ease;opacity:1}
     .nav a.on .nav-ic{transform:translateY(-1px)}
     .main{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
-    .refresh-icon{width:38px;height:38px;min-height:38px}
 }
 .kpi .kpi-icon{
     height:26px;display:flex;align-items:center;margin-bottom:13px;color:#62517b
@@ -275,6 +271,19 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 .kpi.cyan .kpi-icon{color:#397c96}
 .kpi.soft .kpi-icon{color:#625783}
 #session-label,#sync-state{display:none!important}
+
+/* Keep "+ Nueva campaña" compact as in the approved mobile reference. */
+@media (max-width:520px){
+    .top-actions{width:auto!important;margin-left:auto!important;flex:0 0 auto!important}
+    .top-actions .new-campaign-btn,
+    #page-camp>.top>.new-campaign-btn{
+        width:auto!important;max-width:max-content!important;
+        flex:0 0 auto!important;min-height:36px!important;
+        padding:7px 11px!important;font-size:11px!important;
+        white-space:nowrap!important;border-radius:10px!important
+    }
+    #page-dash>.top,#page-camp>.top{align-items:center!important}
+}
 
 </style>
 </head>
@@ -324,19 +333,13 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
       <a href="#cre" onclick="event.preventDefault();go('cre',this)"><img class="nav-ic" alt="" src="data:image/png;base64,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"><span>Creadores</span></a>
     </nav><div class="session-actions">
       <button class="btn btn-small session-icon" onclick="refreshData(true)" aria-label="Actualizar" title="Actualizar">
-        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 11a8 8 0 1 0-2.34 5.66"/><path d="M20 4v7h-7"/>
-        </svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.34 5.66"/><path d="M20 4v7h-7"/></svg>
       </button>
       <button class="btn btn-small session-icon" onclick="openData()" aria-label="Abrir datos y respaldos" title="Datos y respaldos">
-        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14a2 2 0 0 0 2-2v-3"/><path d="M3 16v3a2 2 0 0 0 2 2"/>
-        </svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14a2 2 0 0 0 2-2v-3"/><path d="M3 16v3a2 2 0 0 0 2 2"/></svg>
       </button>
       <button class="btn btn-small session-icon" onclick="signOut()" aria-label="Cerrar sesión" title="Cerrar sesión">
-        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-        </svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
       </button>
     </div>
   </header>
@@ -480,7 +483,6 @@ const CICLOS=[["Activa","🟢"],["Renovada","🔄"],["Finalizada","🏁"]];
 const ACTIVOS=["Contrato firmado","En producción","En aprobación","Contenido aprobado","Publicado","Facturado"];
 const PAL=['#b677b1','#81a4d0','#5ec4e6','#26224f','#a783b9','#6a8eba','#3a96b7','#847ca6','#c79dc3','#587395','#94d5e9','#ac91b8'];
 const em=(l,v)=>l.find(x=>x[0]===v)?.[1]||(l===INDUS&&v?'🏷️':'');
-const cobroLabel=value=>value==='Pendiente'?'Pendiente de cobro':value;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const g=id=>document.getElementById(id);
 const initials=n=>String(n).trim().split(/\s+/).slice(0,2).map(s=>s[0]||'').join('').toUpperCase();
@@ -517,7 +519,7 @@ const parseDay=d=>d?new Date(d+'T12:00:00'):null;
 const mesCorto=d=>d?parseDay(d).toLocaleDateString('es-GT',{month:'short',year:'2-digit'}):'—';
 const mesLargo=d=>d?parseDay(d).toLocaleDateString('es-GT',{month:'long',year:'numeric'}):'Sin fecha';
 const fecha=d=>d?parseDay(d).toLocaleDateString('es-GT'):'—';
-const isActive=c=>['Activa','Renovada'].includes(c.ciclo)&&ACTIVOS.includes(c.estado);
+const isActive=c=>['Activa','Renovada'].includes(c.ciclo);
 const belongs=(c,r)=>c.creadorId?c.creadorId===r.id:c.creador===r.nombre;
 const creatorName=c=>cres.find(r=>r.id===c.creadorId)?.nombre||c.creador||'Sin creador';
 const uuid=()=>crypto.randomUUID();
@@ -820,13 +822,13 @@ function buildFilters(){
 function buildCreFilters(){selectFilter('flt-cre-tier',['Nano','Micro','Influencer'],'Tier: todos');selectFilter('flt-cre-nombre',cres.map(r=>r.nombre).sort(),'Creador: todos');}
 function passes(c){return(!g('flt-estado').value||c.estado===g('flt-estado').value)&&(!g('flt-creador').value||creatorName(c)===g('flt-creador').value)&&(!g('flt-marca').value||c.marca===g('flt-marca').value)&&(!g('flt-industria').value||c.industria===g('flt-industria').value)&&(!g('flt-titular').value||c.titular===g('flt-titular').value);}
 function passesCre(r){return(!g('flt-cre-tier').value||r.tier===g('flt-cre-tier').value)&&(!g('flt-cre-nombre').value||r.nombre===g('flt-cre-nombre').value)&&r.nombre.toLocaleLowerCase().includes(g('cre-search').value.trim().toLocaleLowerCase());}
-function titBadge(t){return t==='Propia'?'<span class="badge-tit t-pr">✨ Marca personal</span>':'<span class="badge-tit t-ag">🏢 Agencia</span>';}
+function titBadge(t){return t==='Propia'?'<span class="badge-tit t-pr">👤 Propia</span>':'<span class="badge-tit t-ag">🏢 Agencia</span>';}
 function renderAll(){buildFilters();renderDash();renderCamps();renderCres();}
 function renderDash(){
   const fact=sum(camps,c=>c.monto),com=sum(camps,comOf),comAg=sum(camps.filter(c=>c.titular!=='Propia'),comOf),comPr=roundMoney(com-comAg);
   const active=camps.filter(isActive).length,pending=sum(camps.filter(c=>c.cobro!=='Pagado'),comOf),pay=sum(camps.filter(c=>c.pagcr!=='si'),c=>c.pago),paid=roundMoney(com-pending);
   const card=(cls,icon,label,value,sub)=>`<div class="kpi ${cls}"><span class="kpi-icon" aria-hidden="true">${icon}</span><div class="label">${label}</div><div class="num">${value}</div><div class="sub">${sub}</div></div>`;
-  g('kpis').innerHTML=card('lilac','↗','Monto de campañas',money(fact),`${camps.length} campañas · incluye propuestas`)+card('hero','✦','Mi ingreso total',money(com),`Agencia ${money(comAg)}<br>Marca personal ${money(comPr)}`)+card('sky','🎬','Campañas activas',active,`${pct(active,camps.length)} del total · excluye finalizadas`)+card('cyan','◷','Por cobrar',money(pending),`Comisión pendiente<br>${pct(paid,com)} cobrada`)+card('soft','↗','Por pagar a creadores',money(pay),'Pagos pendientes a creadores');
+  g('kpis').innerHTML=card('lilac','↗','Monto de campañas',money(fact),`${camps.length} campañas · incluye propuestas`)+card('hero','✦','Mi ingreso total',money(com),`Agencia ${money(comAg)}<br>Propias ${money(comPr)}`)+card('sky','🎬','Campañas activas',active,`${pct(active,camps.length)} del total · excluye finalizadas`)+card('cyan','◷','Por cobrar',money(pending),`Comisión pendiente<br>${pct(paid,com)} cobrada`)+card('soft','↗','Por pagar a creadores',money(pay),'Pagos pendientes a creadores');
   drawCharts();
   const today=new Date();today.setHours(12,0,0,0);const soon=[];
   for(const c of camps){if(!c.inicioCampana)continue;for(const [type,days] of [['Pauta',c.pauta],['Exclusividad',c.excl]]){if(days<=0)continue;const end=parseDay(c.inicioCampana);end.setDate(end.getDate()+days);const diff=Math.round((end-today)/86400000);if(diff>=0&&diff<=30)soon.push({diff,html:`${esc(type)} de <b>${esc(c.marca)} · ${esc(creatorName(c))}</b> ${diff===0?'vence hoy':'vence en '+diff+' día'+(diff===1?'':'s')} · ${fecha(end.getFullYear()+'-'+String(end.getMonth()+1).padStart(2,'0')+'-'+String(end.getDate()).padStart(2,'0'))}`});}}
@@ -1206,664 +1208,858 @@ init();
 </script>
 
 
-<script id="briev-recovered-current-bridge">
-'use strict';
-(() => {
-  const applyRecoveredUI = () => {
-    const ownOption = [...(document.getElementById('c-titular')?.options || [])]
-      .find(o => o.value === 'Propia' || o.textContent.trim() === 'Propia');
-    if (ownOption) { ownOption.value = 'Propia'; ownOption.textContent = 'Marca personal'; }
-
-    const filter = document.getElementById('flt-titular');
-    if (filter) {
-      [...filter.options].forEach(o => {
-        if (o.value === 'Propia' || o.textContent.trim() === 'Propia') o.textContent = 'Marca personal';
-      });
-    }
-  };
-  applyRecoveredUI();
-  setTimeout(applyRecoveredUI, 0);
-})();
-</script>
-
-
-<!-- BRIEV_CREATOR_MODE_PATCH_START -->
-<style id="briev-creator-mode-styles">
-/* Context switch: added without touching the current header/mobile navigation. */
-.briev-context-wrap{display:flex;justify-content:flex-start;align-items:center;margin:-6px 0 22px}
-.briev-context-switch{display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px}
-.briev-context-switch button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:11.5px;font-weight:500;padding:8px 13px;border-radius:9px;cursor:pointer;min-height:38px;white-space:nowrap}
-.briev-context-switch button.on{background:var(--navy);color:#fff}
-.personal-collab{margin:5px 0 18px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#faf9fd}
-.personal-collab h4{font-size:14px;font-weight:600;margin:0 0 5px}
-.personal-collab .personal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.personal-collab .personal-grid .field{margin-bottom:0}
-.collab-pill{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:500;padding:4px 9px;border-radius:8px;white-space:nowrap}
-.collab-pill.paid{background:#f1e6f1;color:#7d4d79}
-.collab-pill.barter{background:#e2f2f7;color:#33788e}
-.collab-pill.mixed{background:#e6ebf6;color:#4b6387}
-.creator-kpi-note{display:block;margin-top:3px}
-.creator-overview{grid-template-columns:repeat(4,minmax(0,1fr))!important}
-.mp-value-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%}
-.mp-value-grid>span{display:block;padding:8px 9px;border-radius:9px;background:#f6f3f8;font-size:10px;color:var(--muted)}
-.mp-value-grid strong{display:block;margin-top:2px;color:var(--ink);font-size:13px;font-weight:600}
-.mp-value-grid .cash strong{color:#86507f}.mp-value-grid .barter strong{color:#397c96}
-.mp-brand-head,.mp-brand-row{display:grid;grid-template-columns:24px minmax(150px,1fr) 70px minmax(110px,.7fr) minmax(110px,.7fr) minmax(115px,.7fr);gap:12px;align-items:center;padding:13px 26px}
-.mp-brand-head{background:#f4f2f8;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:#756e8d;font-weight:600}
-.mp-brand-head>span:nth-child(n+4){text-align:right}
-.mp-brand-row{border-bottom:1px solid #efedf5;background:#fff;font-size:12px}
-.mp-brand-row:last-child{border-bottom:0}
-.mp-brand-money{text-align:right;font-variant-numeric:tabular-nums}
-.mp-brand-money strong{font-size:14px;font-weight:600}.mp-brand-money.cash strong{color:#86507f}.mp-brand-money.barter strong{color:#397c96}
-.mp-brand-types{display:flex;gap:4px;flex-wrap:wrap}
-.mp-pending-item{font-size:12px;padding:8px 0;border-bottom:1px dashed var(--line)}
-.mp-pending-item:last-child{border-bottom:0}
-@media(max-width:1050px){.creator-overview{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+<!-- BRIEV_BUSINESS_V2_START -->
+<style id="briev-business-v2-styles">
+.briev-context-wrap{display:flex;justify-content:flex-end;margin:-10px 0 18px}
+.briev-context-switch{display:inline-grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;background:white;border:1px solid var(--line);border-radius:12px;min-width:330px}
+.briev-context-switch button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:500;padding:8px 12px;border-radius:9px;cursor:pointer}
+.briev-context-switch button.on{background:var(--navy);color:white}
+.personal-collab{margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:14px;background:#faf9fd}
+.personal-collab h4{font-size:14px;margin:0 0 4px}
+.personal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.collab-pill{display:inline-block;font-size:10.5px;font-weight:600;padding:4px 8px;border-radius:8px;white-space:nowrap}
+.collab-pill.paid{background:#f3e7f2;color:#86507f}
+.collab-pill.barter{background:#e4f4f9;color:#397c96}
+.collab-pill.mixed{background:#e7edf7;color:#4d6b91}
+.kpis.creator-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.creator-kpis .creator-total{grid-column:1/-1}
+.creator-kpis .creator-half{grid-column:span 3}
+.creator-kpis .creator-third{grid-column:span 2}
+.creator-kpis .creator-total .num{font-size:clamp(28px,3vw,38px)}
+.charts.creator-overview{grid-template-columns:repeat(4,minmax(0,1fr))}
+.origin-note{margin-top:10px;padding:8px 10px;border-radius:9px;background:#f7f5fb;color:var(--muted);font-size:10px;line-height:1.5}
+.mp-value-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+.mp-value-grid span{display:grid;gap:3px;padding:9px;border-radius:9px;background:#f6f4fa;color:var(--muted);font-size:9px}
+.mp-value-grid strong{color:var(--ink);font-size:13px}
+.mp-value-grid .cash{background:#f4eaf3}
+.mp-value-grid .barter{background:#e7f5f9}
+.creator-brand-summary{margin-top:18px}
+.creator-brand-summary .brand-summary-row,.general-brand-row{display:grid;grid-template-columns:28px minmax(0,1fr) 95px 105px 105px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:11px}
+.creator-brand-summary .brand-summary-row:last-child,.general-brand-row:last-child{border-bottom:0}
+.brand-summary-name{font-weight:600;overflow-wrap:anywhere}
+.brand-summary-sub{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.brand-summary-money{text-align:right;font-variant-numeric:tabular-nums}
+.brand-summary-money strong{display:block;font-size:13px}
+.general-brand-row{grid-template-columns:28px minmax(0,1fr) 82px 105px 105px}
+.general-brand-row .agency{color:#514b70}
+.general-brand-row .personal{color:#86507f}
+.cycle-pill{display:inline-block;font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px;background:#f0eef7;color:var(--navy)}
+.nav.creator-context a[href="#cre"]{display:none!important}
 @media(max-width:800px){
-  .briev-context-wrap{margin:-2px 0 18px}
-  .briev-context-switch{width:100%}
-  .briev-context-switch button{flex:1;min-height:42px}
-  .personal-collab .personal-grid{grid-template-columns:1fr}
-  .creator-overview{grid-template-columns:1fr!important}
-  .mp-brand-head{display:none}
-  .mp-brand-row{grid-template-columns:18px minmax(0,1fr) auto;grid-template-areas:"pos name total" ". types types" ". cash barter";gap:8px;padding:15px 16px}
-  .mp-brand-row .rank-place{grid-area:pos}.mp-brand-row .rank-identity{grid-area:name}.mp-brand-row .mp-brand-types{grid-area:types}
-  .mp-brand-row .mp-brand-money.cash{grid-area:cash;text-align:left;padding-top:8px;border-top:1px solid var(--line)}
-  .mp-brand-row .mp-brand-money.barter{grid-area:barter;padding-top:8px;border-top:1px solid var(--line)}
-  .mp-brand-row .mp-brand-money.total{grid-area:total}
+  .nav.creator-context{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .briev-context-wrap{justify-content:stretch;margin:0 0 16px}
+  .briev-context-switch{width:100%;min-width:0}
+  .charts.creator-overview{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+  .kpis.creator-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .creator-kpis .creator-total{grid-column:1/-1}
+  .creator-kpis .creator-half{grid-column:span 1}
+  .creator-kpis .creator-third{grid-column:span 1}
+  .creator-kpis .creator-third:last-child{grid-column:1/-1}
+  .personal-grid{grid-template-columns:1fr}
+  .creator-brand-summary .brand-summary-row,.general-brand-row{
+    grid-template-columns:20px minmax(0,1fr) auto;
+    grid-template-areas:"pos name total" ". agency personal";
+    row-gap:6px
+  }
+  .creator-brand-summary .brand-summary-row>span:first-child,.general-brand-row>span:first-child{grid-area:pos}
+  .creator-brand-summary .brand-summary-row>.brand-summary-name,.general-brand-row>.brand-summary-name{grid-area:name}
+  .creator-brand-summary .brand-summary-row>.brand-total,.general-brand-row>.brand-total{grid-area:total}
+  .creator-brand-summary .brand-summary-row>.brand-cash,.general-brand-row>.agency{grid-area:agency}
+  .creator-brand-summary .brand-summary-row>.brand-barter,.general-brand-row>.personal{grid-area:personal}
 }
 @media(max-width:520px){
-  .mp-value-grid{grid-template-columns:1fr 1fr}.mp-value-grid>span:last-child{grid-column:1/-1}
+  .briev-context-switch button{font-size:10px;padding:7px 5px}
+  #page-dash>.top,#page-camp>.top{display:flex!important;flex-wrap:nowrap!important;gap:10px!important}
+  #page-dash>.top>div:first-child,#page-camp>.top>div:first-child{min-width:0;flex:1}
+  #page-dash .new-campaign-btn,#page-camp .new-campaign-btn{
+    width:auto!important;max-width:max-content!important;min-width:0!important;
+    flex:0 0 auto!important;padding:7px 11px!important;font-size:11px!important
+  }
+  .mp-value-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  #camp-table tbody td{grid-column:auto!important}
+  #camp-table tbody td:first-child{grid-column:1/-1!important}
 }
 </style>
-<script>
+<script id="briev-business-v2">
 'use strict';
 (() => {
-  const MP_COLLABS = [['Pagada','💵'],['Canje','🎁'],['Mixta','💵 + 🎁']];
-  let mpContext = 'agency';
+  const SELF_NAME = 'Evelyn Aguilar';
+  const STATUS_UI = [
+    {label:'Prospecto', value:'Prospecto', icon:'🔍'},
+    {label:'Negociación', value:'Negociación', icon:'🤝'},
+    {label:'Confirmada', value:'Acuerdo alcanzado', icon:'✅'},
+    {label:'En producción', value:'En producción', icon:'🎬'},
+    {label:'En aprobación', value:'En aprobación', icon:'📤'},
+    {label:'Publicada', value:'Publicado', icon:'📢'}
+  ];
+  const CYCLE_ORDER = {Activa:0,Renovada:1,Finalizada:2};
+  const COLLABS = [['Pagada','💵'],['Canje','🎁'],['Mixta','💵 + 🎁']];
+  let brievContext = 'general';
 
-  const mpOrig = {
-    buildFilters: typeof buildFilters === 'function' ? buildFilters : null,
-    passes: typeof passes === 'function' ? passes : null,
-    titBadge: typeof titBadge === 'function' ? titBadge : null,
-    renderDash: typeof renderDash === 'function' ? renderDash : null,
-    drawCharts: typeof drawCharts === 'function' ? drawCharts : null,
-    drawMonth: typeof drawMonth === 'function' ? drawMonth : null,
-    drawRanking: typeof drawRanking === 'function' ? drawRanking : null,
-    renderCamps: typeof renderCamps === 'function' ? renderCamps : null,
-    renderResumen: typeof renderResumen === 'function' ? renderResumen : null,
-    detail: typeof detail === 'function' ? detail : null,
-    openCamp: typeof openCamp === 'function' ? openCamp : null,
-    cCalc: typeof cCalc === 'function' ? cCalc : null,
-    saveCamp: typeof saveCamp === 'function' ? saveCamp : null,
-    go: typeof go === 'function' ? go : null
+  const orig = {
+    renderDash, renderCamps, renderResumen, drawCharts, drawMonth, drawRanking,
+    buildFilters, passes, openCamp, cCalc, saveCamp, detail, go, fillModalSelects
   };
 
-  const mpIsPersonal = c => c?.titular === 'Propia';
-  const mpScope = () => camps.filter(c => mpContext === 'creator' ? mpIsPersonal(c) : !mpIsPersonal(c));
-  const mpMeta = c => {
+  const isPersonal = c => c?.titular === 'Propia';
+  const scope = () => brievContext === 'agency' ? camps.filter(c=>!isPersonal(c)) :
+                           brievContext === 'creator' ? camps.filter(isPersonal) : camps;
+
+  const statusGroup = value => {
+    if (value === 'Prospecto') return 'Prospecto';
+    if (['Propuesta enviada','Negociación'].includes(value)) return 'Negociación';
+    if (['Acuerdo alcanzado','Contrato firmado','Firmado'].includes(value)) return 'Confirmada';
+    if (value === 'En producción') return 'En producción';
+    if (['En aprobación','Contenido aprobado'].includes(value)) return 'En aprobación';
+    if (['Publicado','Entregado','Facturado','Pagado'].includes(value)) return 'Publicada';
+    return value || 'Prospecto';
+  };
+  const statusIcon = value => STATUS_UI.find(x=>x.label===statusGroup(value))?.icon || '•';
+  const statusText = value => statusGroup(value);
+  const storedStatus = value => STATUS_UI.find(x=>x.label===statusGroup(value))?.value || 'Prospecto';
+  const cobroText = value => value === 'Pendiente' ? 'Pendiente de facturar' : value === 'Pagado' ? 'Cobrado' : value;
+  const cycleBadge = c => `<span class="cycle-pill">${em(CICLOS,c.ciclo||'Activa')} ${esc(c.ciclo||'Activa')}</span>`;
+
+  const meta = c => {
     const raw = c?.extras?.marca_personal_v1;
     if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
       return {tipo:'Pagada',canjeDescripcion:'',canjeValor:0,canjeRecibido:'no',canjeFecha:''};
     }
-    const tipo = MP_COLLABS.some(([v]) => v === raw.tipo) ? raw.tipo : 'Pagada';
+    const tipo = COLLABS.some(([v])=>v===raw.tipo) ? raw.tipo : 'Pagada';
     return {
       tipo,
-      canjeDescripcion: String(raw.canjeDescripcion || ''),
-      canjeValor: tipo === 'Pagada' ? 0 : roundMoney(raw.canjeValor || 0),
-      canjeRecibido: raw.canjeRecibido === 'si' ? 'si' : 'no',
-      canjeFecha: raw.canjeFecha || ''
+      canjeDescripcion:String(raw.canjeDescripcion||''),
+      canjeValor:tipo==='Pagada'?0:roundMoney(raw.canjeValor||0),
+      canjeRecibido:raw.canjeRecibido==='si'?'si':'no',
+      canjeFecha:raw.canjeFecha||''
     };
   };
-  const mpType = c => mpIsPersonal(c) ? mpMeta(c).tipo : 'Pagada';
-  const mpCash = c => mpIsPersonal(c) ? (mpType(c) === 'Canje' ? 0 : roundMoney(c.monto || 0)) : 0;
-  const mpBarter = c => mpIsPersonal(c) ? mpMeta(c).canjeValor : 0;
-  const mpValue = c => roundMoney(mpCash(c) + mpBarter(c));
-  const mpIcon = type => MP_COLLABS.find(([v]) => v === type)?.[1] || '💵';
-  const mpCollabBadge = c => {
-    if (!mpIsPersonal(c)) return '';
-    const type = mpType(c);
-    return `<span class="collab-pill ${type === 'Pagada' ? 'paid' : type === 'Canje' ? 'barter' : 'mixed'}">${mpIcon(type)} ${esc(type)}</span>`;
+  const collabType = c => isPersonal(c) ? meta(c).tipo : 'Pagada';
+  const cash = c => isPersonal(c) ? (collabType(c)==='Canje'?0:roundMoney(c.monto||0)) : 0;
+  const barter = c => isPersonal(c) ? meta(c).canjeValor : 0;
+  const creatorValue = c => roundMoney(cash(c)+barter(c));
+  const income = c => isPersonal(c) ? cash(c) : comOf(c);
+  const collabIcon = type => COLLABS.find(([v])=>v===type)?.[1]||'💵';
+  const collabBadge = c => {
+    if (!isPersonal(c)) return '';
+    const t=collabType(c);
+    return `<span class="collab-pill ${t==='Pagada'?'paid':t==='Canje'?'barter':'mixed'}">${collabIcon(t)} ${esc(t)}</span>`;
   };
-  const mpIsActive = c => ['Activa','Renovada'].includes(c.ciclo) && ACTIVOS.includes(c.estado);
-  const mpCashStatus = c => mpCash(c) <= 0 ? 'Sin pago en dinero' : (c.cobro === 'Pagado' ? 'Cobrado' : cobroLabel(c.cobro));
-  const mpCanjeStatus = c => {
-    const m = mpMeta(c);
-    return m.tipo === 'Pagada' ? '' : (m.canjeRecibido === 'si' ? 'Canje recibido' : 'Canje pendiente');
-  };
+  const creatorSelf = () => cres.find(r=>r.nombre?.trim().toLocaleLowerCase('es')===SELF_NAME.toLocaleLowerCase('es'));
 
-  function mpSwitchMarkup(prefix){
+  function installUI(){
+    if(!g('briev-dash-context')){
+      g('page-dash')?.querySelector('.top')?.insertAdjacentHTML('afterend',`
+        <div class="briev-context-wrap" id="briev-dash-context">${contextMarkup('dash')}</div>`);
+    }
+    if(!g('briev-camp-context')){
+      g('page-camp')?.querySelector('.top')?.insertAdjacentHTML('afterend',`
+        <div class="briev-context-wrap" id="briev-camp-context">${contextMarkup('camp')}</div>`);
+    }
+    if(!g('flt-ciclo')){
+      const filters=g('page-camp')?.querySelector('.filters');
+      if(filters) filters.insertAdjacentHTML('beforeend','<select id="flt-ciclo" aria-label="Filtrar por ciclo" onchange="renderCamps()"></select>');
+    }
+    if(!g('personal-collab-section')){
+      const row=g('c-titular')?.closest('.two');
+      row?.insertAdjacentHTML('afterend',`
+        <section class="personal-collab" id="personal-collab-section" hidden>
+          <h4>✨ Colaboración de Marca personal</h4>
+          <p class="form-hint">El dinero y el valor del canje se registran por separado. El canje no se cuenta como ingreso monetario.</p>
+          <div class="personal-grid">
+            <div class="field"><label for="c-colab">Tipo de colaboración</label>
+              <select id="c-colab"><option value="Pagada">💵 Pagada</option><option value="Canje">🎁 Canje</option><option value="Mixta">💵 + 🎁 Mixta</option></select>
+            </div>
+            <div class="field" id="c-canje-valor-field"><label for="c-canje-valor">Valor estimado del canje ($)</label><input id="c-canje-valor" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0.00"></div>
+            <div class="field" id="c-canje-desc-field"><label for="c-canje-desc">Producto o servicio</label><input id="c-canje-desc" maxlength="300" placeholder="Ej. hospedaje, skincare, ropa…"></div>
+            <div class="field" id="c-canje-recibido-field"><label for="c-canje-recibido">Estado del canje</label><select id="c-canje-recibido"><option value="no">⏳ Pendiente de recibir</option><option value="si">✅ Recibido</option></select></div>
+            <div class="field" id="c-canje-fecha-field"><label for="c-canje-fecha">Fecha de recepción</label><input id="c-canje-fecha" type="date"></div>
+          </div>
+        </section>`);
+      g('c-colab')?.addEventListener('change',()=>togglePersonalFields(true));
+      g('c-canje-valor')?.addEventListener('input',()=>cCalc(true));
+      g('c-canje-recibido')?.addEventListener('change',()=>togglePersonalFields(false));
+      g('c-titular')?.addEventListener('change',()=>togglePersonalFields(true));
+    }
+    if(!g('dash-collab-card')){
+      const collectionCard=g('collection')?.closest('.chart-card');
+      collectionCard?.insertAdjacentHTML('beforebegin',`<div class="chart-card distribution-card" id="dash-collab-card" hidden><h3>🤝 Tipo de colaboración</h3><p class="chart-note">Pagadas, canje y mixtas.</p><div id="dash-collab"></div></div>`);
+    }
+    if(!g('creator-brand-summary')){
+      const top3panel=g('top3list')?.closest('.panel');
+      top3panel?.insertAdjacentHTML('afterend',`
+        <div class="chart-card creator-brand-summary" id="creator-brand-summary" hidden>
+          <div class="chart-head"><div><h3>💵 Ingreso por marca</h3><p class="chart-note">Dinero y canje separados por marca.</p></div><span class="tag" id="creator-brand-total"></span></div>
+          <div id="creator-brand-list"></div>
+        </div>`);
+    }
+    // Static wording: internal value remains Propia for DB compatibility.
+    const own=[...(g('c-titular')?.options||[])].find(o=>o.value==='Propia'||o.textContent.trim()==='Propia');
+    if(own){own.value='Propia';own.textContent='Marca personal';}
+    updateContextUI();
+  }
+
+  function contextMarkup(prefix){
     return `<div class="briev-context-switch" aria-label="Cambiar vista">
+      <button id="${prefix}-general" type="button" onclick="setBrievContext('general')">◉ General</button>
       <button id="${prefix}-agency" type="button" onclick="setBrievContext('agency')">🏢 Agencia</button>
       <button id="${prefix}-creator" type="button" onclick="setBrievContext('creator')">✨ Creadora</button>
     </div>`;
   }
 
-  function mpInstallUI(){
-    if (!g('briev-dash-context')) {
-      const top = g('page-dash')?.querySelector('.top');
-      if (top) top.insertAdjacentHTML('afterend', `<div class="briev-context-wrap" id="briev-dash-context">${mpSwitchMarkup('briev-dash')}</div>`);
+  function updateContextUI(){
+    for(const prefix of ['dash','camp']){
+      for(const mode of ['general','agency','creator']){
+        g(`${prefix}-${mode}`)?.classList.toggle('on',brievContext===mode);
+      }
     }
-    if (!g('briev-camp-context')) {
-      const top = g('page-camp')?.querySelector('.top');
-      if (top) top.insertAdjacentHTML('afterend', `<div class="briev-context-wrap" id="briev-camp-context">${mpSwitchMarkup('briev-camp')}</div>`);
-    }
-    const titleSelect = g('c-titular');
-    if (titleSelect) {
-      const ownOpt = [...titleSelect.options].find(o => o.value === 'Propia' || o.textContent.trim() === 'Propia');
-      if (ownOpt) { ownOpt.value = 'Propia'; ownOpt.textContent = 'Marca personal'; }
-      titleSelect.addEventListener('change', () => togglePersonalFields(true));
-    }
-    if (!g('personal-collab-section') && titleSelect) {
-      const row = titleSelect.closest('.two');
-      row?.insertAdjacentHTML('afterend', `
-        <section class="personal-collab" id="personal-collab-section" hidden>
-          <h4>✨ Colaboración de marca personal</h4>
-          <p class="form-hint">Registra el dinero y el valor del producto o servicio por separado. El canje no se suma a tu ingreso monetario.</p>
-          <div class="personal-grid">
-            <div class="field">
-              <label for="c-colab">Tipo de colaboración</label>
-              <select id="c-colab">
-                <option value="Pagada">💵 Pagada</option>
-                <option value="Canje">🎁 Canje</option>
-                <option value="Mixta">💵 + 🎁 Mixta</option>
-              </select>
-            </div>
-            <div class="field" id="c-canje-valor-field">
-              <label for="c-canje-valor">Valor estimado del canje ($)</label>
-              <input id="c-canje-valor" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0.00">
-            </div>
-            <div class="field" id="c-canje-desc-field">
-              <label for="c-canje-desc">Producto o servicio recibido</label>
-              <input id="c-canje-desc" maxlength="300" placeholder="Ej. hospedaje, skincare, ropa…">
-            </div>
-            <div class="field" id="c-canje-recibido-field">
-              <label for="c-canje-recibido">¿Canje recibido?</label>
-              <select id="c-canje-recibido"><option value="no">⏳ No</option><option value="si">✅ Sí</option></select>
-            </div>
-            <div class="field" id="c-canje-fecha-field">
-              <label for="c-canje-fecha">Fecha de recepción</label>
-              <input id="c-canje-fecha" type="date">
-            </div>
-          </div>
-        </section>`);
-      g('c-colab')?.addEventListener('change', () => togglePersonalFields(true));
-      g('c-canje-valor')?.addEventListener('input', () => cCalc(true));
-      g('c-canje-recibido')?.addEventListener('change', () => togglePersonalFields(false));
-    }
-    if (!g('dash-collab-card')) {
-      const row = g('dash-industry')?.closest('.charts');
-      if (row) row.insertAdjacentHTML('beforeend', `<div class="chart-card distribution-card" id="dash-collab-card" hidden><h3>🤝 Tipo de colaboración</h3><p class="chart-note">Pagadas, canje y mixtas · cantidad y porcentaje.</p><div id="dash-collab"></div></div>`);
-    }
-    if (!g('summary-collab-card')) {
-      const row = g('summary-industry')?.closest('.charts');
-      if (row) row.insertAdjacentHTML('beforeend', `<div class="chart-card distribution-card" id="summary-collab-card" hidden><h3>🤝 Tipo de colaboración</h3><p class="chart-note">Campañas filtradas · cantidad y porcentaje.</p><div id="summary-collab"></div></div>`);
-    }
-    mpUpdateContextButtons();
-  }
-
-  function mpUpdateContextButtons(){
-    for (const prefix of ['briev-dash','briev-camp']) {
-      g(prefix+'-agency')?.classList.toggle('on', mpContext === 'agency');
-      g(prefix+'-creator')?.classList.toggle('on', mpContext === 'creator');
+    const nav=document.querySelector('.nav');
+    nav?.classList.toggle('creator-context',brievContext==='creator');
+    if(brievContext==='creator' && g('page-cre')?.classList.contains('on')){
+      const dash=document.querySelector('.nav a[href="#dash"]');
+      if(dash) go('dash',dash);
     }
   }
 
   window.setBrievContext = function(mode){
-    mpContext = mode === 'creator' ? 'creator' : 'agency';
-    mpUpdateContextButtons();
-    if (g('flt-titular')) g('flt-titular').value = '';
+    brievContext=['general','agency','creator'].includes(mode)?mode:'general';
+    installUI();
+    updateContextUI();
+    if(g('flt-estado')) g('flt-estado').value='';
+    if(g('flt-creador')) g('flt-creador').value='';
+    if(g('flt-marca')) g('flt-marca').value='';
+    if(g('flt-industria')) g('flt-industria').value='';
+    if(g('flt-titular')) g('flt-titular').value='';
+    if(g('flt-ciclo')) g('flt-ciclo').value='';
+    buildFilters();
     renderDash();
     renderCamps();
   };
 
-  if (mpOrig.buildFilters) {
-    buildFilters = function(){
-      mpOrig.buildFilters();
-      const sel = g('flt-titular');
-      if (sel) {
-        const own = [...sel.options].find(o => o.value === 'Propia');
-        if (own) own.textContent = 'Marca personal';
-      }
-    };
+  function sortCamps(){
+    camps.sort((a,b)=>(CYCLE_ORDER[a.ciclo]??9)-(CYCLE_ORDER[b.ciclo]??9));
   }
 
-  if (mpOrig.passes) {
-    passes = function(c){
-      const inContext = mpContext === 'creator' ? mpIsPersonal(c) : !mpIsPersonal(c);
-      return inContext && mpOrig.passes(c);
-    };
+  function setFilter(id,values,label){
+    const el=g(id); if(!el) return;
+    const prev=el.value;
+    el.innerHTML=`<option value="">${esc(label)}</option>`+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+    el.value=values.includes(prev)?prev:'';
   }
+
+  buildFilters = function(){
+    installUI();
+    const list=scope();
+    setFilter('flt-estado',STATUS_UI.map(x=>x.label),'Status');
+    setFilter('flt-creador',[...new Set(list.map(creatorName))].sort((a,b)=>a.localeCompare(b,'es')),'Creador');
+    setFilter('flt-marca',[...new Set(list.map(c=>c.marca))].sort((a,b)=>a.localeCompare(b,'es')),'Marca');
+    setFilter('flt-industria',[...new Set(list.map(c=>c.industria))].sort((a,b)=>a.localeCompare(b,'es')),'Industria');
+    setFilter('flt-titular',['Agencia','Marca personal'],'Origen');
+    setFilter('flt-ciclo',CICLOS.map(x=>x[0]),'Ciclo');
+    if(g('flt-creador')) g('flt-creador').hidden=brievContext==='creator';
+    if(g('flt-titular')) g('flt-titular').hidden=brievContext!=='general';
+  };
+
+  passes = function(c){
+    if(brievContext==='agency'&&isPersonal(c)) return false;
+    if(brievContext==='creator'&&!isPersonal(c)) return false;
+    if(g('flt-estado')?.value && statusGroup(c.estado)!==g('flt-estado').value) return false;
+    if(g('flt-creador')?.value && creatorName(c)!==g('flt-creador').value) return false;
+    if(g('flt-marca')?.value && c.marca!==g('flt-marca').value) return false;
+    if(g('flt-industria')?.value && c.industria!==g('flt-industria').value) return false;
+    if(g('flt-ciclo')?.value && c.ciclo!==g('flt-ciclo').value) return false;
+    if(g('flt-titular')?.value){
+      const origin=isPersonal(c)?'Marca personal':'Agencia';
+      if(origin!==g('flt-titular').value) return false;
+    }
+    return true;
+  };
 
   titBadge = function(t){
-    return t === 'Propia'
-      ? '<span class="badge-tit t-pr">✨ Marca personal</span>'
-      : '<span class="badge-tit t-ag">🏢 Agencia</span>';
+    return t==='Propia'?'<span class="badge-tit t-pr">✨ Marca personal</span>':'<span class="badge-tit t-ag">🏢 Agencia</span>';
   };
 
-  function mpDashboardIcons(){
-    const svg = body => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
-    const campaignSrc = document.querySelector('.nav a[href="#camp"] .nav-ic')?.src;
-    return {
-      campaigns: svg('<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6V4h8v2M3 11h18M9 15h6"/>'),
-      income: svg('<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v5c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 11v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/>'),
-      active: campaignSrc ? `<img src="${campaignSrc}" alt="">` : svg('<path d="M4 13V9l11-4v12L4 13Z"/><path d="M15 9h2a3 3 0 0 1 0 6h-2M6 13l1.5 6h4L10 14"/>'),
-      collection: svg('<path d="M4 7h15a2 2 0 0 1 2 2v9H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12"/><path d="M16 11h5v4h-5a2 2 0 0 1 0-4Z"/><path d="m7 11 2 2 4-4"/>'),
-      creators: svg('<circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M16 8.5a2.5 2.5 0 0 1 0 5M17 16a4 4 0 0 1 3.5 3"/>'),
-      gift: svg('<path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 1 1 2.1-3.85L12 7Zm0 0h4.5a2.5 2.5 0 1 0-2.1-3.85L12 7Z"/>')
-    };
+  fillModalSelects = function(){
+    g('c-estado').innerHTML=STATUS_UI.map(x=>`<option value="${esc(x.value)}">${x.icon} ${esc(x.label)}</option>`).join('');
+    g('c-cobro').innerHTML='<option value="Pendiente">⏳ Pendiente de facturar</option><option value="Facturado">🧾 Facturado</option><option value="Pagado">✅ Cobrado</option>';
+    g('c-ciclo').innerHTML=opt(CICLOS);
+    g('c-industria').innerHTML=opt(industryOptions())+`<option value="${NEW_INDUSTRY}">＋ Agregar industria…</option>`;
+    g('c-creador').innerHTML=cres.map(r=>`<option value="${r.id}">${esc(r.nombre)}</option>`).join('')+'<option value="other">— otro creador —</option>';
+  };
+
+  function selfCreatorOption(){
+    const self=creatorSelf();
+    return {value:self?.id||'__self__',label:SELF_NAME,record:self||null};
   }
 
-  renderDash = function(){
-    mpInstallUI();
-    const list = mpScope();
-    const creator = mpContext === 'creator';
-    const icons = mpDashboardIcons();
-    const card = (cls,icon,label,value,sub) => `<div class="kpi ${cls}"><span class="kpi-icon" aria-hidden="true">${icon}</span><div class="label">${label}</div><div class="num">${value}</div><div class="sub">${sub}</div></div>`;
-
-    const eyebrow = g('page-dash')?.querySelector('.eyebrow');
-    if (eyebrow) eyebrow.textContent = creator ? 'Briev Co. / Creadora' : 'Briev Co. / Agencia';
-
-    if (creator) {
-      const cash = sum(list, mpCash);
-      const barter = sum(list, mpBarter);
-      const total = roundMoney(cash + barter);
-      const active = list.filter(mpIsActive).length;
-      const paidCash = sum(list.filter(c => mpCash(c) > 0 && c.cobro === 'Pagado'), mpCash);
-      const pendingCash = roundMoney(cash - paidCash);
-      const receivedBarter = sum(list.filter(c => mpMeta(c).canjeRecibido === 'si'), mpBarter);
-      const pendingBarter = roundMoney(barter - receivedBarter);
-      g('kpis').innerHTML =
-        card('lilac',icons.income,'Ingreso monetario',money(cash),`${list.filter(c=>mpCash(c)>0).length} campaña${list.filter(c=>mpCash(c)>0).length===1?'':'s'} con pago`) +
-        card('cyan',icons.gift,'Valor de canjes',money(barter),`Recibido ${money(receivedBarter)}<br>Pendiente ${money(pendingBarter)}`) +
-        card('hero',icons.income,'Valor total de colaboraciones',money(total),`Dinero ${money(cash)}<br>Canjes ${money(barter)}`) +
-        card('sky',icons.active,'Campañas activas',active,`${pct(active,list.length)} de Marca personal`) +
-        card('soft',icons.collection,'Por cobrar',money(pendingCash),`Dinero pendiente · ${pct(paidCash,cash)} cobrado<br>Canjes por recibir ${money(pendingBarter)}`);
-    } else {
-      const fact = sum(list,c=>c.monto);
-      const com = sum(list,comOf);
-      const activeBase = list.filter(c=>c.ciclo==='Activa' && ACTIVOS.includes(c.estado)).length;
-      const renewed = list.filter(c=>c.ciclo==='Renovada' && ACTIVOS.includes(c.estado)).length;
-      const finalized = list.filter(c=>c.ciclo==='Finalizada').length;
-      const active = activeBase + renewed;
-      const paid = sum(list.filter(c=>c.cobro==='Pagado'),comOf);
-      const pending = roundMoney(com-paid);
-      const pay = sum(list.filter(c=>c.pagcr!=='si'),c=>c.pago);
-      g('kpis').innerHTML =
-        card('lilac',icons.campaigns,'Monto de campañas',money(fact),`${list.length} campañas · incluye propuestas`) +
-        card('hero',icons.income,'Ingresos Briev',money(com),'Comisión generada por Briev') +
-        card('sky',icons.active,'Campañas activas',active,`Activas ${activeBase} · Renovadas ${renewed}<br>Finalizadas ${finalized}`) +
-        card('cyan',icons.collection,'Cobros Briev',money(paid),`Cobrado<br>Pendiente de cobro ${money(pending)} · ${pct(paid,com)} del total`) +
-        card('soft',icons.creators,'Por pagar a creadores',money(pay),'Pagos pendientes a creadores');
-    }
-
-    drawCharts();
-
-    const alerts = g('alertList');
-    const alertsBox = alerts?.closest('.alerts');
-    const alertsTitle = alertsBox?.querySelector('h3');
-    const today = new Date(); today.setHours(12,0,0,0);
-    const soon = [];
-    for (const c of list) {
-      if (!c.inicioCampana) continue;
-      for (const [type,days] of [['Pauta',c.pauta],['Exclusividad',c.excl]]) {
-        if (days <= 0) continue;
-        const end = parseDay(c.inicioCampana); end.setDate(end.getDate()+days);
-        const diff = Math.round((end-today)/86400000);
-        if (diff >= 0 && diff <= 30) soon.push({diff,html:`${esc(type)} de <b>${esc(c.marca)}${creator?'':' · '+esc(creatorName(c))}</b> ${diff===0?'vence hoy':'vence en '+diff+' día'+(diff===1?'':'s')} · ${fecha(end.getFullYear()+'-'+String(end.getMonth()+1).padStart(2,'0')+'-'+String(end.getDate()).padStart(2,'0'))}`});
-      }
-    }
-    soon.sort((a,b)=>a.diff-b.diff);
-    if (creator) {
-      if (alertsTitle) alertsTitle.textContent = '⚠️ Pendientes de Marca personal';
-      const pendingBarters = list.filter(c=>mpBarter(c)>0 && mpMeta(c).canjeRecibido!=='si');
-      const barterHtml = pendingBarters.map(c=>`<div class="mp-pending-item">🎁 <b>${esc(c.marca)}</b> · ${esc(mpMeta(c).canjeDescripcion||'Canje pendiente')} · ${money(mpBarter(c))}</div>`).join('');
-      const rightsHtml = soon.map(x=>`<div class="a">${x.html}</div>`).join('');
-      alerts.innerHTML = barterHtml + rightsHtml || '<div class="none">Sin cobros, canjes o derechos próximos que requieran atención.</div>';
-    } else {
-      if (alertsTitle) alertsTitle.textContent = '⚠️ Derechos por vencer (próximos 30 días)';
-      alerts.innerHTML = soon.length ? soon.map(x=>`<div class="a">${x.html}</div>`).join('') : '<div class="none">Sin derechos por vencer en los próximos 30 días.</div>';
-      const missing = list.filter(c=>!c.inicioCampana&&(c.pauta>0||c.excl>0)).length;
-      if (missing) alerts.innerHTML += `<div class="a">${missing} campaña(s) con derechos sin fecha de inicio. Completa esa fecha para calcular vencimientos.</div>`;
-    }
-  };
-
-  function mpCollabRows(list){
-    return MP_COLLABS.map(([type,icon],i)=>({
-      label:type,icon,value:list.filter(c=>mpType(c)===type).length,color:PAL[i%PAL.length]
-    })).filter(r=>r.value>0);
-  }
-
-  function mpGroupCreatorBrands(list){
-    const map = new Map();
-    for (const c of list) {
-      const key = c.marca || 'Sin asignar';
-      const r = map.get(key) || {label:key,count:0,cash:0,barter:0,value:0,industries:new Set(),types:new Set()};
-      r.count++;
-      r.cash += cents(mpCash(c));
-      r.barter += cents(mpBarter(c));
-      r.value += cents(mpValue(c));
-      r.industries.add(normalizeIndustry(c.industria));
-      r.types.add(mpType(c));
-      map.set(key,r);
-    }
-    return [...map.values()].map(r=>({...r,cash:r.cash/100,barter:r.barter/100,value:r.value/100,industries:[...r.industries],types:[...r.types]})).sort((a,b)=>b.value-a.value||a.label.localeCompare(b.label,'es'));
-  }
-
-  function mpBrandPanelMode(creator){
-    const panel = document.querySelector('.commission-brand');
-    if (!panel) return;
-    const eyebrow = panel.querySelector('.rank-header .eyebrow');
-    const title = panel.querySelector('.rank-header h3');
-    const note = panel.querySelector('.rank-header .chart-note');
-    const summaryLabel = panel.querySelector('.rank-summary > span');
-    const sort = panel.querySelector('.rank-sort-label');
-    if (creator) {
-      if (eyebrow) eyebrow.textContent='Valor de colaboraciones';
-      if (title) title.textContent='Valor por marca';
-      if (note) note.textContent='Dinero y valor estimado del canje por marca. El canje permanece separado del ingreso monetario.';
-      if (summaryLabel) summaryLabel.textContent='Valor total';
-      if (sort) sort.textContent='Mayor valor primero ↓';
-    } else {
-      if (eyebrow) eyebrow.textContent='Distribución de ingresos';
-      if (title) title.textContent='Comisión por marca';
-      if (note) note.textContent='Industria y cobro por marca · importes de comisión de Briev, no de facturación.';
-      if (summaryLabel) summaryLabel.textContent='Comisión total';
-      if (sort) sort.textContent='Mayor comisión primero ↓';
+  function applyCreatorSelector(own){
+    const select=g('c-creador'), label=select?.closest('.field')?.querySelector('label');
+    if(!select) return;
+    if(own){
+      const self=selfCreatorOption();
+      select.innerHTML=`<option value="${esc(self.value)}">${esc(self.label)}</option>`;
+      select.value=self.value;
+      if(label) label.textContent='Creadora';
+      g('c-other').value=SELF_NAME;
+      g('other-creator-field').hidden=true;
+    }else{
+      const previous=select.value;
+      select.innerHTML=cres.map(r=>`<option value="${r.id}">${esc(r.nombre)}</option>`).join('')+'<option value="other">— otro creador —</option>';
+      select.value=[...select.options].some(o=>o.value===previous)?previous:(cres[0]?.id||'other');
+      if(label) label.textContent='Creador';
+      toggleOtherCreator();
     }
   }
-
-  function mpDrawCreatorBrands(){
-    const all = rankingData.brand || [];
-    const term = g('brand-search')?.value.trim().toLocaleLowerCase() || '';
-    const limit = g('brand-limit')?.value || '8';
-    const matches = all.filter(r=>r.label.toLocaleLowerCase().includes(term));
-    const visible = limit==='all'?matches:matches.slice(0,Number(limit));
-    const total = sum(all,r=>r.value);
-    g('brand-total').textContent = money(total);
-    g('brand-contributors').textContent = `${all.length} marcas · ${all.reduce((s,r)=>s+r.count,0)} campañas`;
-    g('brand-list').innerHTML = visible.length ? `<div class="mp-brand-head"><span>#</span><span>Marca / industria</span><span>Campañas</span><span>Dinero</span><span>Canje</span><span>Valor total</span></div>` + visible.map(r=>{
-      const pos=all.indexOf(r)+1;
-      return `<div class="mp-brand-row" data-leading="${pos===1}">
-        <span class="rank-place">${pos}</span>
-        <div class="rank-identity"><span class="rank-avatar" aria-hidden="true">${esc(initials(r.label))}</span><div class="rank-name-block"><span class="rank-entity">${esc(r.label)}</span><span class="rank-industries">${r.industries.map(x=>`<span>${esc(x)}</span>`).join('')}</span></div></div>
-        <div class="mp-brand-types"><span class="rank-count"><b>${r.count}</b></span>${r.types.map(t=>`<span class="collab-pill ${t==='Pagada'?'paid':t==='Canje'?'barter':'mixed'}">${mpIcon(t)} ${esc(t)}</span>`).join('')}</div>
-        <div class="mp-brand-money cash"><span class="rank-mobile-label">Dinero</span><strong>${money(r.cash)}</strong></div>
-        <div class="mp-brand-money barter"><span class="rank-mobile-label">Canje</span><strong>${money(r.barter)}</strong></div>
-        <div class="mp-brand-money total"><span class="rank-mobile-label">Total</span><strong>${money(r.value)}</strong></div>
-      </div>`;
-    }).join('') : '<div class="empty">Sin resultados. Prueba con otro nombre.</div>';
-    g('brand-foot').textContent = `${visible.length} de ${matches.length} marcas${term?' encontradas':''} · Valor visible ${money(sum(visible,r=>r.value))}.`;
-  }
-
-  if (mpOrig.drawRanking) {
-    drawRanking = function(id){
-      if (id==='brand' && mpContext==='creator') { mpDrawCreatorBrands(); return; }
-      return mpOrig.drawRanking(id);
-    };
-  }
-
-  drawCharts = function(){
-    const list = mpScope();
-    const creator = mpContext==='creator';
-    const collabCard = g('dash-collab-card');
-    if (collabCard) collabCard.hidden = !creator;
-    const overview = g('dash-industry')?.closest('.charts');
-    overview?.classList.toggle('creator-overview',creator);
-
-    mpBrandPanelMode(creator);
-    if (creator) {
-      rankingData.brand = mpGroupCreatorBrands(list);
-      drawRanking('brand');
-      const cashTotal = sum(list,mpCash);
-      const cashPaid = sum(list.filter(c=>mpCash(c)>0&&c.cobro==='Pagado'),mpCash);
-      const cashPending = roundMoney(cashTotal-cashPaid);
-      ring('collection',[
-        {label:'Cobrado',icon:'✅',value:cashPaid,color:'#5ec4e6'},
-        {label:'Pendiente de cobro',icon:'⏳',value:cashPending,color:'#b677b1'}
-      ],true);
-      ring('dash-status',statusRows(list));
-      ring('dash-industry',industryRows(list));
-      ring('dash-collab',mpCollabRows(list));
-    } else {
-      rankingData.brand = groupBrands(list);
-      drawRanking('brand');
-      const collected=sum(list.filter(c=>c.cobro==='Pagado'),comOf);
-      const pending=sum(list.filter(c=>c.cobro!=='Pagado'),comOf);
-      ring('collection',[
-        {label:'Cobrado',icon:'✅',value:collected,color:'#5ec4e6'},
-        {label:'Pendiente de cobro',icon:'⏳',value:pending,color:'#b677b1'}
-      ],true);
-      ring('dash-status',statusRows(list));
-      ring('dash-industry',industryRows(list));
-    }
-    drawMonth();
-  };
-
-  drawMonth = function(){
-    const list = mpScope();
-    const creator = mpContext==='creator';
-    const byMonth = new Map();
-    for (const c of list) {
-      const d=c.inicioCampana||c.inicioAcuerdo;
-      if (!d) continue;
-      const k=d.slice(0,7), row=byMonth.get(k)||{cash:0,barter:0,total:0};
-      if (creator) {
-        row.cash += cents(mpCash(c)); row.barter += cents(mpBarter(c)); row.total += cents(mpValue(c));
-      } else {
-        row.cash += cents(comOf(c)); row.total += cents(comOf(c));
-      }
-      byMonth.set(k,row);
-    }
-    const keys=[...byMonth.keys()].sort(),months=[];
-    if(keys.length){let [y,m]=keys[0].split('-').map(Number);const last=keys.at(-1);while(`${y}-${String(m).padStart(2,'0')}`<=last){months.push(`${y}-${String(m).padStart(2,'0')}`);m++;if(m>12){m=1;y++;}}}
-    const title=document.querySelector('.monthly-panel h3');
-    const note=document.querySelector('.monthly-panel .chart-note');
-    if(title) title.textContent=creator?'💵 Ingresos y canjes por mes':'💵 Comisión por mes';
-    if(note) note.textContent=creator?'Dinero y valor estimado del canje se muestran por separado.':'Según inicio de campaña; si no existe, inicio del acuerdo. No representa la fecha de cobro.';
-    g('month-total').textContent=money([...byMonth.values()].reduce((s,r)=>s+r.total,0)/100);
-    g('month-values').innerHTML=months.length?months.map(k=>{const r=byMonth.get(k)||{cash:0,barter:0,total:0};return creator
-      ? `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Dinero ${money(r.cash/100)}</span><span>Canje ${money(r.barter/100)}</span></small></div>`
-      : `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong></div>`;}).join('')
-      : '<p class="form-hint">Agrega campañas con fecha para ver la evolución mensual.</p>';
-    const missing=list.filter(c=>!c.inicioCampana&&!c.inicioAcuerdo);
-    g('month-missing').textContent=missing.length?`${missing.length} campaña(s) sin Inicio de campaña ni Inicio del acuerdo: no se incluyen en la curva mensual.`:'';
-    charts.month?.destroy(); delete charts.month;
-    g('month-wrap').style.width='100%';
-    if(typeof Chart==='undefined'||!months.length){g('month-wrap').hidden=true;g('month-details').open=typeof Chart==='undefined';return;}
-    g('month-wrap').hidden=false;
-    const datasets=creator?[
-      {label:'Ingreso monetario',data:months.map(k=>(byMonth.get(k)?.cash||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b112',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:3,borderWidth:2.5},
-      {label:'Valor de canje',data:months.map(k=>(byMonth.get(k)?.barter||0)/100),borderColor:'#5ec4e6',backgroundColor:'#5ec4e612',fill:false,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:3,borderWidth:2.5}
-    ]:[
-      {label:'Comisión',data:months.map(k=>(byMonth.get(k)?.total||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b114',fill:true,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:months.length>24?2:4,pointHitRadius:18,borderWidth:2.5}
-    ];
-    charts.month=new Chart(g('chMonth'),{type:'line',data:{labels:months.map(k=>mesCorto(k+'-01')),datasets},options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:24,right:12}},interaction:{mode:'index',intersect:false},plugins:{legend:{display:creator,position:'bottom',labels:{font:{family:'Poppins',size:10},boxWidth:10,color:'#696583'}},tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${money(ctx.parsed.y)}`}}},scales:{x:{grid:{display:false},ticks:{autoSkip:true,maxTicksLimit:8,maxRotation:0,color:'#696583',font:{family:'Poppins',size:11}}},y:{beginAtZero:true,grid:{color:'#f0eef7'},ticks:{maxTicksLimit:5,callback:v=>money(v),font:{family:'Poppins',size:11},color:'#696583'}}}}});
-  };
-
-  renderResumen = function(){
-    if (mpContext!=='creator') {
-      g('summary-collab-card')?.setAttribute('hidden','');
-      return mpOrig.renderResumen();
-    }
-    const list=camps.filter(passes);
-    g('summary-collab-card')?.removeAttribute('hidden');
-    g('ciclo-mini').innerHTML=CICLOS.map(cy=>`<div class="mini"><div class="e">${cy[1]}</div><div><div class="n">${list.filter(c=>c.ciclo===cy[0]).length}</div><div class="l">${cy[0]}s</div></div></div>`).join('');
-    const top=[...list].sort((a,b)=>mpValue(b)-mpValue(a)).slice(0,3);
-    g('top3list').innerHTML=top.map((c,i)=>`<article class="t3 ${i===0?'lead':''}"><div class="medal">${['🥇','🥈','🥉'][i]}</div><div class="info"><div class="m">${esc(c.marca)}</div><div class="s"><span>${esc(c.nombre||'Sin nombre')}</span>${mpCollabBadge(c)}<span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></div></div><div class="amt"><div class="v">${money(mpValue(c))}</div><div class="p">Valor total · dinero ${money(mpCash(c))} · canje ${money(mpBarter(c))}</div></div><button class="btn btn-ghost btn-small" onclick="detail(${camps.indexOf(c)})">Ver campaña →</button></article>`).join('')||'<div class="empty">Sin campañas para este filtro.</div>';
-    ring('summary-status',statusRows(list));
-    ring('summary-industry',industryRows(list));
-    ring('summary-collab',mpCollabRows(list));
-  };
-
-  renderCamps = function(){
-    mpInstallUI();
-    if (mpContext==='agency') {
-      const r=mpOrig.renderCamps();
-      const scoped=mpScope();
-      const idx=camps.filter(passes).length;
-      if(g('camp-count')) g('camp-count').textContent=`${idx} de ${scoped.length} campañas · Agencia`;
-      if(g('flt-creador')) g('flt-creador').hidden=false;
-      if(g('flt-titular')) g('flt-titular').hidden=true;
-      const ownOpt=[...g('flt-titular')?.options||[]].find(o=>o.value==='Propia'); if(ownOpt) ownOpt.textContent='Marca personal';
-      return r;
-    }
-    const idx=camps.map((c,i)=>i).filter(i=>passes(camps[i]));
-    const scoped=mpScope();
-    g('camp-count').textContent=`${idx.length} de ${scoped.length} campañas · Marca personal`;
-    if(g('flt-creador')) g('flt-creador').hidden=true;
-    if(g('flt-titular')) g('flt-titular').hidden=true;
-    const head=g('camp-table')?.querySelector('thead tr');
-    if(head) head.innerHTML='<th>Marca / Campaña</th><th>Tipo</th><th>Mes</th><th>Industria</th><th class="num-r">Ingreso $</th><th class="num-r">Valor canje</th><th class="num-r">Valor total</th><th>Status</th><th>Cobro / canje</th><th>Origen</th>';
-    g('camp-cards').innerHTML=idx.length?idx.map(i=>{const c=camps[i],m=mpMeta(c);return `<div class="ccard propia" onclick="detail(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(${i})}">
-      <div class="cc-top"><div><div class="cc-marca">${esc(c.marca)}</div><div class="cc-name">${esc(c.nombre||'—')}</div></div>${titBadge(c.titular)}</div>
-      <div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span>${mpCollabBadge(c)}</div>
-      <div class="cc-det"><div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||'—')}</div></div><div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div><div class="d"><div class="l">Inicio campaña</div><div class="v">${fecha(c.inicioCampana)}</div></div>${m.tipo!=='Pagada'?`<div class="d full"><div class="l">Canje</div><div class="v">${esc(m.canjeDescripcion||'Sin descripción')} · ${m.canjeRecibido==='si'?'✅ Recibido':'⏳ Pendiente'}</div></div>`:''}</div>
-      <div class="mp-value-grid"><span class="cash">Ingreso monetario<strong>${money(mpCash(c))}</strong></span><span class="barter">Valor canje<strong>${money(mpBarter(c))}</strong></span><span>Valor total<strong>${money(mpValue(c))}</strong></span></div>
-      <div class="cc-pills"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span>${mpCash(c)>0?`<span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroLabel(c.cobro))}</span>`:''}${m.tipo!=='Pagada'?`<span class="pill ${m.canjeRecibido==='si'?'pagado':'pend'}">${m.canjeRecibido==='si'?'✅ Canje recibido':'⏳ Canje pendiente'}</span>`:''}</div>
-    </div>`;}).join(''):'<div class="empty" style="grid-column:1/-1">No hay campañas de Marca personal con estos filtros.</div>';
-    g('camp-rows').innerHTML=idx.length?idx.map(i=>{const c=camps[i],m=mpMeta(c);const status=[mpCash(c)>0?mpCashStatus(c):'',m.tipo!=='Pagada'?mpCanjeStatus(c):''].filter(Boolean).join(' · ');return `<tr onclick="detail(${i})" tabindex="0" onkeydown="if(event.key==='Enter')detail(${i})">
-      <td data-label="Campaña"><div style="font-weight:600">${esc(c.marca)}</div><div style="font-size:11.5px;color:var(--muted)">${esc(c.nombre||'—')}</div></td>
-      <td data-label="Tipo">${mpCollabBadge(c)}</td>
-      <td data-label="Mes">${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td>
-      <td data-label="Industria"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td>
-      <td data-label="Ingreso $" class="num-r money">${money(mpCash(c))}</td>
-      <td data-label="Valor canje" class="num-r">${money(mpBarter(c))}</td>
-      <td data-label="Valor total" class="num-r mine">${money(mpValue(c))}</td>
-      <td data-label="Status"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></td>
-      <td data-label="Cobro / canje"><span class="pill ${((mpCash(c)<=0||c.cobro==='Pagado')&&(m.tipo==='Pagada'||m.canjeRecibido==='si'))?'pagado':'pend'}">${esc(status||'—')}</span></td>
-      <td data-label="Origen">${titBadge(c.titular)}</td>
-    </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas de Marca personal con estos filtros.</td></tr>';
-    if(campView==='resumen') renderResumen();
-  };
-
-  detail = function(i){
-    const c=camps[i];
-    if(!mpIsPersonal(c)) return mpOrig.detail(i);
-    const m=mpMeta(c),yn=v=>v>0?`✅ ${v} días`:'—';
-    g('det-body').innerHTML=`<div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||'—')} · ${em(INDUS,c.industria)} ${esc(c.industria)}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
-      <div style="margin:6px 0 2px">${titBadge(c.titular)} ${mpCollabBadge(c)} <span class="tag">${em(CICLOS,c.ciclo||'Activa')} ${esc(c.ciclo||'Activa')}</span></div>
-      <div class="det-com"><span>Valor total de colaboración</span><span class="v">${money(mpValue(c))}</span></div>
-      <div class="det-row"><span class="k">Ingreso monetario</span><span class="v">${money(mpCash(c))}</span></div>
-      <div class="det-row"><span class="k">Valor del canje</span><span class="v">${money(mpBarter(c))}</span></div>
-      ${m.tipo!=='Pagada'?`<div class="det-row"><span class="k">Producto / servicio</span><span class="v">${esc(m.canjeDescripcion||'—')}</span></div><div class="det-row"><span class="k">Canje recibido</span><span class="v">${m.canjeRecibido==='si'?'✅ Sí':'⏳ No'}</span></div><div class="det-row"><span class="k">Fecha de recepción</span><span class="v">${fecha(m.canjeFecha)}</span></div>`:''}
-      <div class="det-row"><span class="k">Entregables</span><span class="v">${esc(c.entregables||'—')}</span></div>
-      <div class="det-row"><span class="k">Derechos de pauta</span><span class="v">${yn(c.pauta)}</span></div>
-      <div class="det-row"><span class="k">Exclusividad</span><span class="v">${yn(c.excl)}</span></div>
-      ${mpCash(c)>0?`<div class="det-row"><span class="k">Días de pago</span><span class="v">${c.diaspago?c.diaspago+' días':'—'}</span></div>`:''}
-      <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div>
-      <div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div>
-      <div class="det-row"><span class="k">Brief</span><span class="v">${c.brief==='si'?'✅ Recibido':'❌ No recibido'}</span></div>
-      <div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></span></div>
-      ${mpCash(c)>0?`<div class="det-row"><span class="k">Cobro</span><span class="v"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroLabel(c.cobro))}</span></span></div>`:''}
-      <div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;
-    open_('ov-det');
-  };
 
   window.togglePersonalFields = function(changed=false){
+    installUI();
     const own=g('c-titular')?.value==='Propia';
     const type=own?(g('c-colab')?.value||'Pagada'):'Pagada';
     if(g('personal-collab-section')) g('personal-collab-section').hidden=!own;
+    applyCreatorSelector(own);
     const showBarter=own&&type!=='Pagada';
     for(const id of ['c-canje-valor-field','c-canje-desc-field','c-canje-recibido-field','c-canje-fecha-field']) if(g(id)) g(id).hidden=!showBarter;
-    if(g('c-canje-valor')) {g('c-canje-valor').disabled=!showBarter;g('c-canje-valor').required=showBarter;}
-    if(g('c-canje-desc')) g('c-canje-desc').disabled=!showBarter;
-    if(g('c-canje-recibido')) g('c-canje-recibido').disabled=!showBarter;
-    if(g('c-canje-fecha')) g('c-canje-fecha').disabled=!showBarter;
+    for(const id of ['c-canje-valor','c-canje-desc','c-canje-recibido','c-canje-fecha']) if(g(id)) g(id).disabled=!showBarter;
+    if(g('c-canje-valor')) g('c-canje-valor').required=showBarter;
+    const titleField=g('c-titular')?.closest('.field');
+    if(titleField) titleField.hidden=brievContext!=='general';
+    const modeField=g('c-finance-mode')?.closest('.field');
+    const payField=g('c-pagcr')?.closest('.field');
+    const cobroField=g('c-cobro')?.closest('.field');
+    const daysField=g('c-diaspago')?.closest('.field');
+    if(modeField) modeField.hidden=own;
+    if(payField) payField.hidden=own;
+    if(cobroField) cobroField.hidden=own&&type==='Canje';
+    if(daysField) daysField.hidden=own&&type==='Canje';
     const montoLabel=g('c-monto')?.closest('.field')?.querySelector('label');
     if(montoLabel) montoLabel.textContent=own?'Ingreso monetario ($)':'Monto acordado con la marca ($)';
-    if(g('c-monto')) {
-      if(own&&type==='Canje'){if(changed)g('c-monto').value='0';g('c-monto').disabled=true;}
+    if(g('c-monto')){
+      if(own&&type==='Canje'){if(changed) g('c-monto').value='0';g('c-monto').disabled=true;}
       else g('c-monto').disabled=false;
     }
-    const financeModeField=g('c-finance-mode')?.closest('.field'); if(financeModeField) financeModeField.hidden=own;
-    const payCreatorField=g('c-pagcr')?.closest('.field'); if(payCreatorField) payCreatorField.hidden=own;
-    const cobroField=g('c-cobro')?.closest('.field'); if(cobroField) cobroField.hidden=own&&type==='Canje';
-    const daysField=g('c-diaspago')?.closest('.field'); if(daysField) daysField.hidden=own&&type==='Canje';
+    if(own){
+      g('c-finance-mode').disabled=true;
+      g('c-pago').disabled=true; g('c-pago').required=false;
+      g('c-com-pct').disabled=true; g('c-com-pct').required=false;
+      g('finance-pct-field').hidden=true; g('finance-pay-field').hidden=true;
+    }else{
+      g('c-finance-mode').disabled=false;
+    }
     cCalc(changed);
   };
 
   openCamp = function(i){
-    mpInstallUI();
-    mpOrig.openCamp(i);
-    const c=i===undefined?null:camps[i];
-    if(i===undefined&&mpContext==='creator') g('c-titular').value='Propia';
-    const m=mpMeta(c);
-    if(g('c-colab')) g('c-colab').value=m.tipo;
-    if(g('c-canje-desc')) g('c-canje-desc').value=m.canjeDescripcion;
-    if(g('c-canje-valor')) g('c-canje-valor').value=m.canjeValor||'';
-    if(g('c-canje-recibido')) g('c-canje-recibido').value=m.canjeRecibido;
-    if(g('c-canje-fecha')) g('c-canje-fecha').value=m.canjeFecha;
+    installUI();
+    orig.openCamp(i);
+    const current=i===undefined?null:camps[i];
+    if(i===undefined){
+      if(brievContext==='creator') g('c-titular').value='Propia';
+      else if(brievContext==='agency') g('c-titular').value='Agencia';
+    }
+    if(current) g('c-estado').value=storedStatus(current.estado);
+    const m=meta(current);
+    g('c-colab').value=m.tipo;
+    g('c-canje-desc').value=m.canjeDescripcion;
+    g('c-canje-valor').value=m.canjeValor||'';
+    g('c-canje-recibido').value=m.canjeRecibido;
+    g('c-canje-fecha').value=m.canjeFecha;
     togglePersonalFields(false);
   };
 
   cCalc = function(changed=false){
     const own=g('c-titular')?.value==='Propia';
-    if(!own) return mpOrig.cCalc(changed);
+    if(!own) return orig.cCalc(changed);
     financeDirty=financeDirty||changed;
     const type=g('c-colab')?.value||'Pagada';
     try{
-      const cash=type==='Canje'?0:g('c-monto').value;
-      if(type!=='Canje'&&String(cash).trim()==='') throw new Error('Ingresa el pago que recibirás de la marca.');
-      financeDraft=computeAgreedFinance(cash||0,0,true);
+      const cashValue=type==='Canje'?0:g('c-monto').value;
+      if(type!=='Canje'&&String(cashValue).trim()==='') throw new Error('Ingresa el pago que recibirás de la marca.');
+      financeDraft=computeAgreedFinance(cashValue||0,0,true);
       financeError='';
-      const barter=type==='Pagada'?0:roundMoney(g('c-canje-valor')?.value||0);
-      if(type==='Canje'){g('c-com-l').textContent='Valor estimado del canje';g('c-com').textContent=money(barter);g('c-payment-preview').textContent='Ingreso monetario: $0.00 · El canje no se suma a tus ingresos en efectivo.';}
-      else if(type==='Mixta'){g('c-com-l').textContent='Valor total de colaboración';g('c-com').textContent=money(financeDraft.monto+barter);g('c-payment-preview').textContent=`Ingreso monetario: ${money(financeDraft.monto)} · Canje: ${money(barter)}.`;}
-      else {g('c-com-l').textContent='Ingreso monetario';g('c-com').textContent=money(financeDraft.monto);g('c-payment-preview').textContent='El 100% del monto corresponde a Marca personal.';}
-      if(g('c-pago')) g('c-pago').value=0;
-      if(g('c-com-pct')) g('c-com-pct').value=100;
-      g('finance-pct-field').hidden=true;g('finance-pay-field').hidden=true;
-    }catch(e){financeDraft=null;financeError=e.message;g('c-com').textContent='—';g('c-payment-preview').textContent=e.message;}
+      const barterValue=type==='Pagada'?0:roundMoney(g('c-canje-valor')?.value||0);
+      if(type==='Canje'){
+        g('c-com-l').textContent='Valor estimado del canje';
+        g('c-com').textContent=money(barterValue);
+        g('c-payment-preview').textContent='Ingreso monetario: $0.00 · El canje no se suma a tus ingresos en efectivo.';
+      }else if(type==='Mixta'){
+        g('c-com-l').textContent='Monto total de colaboración';
+        g('c-com').textContent=money(financeDraft.monto+barterValue);
+        g('c-payment-preview').textContent=`Ingreso monetario: ${money(financeDraft.monto)} · Canje: ${money(barterValue)}.`;
+      }else{
+        g('c-com-l').textContent='Ingreso monetario';
+        g('c-com').textContent=money(financeDraft.monto);
+        g('c-payment-preview').textContent='El 100% del monto corresponde a Marca personal.';
+      }
+      g('c-pago').value=0;g('c-com-pct').value=100;
+    }catch(e){
+      financeDraft=null;financeError=e.message;g('c-com').textContent='—';g('c-payment-preview').textContent=e.message;
+    }
   };
 
   saveCamp = async function(){
-    if(busy||mode==='locked')return;
+    if(busy||mode==='locked') return;
     try{
       validateInputs('camp');
       if(!g('c-marca').value.trim()) throw new Error('Escribe la marca.');
-      const own=g('c-titular').value==='Propia',type=own?(g('c-colab')?.value||'Pagada'):'Pagada';
-      const creator=cres.find(r=>r.id===g('c-creador').value);
-      const otherName=g('c-other').value.trim();
-      if(!own&&!creator&&!otherName) throw new Error('Selecciona un creador o escribe su nombre.');
+      const own=g('c-titular').value==='Propia', type=own?(g('c-colab').value||'Pagada'):'Pagada';
+      let creator=null, creatorLabel='';
+      if(own){
+        creator=creatorSelf()||null; creatorLabel=SELF_NAME;
+      }else{
+        creator=cres.find(r=>r.id===g('c-creador').value);
+        creatorLabel=creator?.nombre||g('c-other').value.trim();
+        if(!creatorLabel) throw new Error('Selecciona un creador o escribe su nombre.');
+      }
       cCalc(); if(!financeDraft) throw new Error(financeError||'Revisa los importes.');
-      const previous=editCampSnapshot,deliveries=collectDeliverables(previous),f=financeDraft;
+      const previous=editCampSnapshot, deliveries=collectDeliverables(previous), f=financeDraft;
       const extras={...deliveries.extras,finanzas_modo:own?'pago':g('c-finance-mode').value};
       if(own){
-        const barter=type==='Pagada'?0:roundMoney(g('c-canje-valor')?.value||0);
-        if(type!=='Pagada'&&barter<=0) throw new Error('Ingresa el valor estimado del canje.');
-        extras.marca_personal_v1={tipo:type,canjeDescripcion:type==='Pagada'?'':textField(g('c-canje-desc')?.value||'',300),canjeValor:barter,canjeRecibido:type==='Pagada'?'no':g('c-canje-recibido').value,canjeFecha:type==='Pagada'?'':validDate(g('c-canje-fecha')?.value||'')};
-      } else {
-        delete extras.marca_personal_v1;
-      }
-      const candidate=normalizeCamp({...previous,id:previous?.id||newCampId,...f,...deliveries,extras,
-        marca:g('c-marca').value,nombre:g('c-nombre').value,creadorId:creator?.id||null,creador:creator?.nombre||(own?(otherName||'Marca personal'):otherName),
-        industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,pauta:g('c-pauta').value,excl:g('c-excl').value,
-        diaspago:own&&type==='Canje'?0:g('c-diaspago').value,estado:g('c-estado').value,cobro:own&&type==='Canje'?'Pendiente':g('c-cobro').value,
-        brief:g('c-brief').value,inicioAcuerdo:g('c-inicio-acuerdo').value,inicioCampana:g('c-inicio-campana').value,pagcr:own?'si':g('c-pagcr').value},cres);
-      setBusy(true);syncLabel('Guardando campaña…');const token=epoch;const saved=await writeRecord('camp',candidate,previous);if(token!==epoch)return;
-      const idx=camps.findIndex(c=>c.id===saved.id);if(idx<0)camps.push(saved);else camps[idx]=saved;
-      close_('ov-camp',true);renderAll();syncLabel(mode==='cloud'?'Guardado en Supabase':mode==='local'?'Guardado en este navegador':'Cambios solo en la demo');toast(mode==='demo'?'Campaña actualizada en la demo.':'Campaña guardada.');
-    }catch(e){notice(friendly(e),true);alert(friendly(e));syncLabel('No se confirmó el guardado');}finally{setBusy(false);}
+        const barterValue=type==='Pagada'?0:roundMoney(g('c-canje-valor').value||0);
+        if(type!=='Pagada'&&barterValue<=0) throw new Error('Ingresa el valor estimado del canje.');
+        extras.marca_personal_v1={
+          tipo:type,
+          canjeDescripcion:type==='Pagada'?'':textField(g('c-canje-desc').value||'',300),
+          canjeValor:barterValue,
+          canjeRecibido:type==='Pagada'?'no':g('c-canje-recibido').value,
+          canjeFecha:type==='Pagada'?'':validDate(g('c-canje-fecha').value||'')
+        };
+      }else delete extras.marca_personal_v1;
+
+      const candidate=normalizeCamp({
+        ...previous,id:previous?.id||newCampId,...f,...deliveries,extras,
+        marca:g('c-marca').value,nombre:g('c-nombre').value,
+        creadorId:creator?.id||null,creador:creatorLabel,
+        industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,
+        pauta:g('c-pauta').value,excl:g('c-excl').value,
+        diaspago:own&&type==='Canje'?0:g('c-diaspago').value,
+        estado:g('c-estado').value,
+        cobro:own&&type==='Canje'?'Pendiente':g('c-cobro').value,
+        brief:g('c-brief').value,inicioAcuerdo:g('c-inicio-acuerdo').value,
+        inicioCampana:g('c-inicio-campana').value,pagcr:own?'si':g('c-pagcr').value
+      },cres);
+
+      setBusy(true);syncLabel('Guardando campaña…');
+      const token=epoch,saved=await writeRecord('camp',candidate,previous);
+      if(token!==epoch) return;
+      const idx=camps.findIndex(c=>c.id===saved.id);
+      if(idx<0)camps.push(saved);else camps[idx]=saved;
+      sortCamps();close_('ov-camp',true);renderAll();
+      syncLabel(mode==='cloud'?'Guardado en Supabase':mode==='local'?'Guardado en este navegador':'Cambios solo en la demo');
+      toast(mode==='demo'?'Campaña actualizada en la demo.':'Campaña guardada.');
+    }catch(e){
+      notice(friendly(e),true);alert(friendly(e));syncLabel('No se confirmó el guardado');
+    }finally{setBusy(false);}
   };
 
-  if (mpOrig.go) {
-    go = function(page,el){
-      const result=mpOrig.go(page,el);
-      if(page==='dash') renderDash();
-      if(page==='camp') renderCamps();
-      return result;
+  statusRows = function(list){
+    return STATUS_UI.map((s,i)=>({
+      label:s.label,icon:s.icon,value:list.filter(c=>statusGroup(c.estado)===s.label).length,color:PAL[i%PAL.length]
+    })).filter(r=>r.value>0);
+  };
+
+  function collabRows(list){
+    return COLLABS.map(([t,icon],i)=>({label:t,icon,value:list.filter(c=>collabType(c)===t).length,color:PAL[i%PAL.length]})).filter(r=>r.value>0);
+  }
+
+  function kpiIcons(){
+    const svg=body=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
+    const campaignSrc=document.querySelector('.nav a[href="#camp"] .nav-ic')?.src;
+    return {
+      amount:svg('<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6V4h8v2M3 11h18M9 15h6"/>'),
+      income:svg('<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v5c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 11v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/>'),
+      active:campaignSrc?`<img src="${campaignSrc}" alt="">`:svg('<path d="M4 13V9l11-4v12L4 13Z"/>'),
+      collection:svg('<path d="M4 7h15a2 2 0 0 1 2 2v9H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12"/><path d="M16 11h5v4h-5a2 2 0 0 1 0-4Z"/>'),
+      creators:svg('<circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M16 8.5a2.5 2.5 0 0 1 0 5M17 16a4 4 0 0 1 3.5 3"/>'),
+      gift:svg('<path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 1 1 2.1-3.85L12 7Zm0 0h4.5a2.5 2.5 0 1 0-2.1-3.85L12 7Z"/>')
+    };
+  }
+  const card=(cls,icon,label,value,sub,extra='')=>`<div class="kpi ${cls} ${extra}"><span class="kpi-icon" aria-hidden="true">${icon}</span><div class="label">${label}</div><div class="num">${value}</div><div class="sub">${sub}</div></div>`;
+
+  function monetaryBreakdown(list){
+    const agency=list.filter(c=>!isPersonal(c)), personal=list.filter(isPersonal);
+    return {
+      agency:sum(agency,comOf),
+      personal:sum(personal,cash),
+      barter:sum(personal,barter)
     };
   }
 
-  mpInstallUI();
-  setTimeout(() => {
-    mpInstallUI();
-    if (g('app') && !g('app').hidden) { buildFilters(); renderDash(); renderCamps(); }
-  }, 0);
+  renderDash = function(){
+    installUI();sortCamps();
+    const list=scope(),icons=kpiIcons(),kp=g('kpis');
+    kp.classList.toggle('creator-kpis',brievContext==='creator');
+    const eyebrow=g('page-dash')?.querySelector('.eyebrow');
+    if(eyebrow) eyebrow.textContent=brievContext==='general'?'Briev Co. / Vista general':brievContext==='agency'?'Briev Co. / Agencia':'Briev Co. / Creadora';
+
+    if(brievContext==='creator'){
+      const cashTotal=sum(list,cash),barterTotal=sum(list,barter),total=roundMoney(cashTotal+barterTotal);
+      const receivedBarter=sum(list.filter(c=>meta(c).canjeRecibido==='si'),barter);
+      const paid=sum(list.filter(c=>cash(c)>0&&c.cobro==='Pagado'),cash),pending=roundMoney(cashTotal-paid);
+      const active=list.filter(c=>c.ciclo==='Activa').length,renewed=list.filter(c=>c.ciclo==='Renovada').length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
+      kp.innerHTML=
+        card('hero',icons.income,'Monto total de colaboraciones',money(total),`Ingreso monetario ${money(cashTotal)} · Canjes ${money(barterTotal)}`,'creator-total')+
+        card('lilac',icons.income,'Ingreso monetario',money(cashTotal),`${list.filter(c=>cash(c)>0).length} colaboración${list.filter(c=>cash(c)>0).length===1?'':'es'} con pago`,'creator-half')+
+        card('cyan',icons.gift,'Valor de canjes',money(barterTotal),`Recibido ${money(receivedBarter)} · Pendiente ${money(roundMoney(barterTotal-receivedBarter))}`,'creator-half')+
+        card('sky',icons.collection,'Cobrado',money(paid),`${pct(paid,cashTotal)} del ingreso monetario`,'creator-third')+
+        card('soft',icons.collection,'Por cobrar',money(pending),'Solo pagos monetarios pendientes','creator-third')+
+        card('lilac',icons.active,'Campañas activas',active+renewed,`Activas ${active} · Renovadas ${renewed}<br>Finalizadas ${finalized}`,'creator-third');
+    }else if(brievContext==='agency'){
+      const fact=sum(list,c=>c.monto),inc=sum(list,comOf);
+      const active=list.filter(c=>c.ciclo==='Activa').length,renewed=list.filter(c=>c.ciclo==='Renovada').length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
+      const paid=sum(list.filter(c=>c.cobro==='Pagado'),comOf),pending=roundMoney(inc-paid),pay=sum(list.filter(c=>c.pagcr!=='si'),c=>c.pago);
+      kp.innerHTML=
+        card('lilac',icons.amount,'Monto de campañas',money(fact),`${list.length} campañas de agencia`)+
+        card('hero',icons.income,'Ingresos Briev',money(inc),'Comisión generada por Agencia')+
+        card('sky',icons.active,'Campañas activas',active+renewed,`Activas ${active} · Renovadas ${renewed}<br>Finalizadas ${finalized}`)+
+        card('cyan',icons.collection,'Cobrado',money(paid),`Por cobrar ${money(pending)} · ${pct(paid,inc)} del total`)+
+        card('soft',icons.creators,'Por pagar a creadores',money(pay),'Pagos pendientes a creadores');
+    }else{
+      const b=monetaryBreakdown(list),inc=roundMoney(b.agency+b.personal);
+      const amountAgency=sum(list.filter(c=>!isPersonal(c)),c=>c.monto), amountPersonal=sum(list.filter(isPersonal),cash);
+      const active=list.filter(c=>c.ciclo==='Activa').length,renewed=list.filter(c=>c.ciclo==='Renovada').length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
+      const paidAgency=sum(list.filter(c=>!isPersonal(c)&&c.cobro==='Pagado'),comOf);
+      const paidPersonal=sum(list.filter(c=>isPersonal(c)&&cash(c)>0&&c.cobro==='Pagado'),cash);
+      const paid=roundMoney(paidAgency+paidPersonal),pending=roundMoney(inc-paid),pay=sum(list.filter(c=>!isPersonal(c)&&c.pagcr!=='si'),c=>c.pago);
+      kp.innerHTML=
+        card('lilac',icons.amount,'Monto monetario de campañas',money(roundMoney(amountAgency+amountPersonal)),`Agencia ${money(amountAgency)} · Marca personal ${money(amountPersonal)}<br>Canjes no incluidos ${money(b.barter)}`)+
+        card('hero',icons.income,'Ingresos totales',money(inc),`Agencia ${money(b.agency)}<br>Marca personal ${money(b.personal)} · Canjes no incluidos`)+
+        card('sky',icons.active,'Campañas activas',active+renewed,`Activas ${active} · Renovadas ${renewed}<br>Finalizadas ${finalized}`)+
+        card('cyan',icons.collection,'Cobrado',money(paid),`Agencia ${money(paidAgency)} · Marca personal ${money(paidPersonal)}<br>Por cobrar ${money(pending)}`)+
+        card('soft',icons.creators,'Por pagar a creadores',money(pay),'Solo campañas de Agencia');
+    }
+    drawCharts();
+    renderAlerts(list);
+  };
+
+  function renderAlerts(list){
+    const alerts=g('alertList'), box=alerts?.closest('.alerts'), title=box?.querySelector('h3');
+    const today=new Date();today.setHours(12,0,0,0);const soon=[];
+    for(const c of list){
+      if(!c.inicioCampana) continue;
+      for(const [type,days] of [['Pauta',c.pauta],['Exclusividad',c.excl]]){
+        if(days<=0) continue;
+        const end=parseDay(c.inicioCampana);end.setDate(end.getDate()+days);
+        const diff=Math.round((end-today)/86400000);
+        if(diff>=0&&diff<=30) soon.push({diff,html:`${esc(type)} de <b>${esc(c.marca)}</b> ${diff===0?'vence hoy':'vence en '+diff+' día'+(diff===1?'':'s')}`});
+      }
+    }
+    soon.sort((a,b)=>a.diff-b.diff);
+    if(brievContext==='creator'){
+      if(title) title.textContent='⚠️ Pendientes de Marca personal';
+      const pendingBarter=list.filter(c=>barter(c)>0&&meta(c).canjeRecibido!=='si');
+      alerts.innerHTML=pendingBarter.map(c=>`<div class="a">🎁 <b>${esc(c.marca)}</b> · ${esc(meta(c).canjeDescripcion||'Canje pendiente')} · ${money(barter(c))}</div>`).join('')+
+        soon.map(x=>`<div class="a">${x.html}</div>`).join('');
+      if(!alerts.innerHTML) alerts.innerHTML='<div class="none">Sin canjes o derechos próximos que requieran atención.</div>';
+    }else{
+      if(title) title.textContent='⚠️ Derechos por vencer (próximos 30 días)';
+      alerts.innerHTML=soon.length?soon.map(x=>`<div class="a">${x.html}</div>`).join(''):'<div class="none">Sin derechos por vencer en los próximos 30 días.</div>';
+    }
+  }
+
+  function annotateGeneral(){
+    const a=camps.filter(c=>!isPersonal(c)).length,p=camps.filter(isPersonal).length;
+    const statusNote=g('dash-status')?.closest('.chart-card')?.querySelector('.chart-note');
+    const indNote=g('dash-industry')?.closest('.chart-card')?.querySelector('.chart-note');
+    if(statusNote) statusNote.textContent=`${camps.length} campañas · Agencia ${a} · Marca personal ${p}.`;
+    if(indNote) indNote.textContent=`Todas las industrias · Agencia ${a} · Marca personal ${p}.`;
+  }
+
+  drawCharts = function(){
+    const list=scope(),creator=brievContext==='creator',general=brievContext==='general';
+    const collabCard=g('dash-collab-card');
+    if(collabCard) collabCard.hidden=!creator;
+    g('dash-industry')?.closest('.charts')?.classList.toggle('creator-overview',creator);
+    const ranking=document.querySelector('.dashboard-ranking');
+    if(ranking) ranking.style.display=creator?'none':'block';
+
+    ring('dash-status',statusRows(list));
+    ring('dash-industry',industryRows(list));
+    if(creator) ring('dash-collab',collabRows(list));
+
+    const totalIncome=sum(list,income),paid=sum(list.filter(c=>income(c)>0&&c.cobro==='Pagado'),income),pending=roundMoney(totalIncome-paid);
+    ring('collection',[
+      {label:'Cobrado',icon:'✅',value:paid,color:'#5ec4e6'},
+      {label:'Por cobrar',icon:'⏳',value:pending,color:'#b677b1'}
+    ],true);
+
+    const collectNote=g('collection')?.closest('.chart-card')?.querySelector('.chart-note');
+    if(creator&&collectNote) collectNote.textContent='Solo ingreso monetario; los canjes se controlan por recepción.';
+    else if(general&&collectNote){
+      const b=monetaryBreakdown(list);
+      collectNote.textContent=`Ingreso monetario total · Agencia ${money(b.agency)} · Marca personal ${money(b.personal)}.`;
+    }else if(collectNote) collectNote.textContent='Comisión de Agencia · monto y porcentaje.';
+
+    if(general) annotateGeneral();
+
+    if(brievContext==='agency'){
+      rankingData.brand=groupBrands(list);
+      configureBrandPanel('agency');
+      orig.drawRanking('brand');
+    }else if(general){
+      configureBrandPanel('general');
+      drawGeneralBrands();
+    }
+    drawMonth();
+  };
+
+  function configureBrandPanel(mode){
+    const panel=document.querySelector('.commission-brand');if(!panel)return;
+    const eyebrow=panel.querySelector('.eyebrow'),title=panel.querySelector('h3'),note=panel.querySelector('.chart-note'),sumLabel=panel.querySelector('.rank-summary>span'),sort=panel.querySelector('.rank-sort-label');
+    if(mode==='general'){
+      if(eyebrow)eyebrow.textContent='Distribución de ingresos';
+      if(title)title.textContent='Ingresos por marca';
+      if(note)note.textContent='Comisión de Agencia + ingreso monetario de Marca personal. Los canjes no se suman como ingreso.';
+      if(sumLabel)sumLabel.textContent='Ingreso total';
+      if(sort)sort.textContent='Mayor ingreso primero ↓';
+    }else{
+      if(eyebrow)eyebrow.textContent='Distribución de ingresos';
+      if(title)title.textContent='Comisión por marca';
+      if(note)note.textContent='Comisión generada por campañas de Agencia.';
+      if(sumLabel)sumLabel.textContent='Comisión total';
+      if(sort)sort.textContent='Mayor comisión primero ↓';
+    }
+  }
+
+  function generalBrandRows(){
+    const map=new Map();
+    for(const c of camps){
+      const key=c.marca||'Sin asignar',r=map.get(key)||{label:key,count:0,agency:0,personal:0,total:0,industries:new Set()};
+      const value=income(c);r.count++;r.total+=cents(value);
+      if(isPersonal(c))r.personal+=cents(value);else r.agency+=cents(value);
+      r.industries.add(normalizeIndustry(c.industria));map.set(key,r);
+    }
+    return [...map.values()].map(r=>({...r,agency:r.agency/100,personal:r.personal/100,total:r.total/100,industries:[...r.industries]})).sort((a,b)=>b.total-a.total||a.label.localeCompare(b.label,'es'));
+  }
+
+  function drawGeneralBrands(){
+    const all=generalBrandRows(),term=g('brand-search')?.value.trim().toLocaleLowerCase()||'',limit=g('brand-limit')?.value||'8';
+    const matches=all.filter(r=>r.label.toLocaleLowerCase().includes(term)),visible=limit==='all'?matches:matches.slice(0,Number(limit));
+    g('brand-total').textContent=money(sum(all,r=>r.total));
+    g('brand-contributors').textContent=`${all.length} marcas · ${all.reduce((s,r)=>s+r.count,0)} campañas`;
+    g('brand-list').innerHTML=visible.length?visible.map((r,i)=>`<div class="general-brand-row">
+      <span class="rank-place">${all.indexOf(r)+1}</span>
+      <span class="brand-summary-name">${esc(r.label)}<small class="brand-summary-sub">${r.industries.map(esc).join(' · ')} · ${r.count} campaña${r.count===1?'':'s'}</small></span>
+      <span class="brand-summary-money agency"><small>Agencia</small><strong>${money(r.agency)}</strong></span>
+      <span class="brand-summary-money personal"><small>Marca personal</small><strong>${money(r.personal)}</strong></span>
+      <span class="brand-summary-money brand-total"><small>Total</small><strong>${money(r.total)}</strong></span>
+    </div>`).join(''):'<div class="empty">Sin resultados.</div>';
+    g('brand-foot').textContent=`${visible.length} de ${matches.length} marcas · Ingreso visible ${money(sum(visible,r=>r.total))}.`;
+  }
+
+  drawRanking = function(id){
+    if(id==='brand'&&brievContext==='general') return drawGeneralBrands();
+    if(id==='brand'&&brievContext==='creator') return;
+    return orig.drawRanking(id);
+  };
+
+  drawMonth = function(){
+    const list=scope(),byMonth=new Map();
+    for(const c of list){
+      const d=c.inicioCampana||c.inicioAcuerdo;if(!d)continue;
+      const k=d.slice(0,7),r=byMonth.get(k)||{agency:0,personal:0,cash:0,barter:0,total:0};
+      if(brievContext==='creator'){
+        r.cash+=cents(cash(c));r.barter+=cents(barter(c));r.total+=cents(creatorValue(c));
+      }else if(brievContext==='agency'){
+        r.agency+=cents(comOf(c));r.total+=cents(comOf(c));
+      }else{
+        if(isPersonal(c))r.personal+=cents(cash(c));else r.agency+=cents(comOf(c));
+        r.total=r.agency+r.personal;
+      }
+      byMonth.set(k,r);
+    }
+    const keys=[...byMonth.keys()].sort(),months=[];
+    if(keys.length){let[y,m]=keys[0].split('-').map(Number);const last=keys.at(-1);while(`${y}-${String(m).padStart(2,'0')}`<=last){months.push(`${y}-${String(m).padStart(2,'0')}`);m++;if(m>12){m=1;y++;}}}
+    const title=document.querySelector('.monthly-panel h3'),note=document.querySelector('.monthly-panel .chart-note');
+    if(brievContext==='creator'){
+      if(title)title.textContent='💵 Ingresos y canjes por mes';
+      if(note)note.textContent='Ingreso monetario y valor estimado del canje se muestran por separado.';
+    }else if(brievContext==='agency'){
+      if(title)title.textContent='💵 Comisión por mes';
+      if(note)note.textContent='Comisión de campañas de Agencia según inicio de campaña o acuerdo.';
+    }else{
+      if(title)title.textContent='💵 Ingresos por mes';
+      if(note)note.textContent='Agencia + Marca personal pagada/mixta. Los canjes no se cuentan como ingreso.';
+    }
+    g('month-total').textContent=money([...byMonth.values()].reduce((s,r)=>s+r.total,0)/100);
+    g('month-values').innerHTML=months.length?months.map(k=>{
+      const r=byMonth.get(k)||{agency:0,personal:0,cash:0,barter:0,total:0};
+      if(brievContext==='creator')return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Dinero ${money(r.cash/100)}</span><span>Canje ${money(r.barter/100)}</span></small></div>`;
+      if(brievContext==='general')return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Agencia ${money(r.agency/100)}</span><span>Marca personal ${money(r.personal/100)}</span></small></div>`;
+      return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong></div>`;
+    }).join(''):'<p class="form-hint">Agrega campañas con fecha para ver la evolución mensual.</p>';
+    const missing=list.filter(c=>!c.inicioCampana&&!c.inicioAcuerdo);
+    g('month-missing').textContent=missing.length?`${missing.length} campaña(s) sin fecha de inicio: no se incluyen en la curva mensual.`:'';
+    charts.month?.destroy();delete charts.month;g('month-wrap').style.width='100%';
+    if(typeof Chart==='undefined'||!months.length){g('month-wrap').hidden=true;return;}
+    g('month-wrap').hidden=false;
+    let datasets;
+    if(brievContext==='creator')datasets=[
+      {label:'Ingreso monetario',data:months.map(k=>(byMonth.get(k)?.cash||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b112',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:3,borderWidth:2.5},
+      {label:'Valor de canje',data:months.map(k=>(byMonth.get(k)?.barter||0)/100),borderColor:'#5ec4e6',backgroundColor:'#5ec4e612',fill:false,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:3,borderWidth:2.5}
+    ];
+    else if(brievContext==='general')datasets=[
+      {label:'Agencia',data:months.map(k=>(byMonth.get(k)?.agency||0)/100),borderColor:'#26224f',backgroundColor:'#26224f12',fill:false,tension:.25,pointBackgroundColor:'#26224f',pointRadius:3,borderWidth:2.5},
+      {label:'Marca personal',data:months.map(k=>(byMonth.get(k)?.personal||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b112',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:3,borderWidth:2.5}
+    ];
+    else datasets=[{label:'Comisión Agencia',data:months.map(k=>(byMonth.get(k)?.total||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b114',fill:true,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:3,borderWidth:2.5}];
+    charts.month=new Chart(g('chMonth'),{type:'line',data:{labels:months.map(k=>mesCorto(k+'-01')),datasets},options:{
+      responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:datasets.length>1,position:'bottom',labels:{font:{family:'Poppins',size:10},boxWidth:10,color:'#696583'}},tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${money(ctx.parsed.y)}`}}},
+      scales:{x:{grid:{display:false},ticks:{autoSkip:true,maxTicksLimit:8,maxRotation:0,color:'#696583',font:{family:'Poppins',size:11}}},y:{beginAtZero:true,grid:{color:'#f0eef7'},ticks:{maxTicksLimit:5,callback:v=>money(v),font:{family:'Poppins',size:11},color:'#696583'}}}
+    }});
+  };
+
+  function campaignIndices(){
+    sortCamps();
+    return camps.map((c,i)=>i).filter(i=>passes(camps[i]));
+  }
+
+  function agencyCard(c,i){
+    return `<div class="ccard" onclick="detail(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(${i})}">
+      <div class="cc-top"><div><div class="cc-marca">${esc(c.marca)}</div><div class="cc-name">${esc(c.nombre||'—')}</div></div>${titBadge(c.titular)}</div>
+      <div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span><span class="tag">👤 ${esc(creatorName(c))}</span>${cycleBadge(c)}</div>
+      <div class="cc-det"><div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||'—')}</div></div><div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div><div class="d"><div class="l">Inicio campaña</div><div class="v">${fecha(c.inicioCampana)}</div></div><div class="d"><div class="l">Días de pago</div><div class="v">${c.diaspago?c.diaspago+' días':'—'}</div></div><div class="d"><div class="l">Exclusividad</div><div class="v">${c.excl>0?c.excl+' días':'—'}</div></div></div>
+      <div class="cc-com"><div><div class="c">${money(comOf(c))}</div><div class="t">comisión · ${fmtPct(c.comPct)}% · monto ${money(c.monto)}</div></div></div>
+      <div class="cc-pills"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></div>
+    </div>`;
+  }
+
+  function personalCard(c,i){
+    const m=meta(c);
+    return `<div class="ccard propia" onclick="detail(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(${i})}">
+      <div class="cc-top"><div><div class="cc-marca">${esc(c.marca)}</div><div class="cc-name">${esc(c.nombre||'—')}</div></div>${titBadge(c.titular)}</div>
+      <div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span>${collabBadge(c)}${cycleBadge(c)}</div>
+      <div class="cc-det"><div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||'—')}</div></div><div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div><div class="d"><div class="l">Inicio campaña</div><div class="v">${fecha(c.inicioCampana)}</div></div>${m.tipo!=='Pagada'?`<div class="d full"><div class="l">Canje</div><div class="v">${esc(m.canjeDescripcion||'Sin descripción')} · ${m.canjeRecibido==='si'?'✅ Recibido':'⏳ Pendiente de recibir'}</div></div>`:''}</div>
+      <div class="mp-value-grid"><span class="cash">Ingreso monetario<strong>${money(cash(c))}</strong></span><span class="barter">Valor canje<strong>${money(barter(c))}</strong></span><span>Valor total<strong>${money(creatorValue(c))}</strong></span></div>
+      <div class="cc-pills"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span>${cash(c)>0?`<span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span>`:''}${m.tipo!=='Pagada'?`<span class="pill ${m.canjeRecibido==='si'?'pagado':'pend'}">${m.canjeRecibido==='si'?'✅ Canje recibido':'⏳ Canje pendiente'}</span>`:''}</div>
+    </div>`;
+  }
+
+  renderCamps = function(){
+    installUI();buildFilters();
+    const idx=campaignIndices(),list=scope();
+    g('camp-count').textContent=`${idx.length} de ${list.length} campañas · ${brievContext==='general'?'General':brievContext==='agency'?'Agencia':'Marca personal'}`;
+    g('camp-cards').innerHTML=idx.length?idx.map(i=>isPersonal(camps[i])?personalCard(camps[i],i):agencyCard(camps[i],i)).join(''):'<div class="empty" style="grid-column:1/-1">No hay campañas con estos filtros.</div>';
+    renderCampTable(idx);
+    if(campView==='resumen') renderResumen();
+  };
+
+  function renderCampTable(idx){
+    const head=g('camp-table')?.querySelector('thead tr');if(!head)return;
+    if(brievContext==='agency'){
+      head.innerHTML='<th>Marca / Campaña</th><th>Ciclo</th><th>Mes</th><th>Creador</th><th>Industria</th><th class="num-r">Monto</th><th class="num-r">% Com.</th><th class="num-r">Comisión Briev</th><th>Status</th><th>Estado de cobro</th>';
+      g('camp-rows').innerHTML=idx.length?idx.map(i=>{const c=camps[i];return `<tr onclick="detail(${i})">
+        <td data-label="Campaña"><b>${esc(c.marca)}</b><div style="font-size:11px;color:var(--muted)">${esc(c.nombre||'—')}</div></td>
+        <td data-label="Ciclo">${cycleBadge(c)}</td><td data-label="Mes">${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td><td data-label="Creador">${esc(creatorName(c))}</td>
+        <td data-label="Industria"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td><td data-label="Monto" class="num-r money">${money(c.monto)}</td><td data-label="% comisión" class="num-r">${fmtPct(c.comPct)}%</td><td data-label="Comisión Briev" class="num-r mine">${money(comOf(c))}</td>
+        <td data-label="Status"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></td><td data-label="Estado de cobro"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></td>
+      </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas.</td></tr>';
+    }else if(brievContext==='creator'){
+      head.innerHTML='<th>Marca / Campaña</th><th>Ciclo</th><th>Tipo</th><th>Mes</th><th>Industria</th><th class="num-r">Ingreso $</th><th class="num-r">Valor canje</th><th class="num-r">Valor total</th><th>Status</th><th>Cobro / canje</th>';
+      g('camp-rows').innerHTML=idx.length?idx.map(i=>{const c=camps[i],m=meta(c),state=[cash(c)>0?cobroText(c.cobro):'',m.tipo!=='Pagada'?(m.canjeRecibido==='si'?'Canje recibido':'Canje pendiente'):''].filter(Boolean).join(' · ');return `<tr onclick="detail(${i})">
+        <td data-label="Campaña"><b>${esc(c.marca)}</b><div style="font-size:11px;color:var(--muted)">${esc(c.nombre||'—')}</div></td><td data-label="Ciclo">${cycleBadge(c)}</td><td data-label="Tipo">${collabBadge(c)}</td><td data-label="Mes">${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td><td data-label="Industria"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td>
+        <td data-label="Ingreso $" class="num-r money">${money(cash(c))}</td><td data-label="Valor canje" class="num-r">${money(barter(c))}</td><td data-label="Valor total" class="num-r mine">${money(creatorValue(c))}</td>
+        <td data-label="Status"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></td><td data-label="Cobro / canje"><span class="pill ${((cash(c)<=0||c.cobro==='Pagado')&&(m.tipo==='Pagada'||m.canjeRecibido==='si'))?'pagado':'pend'}">${esc(state||'—')}</span></td>
+      </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas de Marca personal.</td></tr>';
+    }else{
+      head.innerHTML='<th>Marca / Campaña</th><th>Origen</th><th>Ciclo</th><th>Status</th><th>Creador</th><th>Industria</th><th class="num-r">Monto marca</th><th class="num-r">Ingreso</th><th class="num-r">Canje</th><th>Cobro / canje</th>';
+      g('camp-rows').innerHTML=idx.length?idx.map(i=>{const c=camps[i],m=meta(c),personal=isPersonal(c),state=personal?[cash(c)>0?cobroText(c.cobro):'',m.tipo!=='Pagada'?(m.canjeRecibido==='si'?'Canje recibido':'Canje pendiente'):''].filter(Boolean).join(' · '):cobroText(c.cobro);return `<tr onclick="detail(${i})">
+        <td data-label="Campaña"><b>${esc(c.marca)}</b><div style="font-size:11px;color:var(--muted)">${esc(c.nombre||'—')}</div></td><td data-label="Origen">${titBadge(c.titular)}</td><td data-label="Ciclo">${cycleBadge(c)}</td><td data-label="Status"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></td>
+        <td data-label="Creador">${personal?SELF_NAME:esc(creatorName(c))}</td><td data-label="Industria"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td><td data-label="Monto marca" class="num-r">${money(personal?cash(c):c.monto)}</td><td data-label="Ingreso" class="num-r mine">${money(income(c))}</td><td data-label="Canje" class="num-r">${money(personal?barter(c):0)}</td><td data-label="Cobro / canje">${esc(state||'—')}</td>
+      </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas.</td></tr>';
+    }
+  }
+
+  renderResumen = function(){
+    const list=camps.filter(passes);
+    g('ciclo-mini').innerHTML=CICLOS.map(cy=>`<div class="mini"><div class="e">${cy[1]}</div><div><div class="n">${list.filter(c=>c.ciclo===cy[0]).length}</div><div class="l">${cy[0]}${cy[0]==='Finalizada'?'s':'s'}</div></div></div>`).join('');
+    const comparison=g('summary-status')?.closest('.charts');
+    if(comparison) comparison.style.display=brievContext==='creator'?'none':'grid';
+    const brandPanel=g('creator-brand-summary');
+    if(brandPanel) brandPanel.hidden=brievContext!=='creator';
+    const topHeading=g('top3list')?.closest('.panel')?.querySelector('h3');
+    if(topHeading) topHeading.textContent=brievContext==='creator'?'🏆 Top 3 campañas (por valor total)':brievContext==='agency'?'🏆 Top 3 campañas (por comisión)':'🏆 Top 3 campañas (por ingreso)';
+    const top=[...list].sort((a,b)=>(brievContext==='creator'?creatorValue(b):income(b))-(brievContext==='creator'?creatorValue(a):income(a))).slice(0,3);
+    g('top3list').innerHTML=top.map((c,i)=>`<article class="t3 ${i===0?'lead':''}">
+      <div class="medal">${['🥇','🥈','🥉'][i]}</div><div class="info"><div class="m">${esc(c.marca)}</div><div class="s"><span>${esc(c.nombre||'Sin nombre')}</span>${isPersonal(c)?collabBadge(c):`<span>👤 ${esc(creatorName(c))}</span>`}${cycleBadge(c)}<span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></div></div>
+      <div class="amt"><div class="v">${money(brievContext==='creator'?creatorValue(c):income(c))}</div><div class="p">${brievContext==='creator'?`Valor total · dinero ${money(cash(c))} · canje ${money(barter(c))}`:isPersonal(c)?'Ingreso Marca personal':'Comisión Briev'}</div></div><button class="btn btn-ghost btn-small" onclick="detail(${camps.indexOf(c)})">Ver campaña →</button>
+    </article>`).join('')||'<div class="empty">Sin campañas para este filtro.</div>';
+    if(brievContext!=='creator'){
+      ring('summary-status',statusRows(list));ring('summary-industry',industryRows(list));
+    }else drawCreatorBrands(list);
+  };
+
+  function drawCreatorBrands(list){
+    const map=new Map();
+    for(const c of list){
+      const key=c.marca||'Sin asignar',r=map.get(key)||{label:key,count:0,cash:0,barter:0,total:0};
+      r.count++;r.cash+=cents(cash(c));r.barter+=cents(barter(c));r.total+=cents(creatorValue(c));map.set(key,r);
+    }
+    const rows=[...map.values()].map(r=>({...r,cash:r.cash/100,barter:r.barter/100,total:r.total/100})).sort((a,b)=>b.total-a.total||a.label.localeCompare(b.label,'es'));
+    g('creator-brand-total').textContent=money(sum(rows,r=>r.total));
+    g('creator-brand-list').innerHTML=rows.length?rows.map((r,i)=>`<div class="brand-summary-row">
+      <span class="rank-place">${i+1}</span><span class="brand-summary-name">${esc(r.label)}<small class="brand-summary-sub">${r.count} campaña${r.count===1?'':'s'}</small></span>
+      <span class="brand-summary-money brand-cash"><small>Dinero</small><strong>${money(r.cash)}</strong></span>
+      <span class="brand-summary-money brand-barter"><small>Canje</small><strong>${money(r.barter)}</strong></span>
+      <span class="brand-summary-money brand-total"><small>Total</small><strong>${money(r.total)}</strong></span>
+    </div>`).join(''):'<div class="empty">Sin campañas para mostrar.</div>';
+  }
+
+  detail = function(i){
+    const c=camps[i];if(!c)return;
+    if(isPersonal(c)){
+      const m=meta(c),yn=v=>v>0?`✅ ${v} días`:'—';
+      g('det-body').innerHTML=`<div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||'—')} · ${em(INDUS,c.industria)} ${esc(c.industria)}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
+        <div style="margin:6px 0 2px">${titBadge(c.titular)} ${collabBadge(c)} ${cycleBadge(c)}</div>
+        <div class="det-com"><span>Monto total de colaboración</span><span class="v">${money(creatorValue(c))}</span></div>
+        <div class="det-row"><span class="k">Creadora</span><span class="v">${esc(SELF_NAME)}</span></div>
+        <div class="det-row"><span class="k">Ingreso monetario</span><span class="v">${money(cash(c))}</span></div>
+        <div class="det-row"><span class="k">Valor del canje</span><span class="v">${money(barter(c))}</span></div>
+        ${m.tipo!=='Pagada'?`<div class="det-row"><span class="k">Producto / servicio</span><span class="v">${esc(m.canjeDescripcion||'—')}</span></div><div class="det-row"><span class="k">Estado del canje</span><span class="v">${m.canjeRecibido==='si'?'✅ Recibido':'⏳ Pendiente de recibir'}</span></div>`:''}
+        <div class="det-row"><span class="k">Entregables</span><span class="v">${esc(c.entregables||'—')}</span></div>
+        <div class="det-row"><span class="k">Derechos de pauta</span><span class="v">${yn(c.pauta)}</span></div><div class="det-row"><span class="k">Exclusividad</span><span class="v">${yn(c.excl)}</span></div>
+        <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div><div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div>
+        <div class="det-row"><span class="k">Ciclo</span><span class="v">${cycleBadge(c)}</span></div><div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></span></div>
+        ${cash(c)>0?`<div class="det-row"><span class="k">Estado de cobro</span><span class="v"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></span></div>`:''}
+        <div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;
+    }else{
+      const yn=v=>v>0?`✅ ${v} días`:'—';
+      g('det-body').innerHTML=`<div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||'—')} · ${em(INDUS,c.industria)} ${esc(c.industria)}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
+        <div style="margin:6px 0 2px">${titBadge(c.titular)} ${cycleBadge(c)}</div><div class="det-com"><span>Comisión Briev · ${fmtPct(c.comPct)}%</span><span class="v">${money(comOf(c))}</span></div>
+        <div class="det-row"><span class="k">Creador</span><span class="v">👤 ${esc(creatorName(c))}</span></div><div class="det-row"><span class="k">Monto total</span><span class="v">${money(c.monto)}</span></div><div class="det-row"><span class="k">Pago al creador</span><span class="v">${money(c.pago)}</span></div>
+        <div class="det-row"><span class="k">Entregables</span><span class="v">${esc(c.entregables||'—')}</span></div><div class="det-row"><span class="k">Derechos de pauta</span><span class="v">${yn(c.pauta)}</span></div><div class="det-row"><span class="k">Exclusividad</span><span class="v">${yn(c.excl)}</span></div>
+        <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div><div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div>
+        <div class="det-row"><span class="k">Ciclo</span><span class="v">${cycleBadge(c)}</span></div><div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></span></div>
+        <div class="det-row"><span class="k">Estado de cobro</span><span class="v"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></span></div><div class="det-row"><span class="k">Pagado al creador</span><span class="v">${c.pagcr==='si'?'✅ Sí':'⏳ No'}</span></div>
+        <div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;
+    }
+    open_('ov-det');
+  };
+
+  go = function(page,el){
+    if(page==='cre'&&brievContext==='creator'){
+      const dash=document.querySelector('.nav a[href="#dash"]');
+      if(dash)return orig.go('dash',dash);
+    }
+    const result=orig.go(page,el);
+    if(page==='dash')renderDash();
+    if(page==='camp')renderCamps();
+    updateContextUI();
+    return result;
+  };
+
+  installUI();
+  setTimeout(()=>{
+    installUI();sortCamps();
+    if(g('app')&&!g('app').hidden){buildFilters();renderDash();renderCamps();}
+  },0);
 })();
 </script>
-<!-- BRIEV_CREATOR_MODE_PATCH_END -->
+<!-- BRIEV_BUSINESS_V2_END -->
 
 </body>
 </html>
