@@ -211,42 +211,70 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 @media(max-width:540px){.delivery-editor{padding:12px}.delivery-head{align-items:stretch}.delivery-head h4{flex-basis:100%}.delivery-head .btn{width:100%;min-height:44px}.delivery-row{grid-template-columns:70px minmax(0,1fr);gap:8px}.delivery-remove{grid-column:1/-1;justify-self:end;margin-top:0;padding:8px 12px}.modal .field input,.modal .field select,.modal .field textarea{font-size:16px;min-height:44px}.legacy-rate summary{min-height:44px;display:flex;align-items:center}}
 
 
-/* Briev · agency/creator dashboard + personal-brand collaborations. */
-.session-bar{display:none!important}
-.dash-switch{display:flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:11px;padding:3px;gap:2px}
-.dash-switch button{border:0;background:transparent;color:var(--muted);font-family:inherit;font-size:11.5px;font-weight:500;padding:8px 12px;border-radius:8px;cursor:pointer;min-height:36px}
-.dash-switch button.on{background:var(--navy);color:#fff}
-.refresh-icon-btn{width:38px;height:38px;padding:0!important;display:grid;place-items:center;font-size:19px;line-height:1;border-radius:10px}
-.personal-collab{margin:4px 0 18px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#faf9fd}
-.personal-collab h4{font-size:14px;margin:0 0 4px}.personal-collab .form-hint{margin-bottom:14px}
-.collab-pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:500;padding:4px 9px;border-radius:8px;background:#f0eef7;color:var(--navy)}
-.collab-pill.paid{background:#e7f2f7;color:#356c82}.collab-pill.barter{background:#f4eaf1;color:#7d4e76}.collab-pill.mixed{background:#eee9f6;color:#5b4e7d}
-.creator-value-note{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}
-.charts.overview-row.creator-overview{grid-template-columns:repeat(2,minmax(0,1fr))}
-.creator-brand-grid-head,.creator-brand-row{display:grid;grid-template-columns:24px minmax(150px,1.25fr) 70px minmax(150px,1fr) 115px 115px 125px;column-gap:14px;align-items:center;padding:13px 26px}
-.creator-brand-grid-head{background:#f4f2f8;color:#756e8d;text-transform:uppercase;font-size:8px;font-weight:600;letter-spacing:.07em;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.creator-brand-row{min-height:68px;border-bottom:1px solid #efedf5;background:#fff;font-size:11px}.creator-brand-row:last-child{border-bottom:0}.creator-brand-row[data-leading="true"]{background:#fbf9fd}
-.creator-brand-types{display:flex;flex-wrap:wrap;gap:4px}.creator-brand-money{text-align:right;font-variant-numeric:tabular-nums}.creator-brand-money strong{font-size:14px;font-weight:600}.creator-brand-total strong{color:var(--purple-text);font-size:16px}
-@media(max-width:1000px){.creator-brand-grid-head{display:none}.creator-brand-row{grid-template-columns:22px minmax(0,1fr) auto;grid-template-areas:"position identity total" ". types types" ". cash barter";row-gap:8px;padding:15px 22px}.creator-brand-row .rank-place{grid-area:position}.creator-brand-row .rank-identity{grid-area:identity}.creator-brand-row .creator-brand-types{grid-area:types}.creator-brand-row .cash{grid-area:cash;text-align:left}.creator-brand-row .barter{grid-area:barter}.creator-brand-row .creator-brand-total{grid-area:total}.creator-brand-row .campaign-count{display:none}}
-@media(max-width:650px){.creator-brand-row{padding:15px 0;grid-template-columns:18px minmax(0,1fr) auto}.creator-brand-row .rank-avatar{display:none}.creator-brand-row .creator-brand-money strong{font-size:13px}.creator-brand-row .creator-brand-total strong{font-size:15px}.creator-brand-types .collab-pill{font-size:9px;padding:3px 6px}}
-@media(max-width:800px){
-  body{padding-bottom:82px}
-  .topbar{position:fixed!important;left:0;right:0;bottom:0;top:auto!important;z-index:90;background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 26px rgba(38,34,79,.08);padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:3fr 2fr;gap:0;align-items:stretch}
-  .topbar .logo{display:none!important}.nav{order:initial!important;width:auto!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:0!important;overflow:visible!important}
-  .nav a{min-width:0!important;min-height:58px!important;padding:6px 2px!important;border-radius:10px!important;display:flex!important;flex-direction:column;justify-content:center!important;gap:3px!important;color:#6d6889!important;font-size:9px!important;background:transparent!important}
-  .nav a.on{color:var(--purple-text)!important;background:#f4eef6!important}.nav-ic{width:25px!important;height:25px!important;border-radius:7px!important}
-  .session-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));margin:0!important;gap:0!important;align-items:stretch}
-  .session-actions button{position:relative!important;min-width:0!important;min-height:58px!important;padding:6px 2px!important;border:0!important;border-radius:10px!important;background:transparent!important;color:#6d6889!important;font-size:0!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-  .session-actions button:first-child::before{content:'↗';font-size:24px;line-height:1}.session-actions button:first-child::after{content:'Datos';font-size:9px;line-height:1.2}
-  .session-actions button:last-child::before{content:'⎋';font-size:24px;line-height:1}.session-actions button:last-child::after{content:'Salir';font-size:9px;line-height:1.2}
-  .main{padding-bottom:26px!important}.top-actions{gap:6px}.dash-switch{order:3;width:100%}.dash-switch button{flex:1;min-height:40px}.refresh-icon-btn{min-height:40px!important;width:40px!important}
-}
-@media(max-width:520px){.charts.overview-row.creator-overview{grid-template-columns:1fr}.personal-collab{padding:13px}.dash-switch button{font-size:11px}}
 
-/* Campaign area follows the same Agencia / Creadora context without changing stored records. */
-.camp-context-row{display:flex;align-items:center;justify-content:flex-end;margin-bottom:12px}.camp-switch{width:max-content}.camp-switch button{min-width:112px}
-@media(max-width:800px){.camp-context-row{justify-content:stretch}.camp-switch{width:100%}.camp-switch button{min-width:0;flex:1}}
-.creator-settlement{display:flex;flex-wrap:wrap;gap:4px}.creator-settlement .pill{font-size:9px}
+/* RECOVERED CURRENT UI — keeps the original Briev icons and header actions. */
+.refresh-icon{
+    width:38px;height:38px;min-height:38px;padding:0;
+    display:inline-grid;place-items:center;border-radius:10px;
+    font-size:18px;line-height:1;flex:none
+}
+.session-icon{
+    width:38px;height:38px;min-height:38px;padding:0;
+    display:inline-grid;place-items:center;flex:none
+}
+.session-icon svg{width:18px;height:18px;display:block}
+@media (min-width:801px){
+    .topbar>.nav{margin-left:auto}
+    .topbar>.session-actions{margin-left:0}
+}
+@media (max-width:800px){
+    .topbar{position:sticky;top:0;padding:14px 18px;gap:12px}
+    .nav{
+        position:fixed;left:12px;right:12px;
+        bottom:calc(10px + env(safe-area-inset-bottom));
+        width:auto;height:70px;display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        align-items:stretch;gap:4px;order:initial;padding:6px;
+        background:rgba(255,255,255,.96);
+        border:1px solid rgba(38,34,79,.09);
+        border-radius:21px;
+        box-shadow:0 10px 32px rgba(38,34,79,.18);
+        backdrop-filter:blur(16px);
+        -webkit-backdrop-filter:blur(16px);
+        overflow:visible;z-index:90
+    }
+    .nav a{
+        position:relative;min-height:56px;display:flex;
+        flex-direction:column;align-items:center;justify-content:center;
+        gap:3px;padding:5px 4px;border-radius:15px;
+        background:transparent!important;color:var(--navy);
+        font-size:9px;font-weight:500;line-height:1.1;
+        white-space:normal;opacity:1
+    }
+    .nav a:hover{background:#f5f2f8!important;color:var(--navy)}
+    .nav a.on{background:#eee8f4!important;color:var(--navy);font-weight:600}
+    .nav a.on::after{
+        content:"";position:absolute;left:50%;bottom:3px;
+        width:4px;height:4px;border-radius:50%;
+        background:var(--purple);transform:translateX(-50%)
+    }
+    .nav-ic{
+        width:25px;height:25px;transition:transform .18s ease;opacity:1
+    }
+    .nav a.on .nav-ic{transform:translateY(-1px)}
+    .main{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+    .refresh-icon{width:38px;height:38px;min-height:38px}
+}
+.kpi .kpi-icon{
+    height:26px;display:flex;align-items:center;margin-bottom:13px;color:#62517b
+}
+.kpi .kpi-icon svg,.kpi .kpi-icon img{
+    display:block;width:25px;height:25px;object-fit:contain
+}
+.kpi.hero .kpi-icon{color:#c6eafb}
+.kpi.cyan .kpi-icon{color:#397c96}
+.kpi.soft .kpi-icon{color:#625783}
+#session-label,#sync-state{display:none!important}
 
 </style>
 </head>
@@ -265,7 +293,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
       <path fill="#26224f" d="M170.29,90.37c-14.18-14.18-31.21-21.26-51.11-21.26-13.98,0-26.55,3.5-37.7,10.5v41.4c7.24-13.35,21.38-22.42,37.64-22.42,18.3,0,33.91,11.49,40.02,27.65h-46.3c-6.76,0-12.24,5.48-12.24,12.24h0c0,6.76,5.48,12.24,12.24,12.24h78.46l.26-9.22c0-19.9-7.09-36.94-21.26-51.11Z"/>
       <path fill="#26224f" d="M122.26,184.02c-.07,0-.14.01-.21.02-.97.07-1.94.11-2.93.11-1.29,0-2.56-.07-3.82-.18-.11,0-.22-.02-.33-.03-1-.1-1.98-.23-2.96-.4-4.44-.71-8.62-2.1-12.52-4.17-13.75-7.12-23.15-21.46-23.15-38.01,0-.42,0-.84.02-1.26h-.16v-63.21h.08v-33.92c0-12.59-10.21-22.8-22.8-22.8h-6.79v193.81h29.59v-14.09c12.41,9.4,26.71,14.09,42.91,14.09,14,0,26.86-3.76,38.56-11.27,11.44-7.17,21.01-18.45,28.69-33.82l-27.49-11.89c-5.88,14.96-19.94,25.8-36.68,27.02Z"/>
     </svg></div>
-<h1>Tu operación, en un lugar.</h1><p id="auth-description">Campañas, creadores y comisiones de Briev Co.</p>
+<h1>Gestión de campañas, ingresos y creadores.</h1><p id="auth-description">Estrategia · Creatividad · Tecnología</p>
 <form id="login-form" onsubmit="event.preventDefault();signIn()" hidden>
 <div class="field"><label for="login-email">Correo electrónico</label><input id="login-email" type="email" autocomplete="username" required></div>
 <div class="field"><label for="login-password">Contraseña</label><input id="login-password" type="password" autocomplete="current-password" required></div>
@@ -294,23 +322,38 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
       <a class="on" href="#dash" onclick="event.preventDefault();go('dash',this)"><img class="nav-ic" alt="" src="data:image/png;base64,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"><span>Dashboard</span></a>
       <a href="#camp" onclick="event.preventDefault();go('camp',this)"><img class="nav-ic" alt="" src="data:image/png;base64,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"><span>Campañas</span></a>
       <a href="#cre" onclick="event.preventDefault();go('cre',this)"><img class="nav-ic" alt="" src="data:image/png;base64,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"><span>Creadores</span></a>
-    </nav><div class="session-actions"><button class="btn btn-small" onclick="openData()">↗ Datos</button><button class="btn btn-small" onclick="signOut()">Salir</button></div>
+    </nav><div class="session-actions">
+      <button class="btn btn-small session-icon" onclick="refreshData(true)" aria-label="Actualizar" title="Actualizar">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 11a8 8 0 1 0-2.34 5.66"/><path d="M20 4v7h-7"/>
+        </svg>
+      </button>
+      <button class="btn btn-small session-icon" onclick="openData()" aria-label="Abrir datos y respaldos" title="Datos y respaldos">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14a2 2 0 0 0 2-2v-3"/><path d="M3 16v3a2 2 0 0 0 2 2"/>
+        </svg>
+      </button>
+      <button class="btn btn-small session-icon" onclick="signOut()" aria-label="Cerrar sesión" title="Cerrar sesión">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+        </svg>
+      </button>
+    </div>
   </header>
 
-  <main class="main"><div class="session-bar"><span id="session-label"></span><span id="sync-state" role="status"></span></div><div id="global-notice" class="notice" role="status"></div>
+  <main class="main"><div hidden aria-hidden="true"><span id="session-label"></span><span id="sync-state" role="status"></span></div><div id="global-notice" class="notice" role="status"></div>
     <section class="page on" id="page-dash">
-      <div class="top"><div><div class="eyebrow" id="dash-eyebrow">Briev Co. / Agencia</div><h1>Dashboard</h1></div><div class="top-actions"><div class="dash-switch" aria-label="Vista del dashboard"><button id="dash-mode-agency" class="on" type="button" onclick="setDashMode('agency')">🏢 Agencia</button><button id="dash-mode-creator" type="button" onclick="setDashMode('creator')">✨ Creadora</button></div><button class="btn btn-ghost refresh-icon-btn" aria-label="Actualizar datos" title="Actualizar" onclick="refreshData(true)">↻</button><button class="btn btn-grad" onclick="openCamp()">+ Nueva campaña</button></div></div>
+      <div class="top"><div><div class="eyebrow">Briev Co. / Vista general</div><h1>Dashboard</h1></div><div class="top-actions"><button class="btn btn-grad new-campaign-btn" onclick="openCamp()">+ Nueva campaña</button></div></div>
       <div class="kpis" id="kpis"></div>
-<div class="wide-chart monthly-panel"><div class="chart-head"><div><h3 id="month-title">💵 Comisión por mes</h3><p class="chart-note" id="month-note">Según inicio de campaña; si no existe, inicio del acuerdo. No representa la fecha de cobro.</p></div><span class="tag" id="month-total"></span></div><div class="month-scroll"><div class="wide-wrap" id="month-wrap"><canvas id="chMonth" role="img" aria-label="Evolución mensual"></canvas></div></div><details class="month-details" id="month-details"><summary>Ver importes por mes</summary><div class="month-values" id="month-values"></div></details><p class="form-hint" id="month-missing"></p></div><div class="charts overview-row" id="dash-overview"><div class="chart-card distribution-card"><h3>📊 Por status</h3><p class="chart-note">Cantidad de campañas · porcentaje del total.</p><div id="dash-status"></div></div><div class="chart-card distribution-card"><h3>🏷️ Por industria</h3><p class="chart-note">Cantidad de campañas · porcentaje del total.</p><div id="dash-industry"></div></div><div class="chart-card distribution-card"><h3>💰 Estado de cobro</h3><p class="chart-note" id="collection-note">Comisión de Briev · monto y porcentaje.</p><div id="collection"></div></div><div class="chart-card distribution-card" id="dash-collab-card" hidden><h3>🤝 Tipo de colaboración</h3><p class="chart-note">Pagadas, por canje y mixtas · cantidad de campañas.</p><div id="dash-collab"></div></div></div>
-      <div class="alerts"><h3 id="alert-title">⚠️ Derechos por vencer (próximos 30 días)</h3><div id="alertList"></div></div>
-<div class="dashboard-ranking"><div class="chart-card commission-panel commission-brand" id="brand-panel"><div class="rank-header"><div><div class="eyebrow" id="brand-eyebrow">Distribución de ingresos</div><h3 id="brand-title">Comisión por marca</h3><p class="chart-note" id="brand-note">Industria y cobro por marca · importes de comisión de Briev, no de facturación. Cada estado indica cantidad de campañas e importe.</p></div><div class="rank-summary"><span id="brand-summary-label">Comisión total</span><strong id="brand-total">$0.00</strong><small id="brand-contributors"></small></div></div><div class="rank-toolbar"><div class="rank-controls"><input id="brand-search" type="search" placeholder="Buscar marca…" aria-label="Buscar marca" oninput="drawRanking('brand')"><select id="brand-limit" aria-label="Cantidad de resultados" onchange="drawRanking('brand')"><option value="8">Top 8</option><option value="all">Ver todos</option></select></div><span class="rank-sort-label" id="brand-sort-label">Mayor comisión primero ↓</span></div><div id="brand-list" class="rank-list" role="table" aria-label="Ranking por marca"></div><div id="brand-foot" class="rank-foot" role="status"></div></div></div>
+<div class="wide-chart monthly-panel"><div class="chart-head"><div><h3>💵 Comisión por mes</h3><p class="chart-note">Según inicio de campaña; si no existe, inicio del acuerdo. No representa la fecha de cobro.</p></div><span class="tag" id="month-total"></span></div><div class="month-scroll"><div class="wide-wrap" id="month-wrap"><canvas id="chMonth" role="img" aria-label="Comisión por mes; todos los importes en el desglose debajo"></canvas></div></div><details class="month-details" id="month-details"><summary>Ver importes por mes</summary><div class="month-values" id="month-values"></div></details><p class="form-hint" id="month-missing"></p></div><div class="charts overview-row"><div class="chart-card distribution-card"><h3>📊 Por status</h3><p class="chart-note">Cantidad de campañas · porcentaje del total.</p><div id="dash-status"></div></div><div class="chart-card distribution-card"><h3>🏷️ Por industria</h3><p class="chart-note">Cantidad de campañas · porcentaje del total.</p><div id="dash-industry"></div></div><div class="chart-card distribution-card"><h3>💰 Estado de cobro</h3><p class="chart-note">Comisión de Briev · monto y porcentaje.</p><div id="collection"></div></div></div>
+      <div class="alerts"><h3>⚠️ Derechos por vencer (próximos 30 días)</h3><div id="alertList"></div></div>
+<div class="dashboard-ranking"><div class="chart-card commission-panel commission-brand"><div class="rank-header"><div><div class="eyebrow">Distribución de ingresos</div><h3>Comisión por marca</h3><p class="chart-note">Industria y cobro por marca · importes de comisión de Briev, no de facturación. Cada estado indica cantidad de campañas e importe.</p></div><div class="rank-summary"><span>Comisión total</span><strong id="brand-total">$0.00</strong><small id="brand-contributors"></small></div></div><div class="rank-toolbar"><div class="rank-controls"><input id="brand-search" type="search" placeholder="Buscar marca…" aria-label="Buscar en Comisión por marca" oninput="drawRanking('brand')"><select id="brand-limit" aria-label="Cantidad de resultados" onchange="drawRanking('brand')"><option value="8">Top 8</option><option value="all">Ver todos</option></select></div><span class="rank-sort-label">Mayor comisión primero ↓</span></div><div id="brand-list" class="rank-list" role="table" aria-label="Comisión por marca"></div><div id="brand-foot" class="rank-foot" role="status"></div></div></div>
     </section>
 
     <section class="page" id="page-camp">
-      <div class="top"><div><div class="eyebrow" id="camp-eyebrow">Briev Co. / Agencia</div><h1>Campañas</h1><p id="camp-count"></p></div>
-        <button class="btn btn-grad" onclick="openCamp()">+ Nueva campaña</button></div>
+      <div class="top"><div><h1>Campañas</h1><p id="camp-count"></p></div>
+        <button class="btn btn-grad new-campaign-btn" onclick="openCamp()">+ Nueva campaña</button></div>
       <div class="controls">
-        <div class="camp-context-row"><div class="dash-switch camp-switch" aria-label="Vista de campañas"><button id="camp-mode-agency" class="on" type="button" onclick="setDashMode('agency')">🏢 Agencia</button><button id="camp-mode-creator" type="button" onclick="setDashMode('creator')">✨ Creadora</button></div></div>
         <div class="filters">
           <select id="flt-estado" onchange="renderCamps()"></select>
           <select id="flt-creador" onchange="renderCamps()"></select>
@@ -326,13 +369,13 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
       </div>
       <div id="camp-resumen" style="display:none">
         <div class="mini3" id="ciclo-mini"></div>
-<div class="charts comparison-row" id="campaign-summary-charts"><div class="chart-card distribution-card"><h3>📊 Por status</h3><p class="chart-note">Campañas filtradas · cantidad y porcentaje.</p><div id="summary-status"></div></div><div class="chart-card distribution-card"><h3>🏷️ Por industria</h3><p class="chart-note">Campañas filtradas · cantidad y porcentaje.</p><div id="summary-industry"></div></div><div class="chart-card distribution-card" id="summary-collab-card" hidden><h3>🤝 Tipo de colaboración</h3><p class="chart-note">Pagadas, canje y mixtas · cantidad y porcentaje.</p><div id="summary-collab"></div></div></div>
-        <div class="panel"><h3 id="top3-title" style="font-size:13px;font-weight:600;padding:16px 16px 4px">🏆 Top 3 campañas (por comisión)</h3><p class="form-hint top3-hint" style="display:none;padding:10px 18px 0">Desliza para ver las tres campañas →</p><div class="top3" id="top3list"></div></div>
-<div class="dashboard-ranking"><div class="chart-card commission-panel commission-creator" id="camp-rank-panel"><div class="rank-header"><div><div class="eyebrow" id="camp-rank-eyebrow">Distribución de ingresos</div><h3 id="camp-rank-title">Comisión por creador</h3><p class="chart-note" id="camp-rank-note">Totales, activas y comisión según los filtros · tier y seguidores de la ficha del creador.</p></div><div class="rank-summary"><span id="creator-summary-label">Comisión total</span><strong id="creator-total">$0.00</strong><small id="creator-contributors"></small></div></div><div class="rank-toolbar"><div class="rank-controls"><input id="creator-search" type="search" placeholder="Buscar creador…" aria-label="Buscar en ranking de campañas" oninput="drawRanking('creator')"><select id="creator-limit" aria-label="Cantidad de resultados" onchange="drawRanking('creator')"><option value="8">Top 8</option><option value="all">Ver todos</option></select></div><span class="rank-sort-label" id="camp-rank-sort-label">Mayor comisión primero ↓</span></div><div id="creator-list" class="rank-list" role="table" aria-label="Ranking de campañas"></div><div id="creator-foot" class="rank-foot" role="status"></div></div></div>
+<div class="charts comparison-row"><div class="chart-card distribution-card"><h3>📊 Por status</h3><p class="chart-note">Campañas filtradas · cantidad y porcentaje.</p><div id="summary-status"></div></div><div class="chart-card distribution-card"><h3>🏷️ Por industria</h3><p class="chart-note">Campañas filtradas · cantidad y porcentaje.</p><div id="summary-industry"></div></div></div>
+        <div class="panel"><h3 style="font-size:13px;font-weight:600;padding:16px 16px 4px">🏆 Top 3 campañas (por comisión)</h3><p class="form-hint top3-hint" style="display:none;padding:10px 18px 0">Desliza para ver las tres campañas →</p><div class="top3" id="top3list"></div></div>
+<div class="dashboard-ranking"><div class="chart-card commission-panel commission-creator"><div class="rank-header"><div><div class="eyebrow">Distribución de ingresos</div><h3>Comisión por creador</h3><p class="chart-note">Totales, activas y comisión según los filtros · tier y seguidores de la ficha del creador.</p></div><div class="rank-summary"><span>Comisión total</span><strong id="creator-total">$0.00</strong><small id="creator-contributors"></small></div></div><div class="rank-toolbar"><div class="rank-controls"><input id="creator-search" type="search" placeholder="Buscar creador…" aria-label="Buscar en Comisión por creador" oninput="drawRanking('creator')"><select id="creator-limit" aria-label="Cantidad de resultados" onchange="drawRanking('creator')"><option value="8">Top 8</option><option value="all">Ver todos</option></select></div><span class="rank-sort-label">Mayor comisión primero ↓</span></div><div id="creator-list" class="rank-list" role="table" aria-label="Comisión por creador"></div><div id="creator-foot" class="rank-foot" role="status"></div></div></div>
       </div>
       <div class="grid-camp" id="camp-cards" style="display:grid"></div>
       <div class="panel" id="camp-table" style="display:none"><div class="tbl-scroll"><table>
-        <thead><tr id="camp-head"><th>Marca / Campaña</th><th>Mes</th><th>Creador</th><th>Industria</th><th class="num-r">Monto</th><th class="num-r">% Com.</th><th class="num-r">Ingreso / comisión</th><th>Status</th><th>Cobro</th><th>Origen</th></tr></thead>
+        <thead><tr><th>Marca / Campaña</th><th>Mes</th><th>Creador</th><th>Industria</th><th class="num-r">Monto</th><th class="num-r">% Com.</th><th class="num-r">Comisión</th><th>Status</th><th>Cobro</th><th>Titular</th></tr></thead>
         <tbody id="camp-rows"></tbody></table></div></div>
     </section>
 
@@ -371,13 +414,12 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
   <div class="field" id="new-industry-field" hidden><label for="c-new-industry">Nueva industria</label><input id="c-new-industry" maxlength="80" disabled placeholder="Ej. Mascotas"><p class="form-hint">Se añadirá al listado al guardar la campaña.</p></div>
   <div class="field" id="other-creator-field" hidden><label for="c-other">Nombre del creador sin ficha</label><input id="c-other" maxlength="200" placeholder="Nombre del creador"></div>
   <div class="two">
-    <div class="field"><label for="c-titular">Origen de la campaña</label><select id="c-titular" onchange="togglePersonalFields(true)"><option value="Agencia">Agencia</option><option value="Propia">Marca personal</option></select></div>
+    <div class="field"><label for="c-titular">Titular (¿a quién ingresa?)</label><select id="c-titular"><option>Agencia</option><option>Propia</option></select></div>
     <div class="field"><label for="c-ciclo">Ciclo</label><select id="c-ciclo"></select></div>
   </div>
-  <section class="personal-collab" id="personal-collab-section" hidden><h4>✨ Colaboración de marca personal</h4><p class="form-hint">Registra por separado el dinero y el valor del producto o servicio. Un canje no se contará como ingreso monetario.</p><div class="field"><label for="c-colab">Tipo de colaboración</label><select id="c-colab" onchange="togglePersonalFields(true)"><option value="Pagada">💵 Pagada</option><option value="Canje">🎁 Canje</option><option value="Mixta">💵 + 🎁 Mixta</option></select></div><div id="barter-fields" hidden><div class="field"><label for="c-canje-desc">Producto o servicio recibido</label><input id="c-canje-desc" maxlength="300" placeholder="Ej. Kit de skincare / 2 noches de hospedaje"></div><div class="two"><div class="field"><label for="c-canje-valor">Valor estimado del canje ($)</label><input id="c-canje-valor" type="number" min="0" step="0.01" max="9999999999.99" placeholder="180" oninput="cCalc(true)"></div><div class="field"><label for="c-canje-recibido">¿Canje recibido?</label><select id="c-canje-recibido"><option value="no">⏳ No</option><option value="si">✅ Sí</option></select></div></div><div class="field"><label for="c-canje-fecha">Fecha de recepción</label><input id="c-canje-fecha" type="date"></div></div></section>
-  <div class="field" id="finance-mode-field"><label for="c-finance-mode">¿Cómo definir tu comisión?</label><select id="c-finance-mode" onchange="cCalc()"><option value="pago">Pago acordado al creador</option><option value="porcentaje">Porcentaje del total</option></select><p class="form-hint">El monto recibido no cambia. En pago acordado, tu comisión es la diferencia; el porcentaje es solo una referencia.</p></div>
+  <div class="field"><label for="c-finance-mode">¿Cómo definir tu comisión?</label><select id="c-finance-mode" onchange="cCalc()"><option value="pago">Pago acordado al creador</option><option value="porcentaje">Porcentaje del total</option></select><p class="form-hint">El monto recibido no cambia. En pago acordado, tu comisión es la diferencia; el porcentaje es solo una referencia.</p></div>
   <div class="two">
-    <div class="field" id="cash-amount-field"><label for="c-monto" id="c-monto-label">Monto acordado con la marca ($)</label><input id="c-monto" type="number" required min="0" step="0.01" max="9999999999.99" oninput="cCalc(true)" placeholder="3500"></div>
+    <div class="field"><label for="c-monto">Monto acordado con la marca ($)</label><input id="c-monto" type="number" required min="0" step="0.01" max="9999999999.99" oninput="cCalc(true)" placeholder="3500"></div>
     <div class="field" id="finance-pct-field" hidden><label for="c-com-pct">Comisión sobre el total (%)</label><input id="c-com-pct" type="number" min="0" max="100" step="0.01" oninput="cCalc(true)" placeholder="20"></div>
     <div class="field" id="finance-pay-field"><label for="c-pago">Pago acordado al creador ($)</label><input id="c-pago" type="number" min="0" max="9999999999.99" step="0.01" oninput="cCalc(true)" placeholder="2750"><p class="form-hint">Escribe el importe real que le pagarás, sin sumar la comisión de Briev.</p></div>
   </div>
@@ -386,15 +428,15 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
   <div class="three">
     <div class="field"><label for="c-pauta">Pauta (días)</label><input id="c-pauta" type="number" min="0" step="1" max="36500" placeholder="0"></div>
     <div class="field"><label for="c-excl">Exclusividad (días)</label><input id="c-excl" type="number" min="0" step="1" max="36500" placeholder="0"></div>
-    <div class="field" id="payment-days-field"><label for="c-diaspago">Días de pago</label><input id="c-diaspago" type="number" min="0" step="1" max="36500" placeholder="30"></div>
+    <div class="field"><label for="c-diaspago">Días de pago</label><input id="c-diaspago" type="number" min="0" step="1" max="36500" placeholder="30"></div>
   </div>
   <div class="two">
     <div class="field"><label for="c-estado">Status</label><select id="c-estado"></select></div>
-    <div class="field" id="collection-field"><label for="c-cobro">Cobro</label><select id="c-cobro"></select></div>
+    <div class="field"><label for="c-cobro">Cobro</label><select id="c-cobro"></select></div>
   </div>
   <div class="two">
     <div class="field"><label for="c-brief">Brief</label><select id="c-brief"><option value="no">❌ No recibido</option><option value="si">✅ Recibido</option></select></div>
-    <div class="field" id="creator-paid-field"><label for="c-pagcr">¿Pagado al creador?</label><select id="c-pagcr"><option value="no">⏳ No</option><option value="si">✅ Sí</option></select></div>
+    <div class="field"><label for="c-pagcr">¿Pagado al creador?</label><select id="c-pagcr"><option value="no">⏳ No</option><option value="si">✅ Sí</option></select></div>
   </div>
   <div class="two">
     <div class="field"><label for="c-inicio-acuerdo">Inicio del acuerdo / contrato</label><input id="c-inicio-acuerdo" type="date"></div>
@@ -435,10 +477,10 @@ const ESTADOS=[["Prospecto","🔍"],["Propuesta enviada","📤"],["Negociación"
 const COBROS=[["Pendiente","⏳"],["Facturado","🧾"],["Pagado","✅"]];
 const INDUS=[["Fintech","💳"],["Belleza","💄"],["Comida y bebida","🍔"],["Moda","👗"],["Tecnología","📱"],["Salud y bienestar","🌿"],["Turismo","✈️"],["Educación","🎓"],["Hogar","🏠"],["Automotriz","🚗"],["Entretenimiento","🎬"],["Otro","🎯"]];
 const CICLOS=[["Activa","🟢"],["Renovada","🔄"],["Finalizada","🏁"]];
-const COLABS=[["Pagada","💵"],["Canje","🎁"],["Mixta","💵 + 🎁"]];
 const ACTIVOS=["Contrato firmado","En producción","En aprobación","Contenido aprobado","Publicado","Facturado"];
 const PAL=['#b677b1','#81a4d0','#5ec4e6','#26224f','#a783b9','#6a8eba','#3a96b7','#847ca6','#c79dc3','#587395','#94d5e9','#ac91b8'];
 const em=(l,v)=>l.find(x=>x[0]===v)?.[1]||(l===INDUS&&v?'🏷️':'');
+const cobroLabel=value=>value==='Pendiente'?'Pendiente de cobro':value;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const g=id=>document.getElementById(id);
 const initials=n=>String(n).trim().split(/\s+/).slice(0,2).map(s=>s[0]||'').join('').toUpperCase();
@@ -456,19 +498,6 @@ const percent=(part,total)=>total>0?(part/total*100):0;
 const pct=(part,total)=>percent(part,total).toLocaleString('es-GT',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
 const sum=(items,fn)=>items.reduce((s,c)=>s+cents(fn(c)),0)/100;
 const comOf=c=>roundMoney(c.comision??(roundMoney(c.monto)-roundMoney(c.pago)));
-function personalMeta(c){
-  const raw=c?.extras?.marca_personal_v1||{};
-  const tipo=COLABS.some(([name])=>name===raw.tipo)?raw.tipo:'Pagada';
-  let canjeValor=0;try{canjeValor=roundMoney(raw.canjeValor||0);}catch{canjeValor=0;}
-  return {tipo,canjeDescripcion:String(raw.canjeDescripcion||''),canjeValor:Math.max(0,canjeValor),canjeRecibido:raw.canjeRecibido==='si'?'si':'no',canjeFecha:/^\d{4}-\d{2}-\d{2}$/.test(String(raw.canjeFecha||''))?String(raw.canjeFecha):''};
-}
-const isPersonal=c=>c.titular==='Propia';
-const collabType=c=>isPersonal(c)?personalMeta(c).tipo:'Pagada';
-const collabIcon=c=>COLABS.find(([name])=>name===collabType(c))?.[1]||'💵';
-const barterOf=c=>isPersonal(c)?personalMeta(c).canjeValor:0;
-const personalCashOf=c=>isPersonal(c)?roundMoney(c.monto||0):0;
-const personalValueOf=c=>roundMoney(personalCashOf(c)+barterOf(c));
-const dashboardValueOf=c=>isPersonal(c)?personalValueOf(c):comOf(c);
 function computeFinance(monto,p,propia=false){
   const m=cents(monto),bp=propia?10000:cents(p);
   if(m<0||bp<0||bp>10000)throw new Error('El monto debe ser positivo y la comisión debe estar entre 0 y 100%.');
@@ -488,13 +517,12 @@ const parseDay=d=>d?new Date(d+'T12:00:00'):null;
 const mesCorto=d=>d?parseDay(d).toLocaleDateString('es-GT',{month:'short',year:'2-digit'}):'—';
 const mesLargo=d=>d?parseDay(d).toLocaleDateString('es-GT',{month:'long',year:'numeric'}):'Sin fecha';
 const fecha=d=>d?parseDay(d).toLocaleDateString('es-GT'):'—';
-const isActive=c=>c.ciclo!=='Finalizada'&&ACTIVOS.includes(c.estado);
+const isActive=c=>['Activa','Renovada'].includes(c.ciclo)&&ACTIVOS.includes(c.estado);
 const belongs=(c,r)=>c.creadorId?c.creadorId===r.id:c.creador===r.nombre;
 const creatorName=c=>cres.find(r=>r.id===c.creadorId)?.nombre||c.creador||'Sin creador';
 const uuid=()=>crypto.randomUUID();
 let camps=[],cres=[],editC=null,editR=null,charts={},charts2={},campView='cards';
 let mode='locked',db=null,user=null,busy=false,refreshing=false,epoch=0,pendingImport=null,financeDirty=false,editCampSnapshot=null,editCreSnapshot=null,lastFocus=null,toastTimer=null;
-let dashMode='agency';
 let rankingData={},newCampId=null,newCreId=null;
 let financeDraft=null,financeError='',draftDeliverables=[],deliverablesDirty=false,deliverySequence=0;
 
@@ -540,7 +568,7 @@ async function checkAuthConnection(){
   }catch(e){g('auth-diagnostic').textContent=e?.code==='connection_missing'?'Falta configurar la conexión con Supabase.':e?.name==='AbortError'||e?.name==='AuthRetryableFetchError'||/fetch|network|load failed/i.test(String(e?.message||''))?'No se pudo conectar con Supabase desde este navegador. Revisa internet y si algún bloqueo de red está impidiendo el acceso. No cambies tu contraseña por este error. [network_error]':authFailure(e);}
   finally{clearTimeout(timer);setBusy(false);}
 }
-function showApp(){g('auth-screen').hidden=true;g('app').hidden=false;g('session-label').textContent='';g('session-label').hidden=true;}
+function showApp(){g('auth-screen').hidden=true;g('app').hidden=false;g('session-label').textContent=mode==='cloud'?'':mode==='demo'?'◉ Demo · datos ficticios, sin guardar':'◉ Modo local · solo en este navegador';}
 function clearSession(){
   epoch++;user=null;mode='locked';camps=[];cres=[];pendingImport=null;rankingData={};editCampSnapshot=null;editCreSnapshot=null;
   financeDraft=null;financeError='';draftDeliverables=[];deliverablesDirty=false;g('delivery-rows').replaceChildren();
@@ -786,44 +814,24 @@ function fillModalSelects(){
   g('c-creador').innerHTML=cres.map(r=>`<option value="${r.id}">${esc(r.nombre)}</option>`).join('')+'<option value="other">— otro creador —</option>';
 }
 function selectFilter(id,values,label){const prev=g(id).value;g(id).innerHTML=`<option value="">${esc(label)}</option>`+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');g(id).value=values.includes(prev)?prev:'';}
-function campaignScope(){return camps.filter(c=>dashMode==='creator'?isPersonal(c):!isPersonal(c));}
 function buildFilters(){
-  const scoped=campaignScope();
-  selectFilter('flt-estado',ESTADOS.map(x=>x[0]),'Status: todos');selectFilter('flt-creador',[...new Set(scoped.map(creatorName))].sort(),'Creador: todos');selectFilter('flt-marca',[...new Set(scoped.map(c=>c.marca))].sort(),'Marca: todas');selectFilter('flt-industria',[...new Set(scoped.map(c=>c.industria))].sort(),'Industria: todas');selectFilter('flt-titular',dashMode==='creator'?['Propia']:['Agencia'],dashMode==='creator'?'Origen: Marca personal':'Origen: Agencia');const personal=[...g('flt-titular').options].find(o=>o.value==='Propia');if(personal)personal.textContent='Marca personal';
+  selectFilter('flt-estado',ESTADOS.map(x=>x[0]),'Status: todos');selectFilter('flt-creador',[...new Set(camps.map(creatorName))].sort(),'Creador: todos');selectFilter('flt-marca',[...new Set(camps.map(c=>c.marca))].sort(),'Marca: todas');selectFilter('flt-industria',[...new Set(camps.map(c=>c.industria))].sort(),'Industria: todas');selectFilter('flt-titular',['Agencia','Propia'],'Titular: todos');
 }
 function buildCreFilters(){selectFilter('flt-cre-tier',['Nano','Micro','Influencer'],'Tier: todos');selectFilter('flt-cre-nombre',cres.map(r=>r.nombre).sort(),'Creador: todos');}
-function passes(c){const inContext=dashMode==='creator'?isPersonal(c):!isPersonal(c);return inContext&&(!g('flt-estado').value||c.estado===g('flt-estado').value)&&(!g('flt-creador').value||creatorName(c)===g('flt-creador').value)&&(!g('flt-marca').value||c.marca===g('flt-marca').value)&&(!g('flt-industria').value||c.industria===g('flt-industria').value)&&(!g('flt-titular').value||c.titular===g('flt-titular').value);}
+function passes(c){return(!g('flt-estado').value||c.estado===g('flt-estado').value)&&(!g('flt-creador').value||creatorName(c)===g('flt-creador').value)&&(!g('flt-marca').value||c.marca===g('flt-marca').value)&&(!g('flt-industria').value||c.industria===g('flt-industria').value)&&(!g('flt-titular').value||c.titular===g('flt-titular').value);}
 function passesCre(r){return(!g('flt-cre-tier').value||r.tier===g('flt-cre-tier').value)&&(!g('flt-cre-nombre').value||r.nombre===g('flt-cre-nombre').value)&&r.nombre.toLocaleLowerCase().includes(g('cre-search').value.trim().toLocaleLowerCase());}
 function titBadge(t){return t==='Propia'?'<span class="badge-tit t-pr">✨ Marca personal</span>':'<span class="badge-tit t-ag">🏢 Agencia</span>';}
 function renderAll(){buildFilters();renderDash();renderCamps();renderCres();}
-function setDashMode(next){
-  if(!['agency','creator'].includes(next))return;dashMode=next;
-  for(const id of ['dash-mode-agency','camp-mode-agency'])g(id)?.classList.toggle('on',next==='agency');
-  for(const id of ['dash-mode-creator','camp-mode-creator'])g(id)?.classList.toggle('on',next==='creator');
-  buildFilters();renderDash();renderCamps();
-}
-function dashScope(){return campaignScope();}
 function renderDash(){
-  const list=dashScope(),creator=dashMode==='creator';
-  g('dash-eyebrow').textContent=creator?'Briev Co. / Creadora':'Briev Co. / Agencia';
+  const fact=sum(camps,c=>c.monto),com=sum(camps,comOf),comAg=sum(camps.filter(c=>c.titular!=='Propia'),comOf),comPr=roundMoney(com-comAg);
+  const active=camps.filter(isActive).length,pending=sum(camps.filter(c=>c.cobro!=='Pagado'),comOf),pay=sum(camps.filter(c=>c.pagcr!=='si'),c=>c.pago),paid=roundMoney(com-pending);
   const card=(cls,icon,label,value,sub)=>`<div class="kpi ${cls}"><span class="kpi-icon" aria-hidden="true">${icon}</span><div class="label">${label}</div><div class="num">${value}</div><div class="sub">${sub}</div></div>`;
-  if(creator){
-    const cash=sum(list,personalCashOf),barter=sum(list,barterOf),receivedBarter=sum(list.filter(c=>personalMeta(c).canjeRecibido==='si'),barterOf),pendingBarter=roundMoney(barter-receivedBarter),total=roundMoney(cash+barter);
-    const active=list.filter(isActive).length,pendingCash=sum(list.filter(c=>collabType(c)!=='Canje'&&c.cobro!=='Pagado'),personalCashOf),paidCash=roundMoney(cash-pendingCash);
-    g('kpis').innerHTML=card('lilac','💵','Ingreso monetario',money(cash),`${list.filter(c=>collabType(c)!=='Canje').length} campañas con pago`)+card('cyan','🎁','Valor de canjes',money(barter),`Recibido ${money(receivedBarter)}<br>Pendiente ${money(pendingBarter)}`)+card('hero','✦','Valor total de colaboraciones',money(total),`Dinero ${money(cash)}<br>Canjes ${money(barter)}`)+card('sky','🎬','Campañas activas',active,`${pct(active,list.length)} de tu marca personal`)+card('soft','◷','Por cobrar',money(pendingCash),`Dinero pendiente · ${pct(paidCash,cash)} cobrado<br>Canjes por recibir ${money(pendingBarter)}`);
-  }else{
-    const fact=sum(list,c=>c.monto),com=sum(list,comOf),active=list.filter(isActive).length,pending=sum(list.filter(c=>c.cobro!=='Pagado'),comOf),pay=sum(list.filter(c=>c.pagcr!=='si'),c=>c.pago),paid=roundMoney(com-pending);
-    g('kpis').innerHTML=card('lilac','↗','Monto de campañas',money(fact),`${list.length} campañas de agencia · incluye propuestas`)+card('hero','✦','Mi ingreso total',money(com),'Comisión generada por Briev')+card('sky','🎬','Campañas activas',active,`${pct(active,list.length)} del total · excluye finalizadas`)+card('cyan','◷','Por cobrar',money(pending),`Comisión pendiente<br>${pct(paid,com)} cobrada`)+card('soft','↗','Por pagar a creadores',money(pay),'Pagos pendientes a creadores');
-  }
-  drawCharts(list);
+  g('kpis').innerHTML=card('lilac','↗','Monto de campañas',money(fact),`${camps.length} campañas · incluye propuestas`)+card('hero','✦','Mi ingreso total',money(com),`Agencia ${money(comAg)}<br>Marca personal ${money(comPr)}`)+card('sky','🎬','Campañas activas',active,`${pct(active,camps.length)} del total · excluye finalizadas`)+card('cyan','◷','Por cobrar',money(pending),`Comisión pendiente<br>${pct(paid,com)} cobrada`)+card('soft','↗','Por pagar a creadores',money(pay),'Pagos pendientes a creadores');
+  drawCharts();
   const today=new Date();today.setHours(12,0,0,0);const soon=[];
-  if(creator){
-    for(const c of list){const p=personalMeta(c);if(p.tipo!=='Pagada'&&p.canjeValor>0&&p.canjeRecibido!=='si')soon.push({diff:-1,html:`🎁 Canje pendiente de <b>${esc(c.marca)}</b> · ${esc(p.canjeDescripcion||'producto/servicio')} · valor estimado ${money(p.canjeValor)}`});}
-    g('alert-title').textContent='⚠️ Pendientes de tu marca personal';
-  }else g('alert-title').textContent='⚠️ Derechos por vencer (próximos 30 días)';
-  for(const c of list){if(!c.inicioCampana)continue;for(const [type,days] of [['Pauta',c.pauta],['Exclusividad',c.excl]]){if(days<=0)continue;const end=parseDay(c.inicioCampana);end.setDate(end.getDate()+days);const diff=Math.round((end-today)/86400000);if(diff>=0&&diff<=30)soon.push({diff,html:`${esc(type)} de <b>${esc(c.marca)} · ${esc(creatorName(c))}</b> ${diff===0?'vence hoy':'vence en '+diff+' día'+(diff===1?'':'s')} · ${fecha(end.getFullYear()+'-'+String(end.getMonth()+1).padStart(2,'0')+'-'+String(end.getDate()).padStart(2,'0'))}`});}}
-  soon.sort((a,b)=>a.diff-b.diff);g('alertList').innerHTML=soon.length?soon.map(x=>`<div class="a">${x.html}</div>`).join(''):`<div class="none">${creator?'Sin canjes pendientes ni derechos por vencer.':'Sin derechos por vencer en los próximos 30 días.'}</div>`;
-  const missing=list.filter(c=>!c.inicioCampana&&(c.pauta>0||c.excl>0)).length;if(missing)g('alertList').innerHTML+=`<div class="a">${missing} campaña(s) con derechos sin fecha de inicio. Completa esa fecha para calcular vencimientos.</div>`;
+  for(const c of camps){if(!c.inicioCampana)continue;for(const [type,days] of [['Pauta',c.pauta],['Exclusividad',c.excl]]){if(days<=0)continue;const end=parseDay(c.inicioCampana);end.setDate(end.getDate()+days);const diff=Math.round((end-today)/86400000);if(diff>=0&&diff<=30)soon.push({diff,html:`${esc(type)} de <b>${esc(c.marca)} · ${esc(creatorName(c))}</b> ${diff===0?'vence hoy':'vence en '+diff+' día'+(diff===1?'':'s')} · ${fecha(end.getFullYear()+'-'+String(end.getMonth()+1).padStart(2,'0')+'-'+String(end.getDate()).padStart(2,'0'))}`});}}
+  soon.sort((a,b)=>a.diff-b.diff);g('alertList').innerHTML=soon.length?soon.map(x=>`<div class="a">${x.html}</div>`).join(''):'<div class="none">Sin derechos por vencer en los próximos 30 días.</div>';
+  const missing=camps.filter(c=>!c.inicioCampana&&(c.pauta>0||c.excl>0)).length;if(missing)g('alertList').innerHTML+=`<div class="a">${missing} campaña(s) con derechos sin fecha de inicio. Completa esa fecha para calcular vencimientos.</div>`;
 }
 function group(list,key,value){const map=new Map();for(const c of list){const k=key(c)||'Sin asignar',r=map.get(k)||{label:k,cents:0,count:0};r.cents+=cents(value(c));r.count++;map.set(k,r);}return [...map.values()].map(r=>({...r,value:r.cents/100})).sort((a,b)=>b.value-a.value||a.label.localeCompare(b.label));}
 function groupBrands(list){
@@ -835,15 +843,6 @@ function groupBrands(list){
     entry.count++;entry.cents+=cents(comOf(c));row.collection.set(status,entry);
   }
   return [...byName.values()].map(r=>({...r,industries:[...r.industries.values()].sort((a,b)=>a.localeCompare(b,'es')),collection:['Pagado','Facturado','Pendiente'].filter(s=>r.collection.has(s)).map(s=>{const entry=r.collection.get(s);return {...entry,value:entry.cents/100};})}));
-}
-function groupCreatorBrands(list){
-  const map=new Map();
-  for(const c of list){
-    const key=c.marca||'Sin asignar',p=personalMeta(c),row=map.get(key)||{label:key,count:0,cashCents:0,barterCents:0,industries:new Map(),types:new Set()};
-    row.count++;row.cashCents+=cents(personalCashOf(c));row.barterCents+=cents(barterOf(c));row.types.add(p.tipo);
-    const industry=normalizeIndustry(c.industria);row.industries.set(industryKey(industry),industry);map.set(key,row);
-  }
-  return [...map.values()].map(r=>({...r,cash:r.cashCents/100,barter:r.barterCents/100,value:(r.cashCents+r.barterCents)/100,industries:[...r.industries.values()].sort((a,b)=>a.localeCompare(b,'es')),types:[...r.types]})).sort((a,b)=>b.value-a.value||a.label.localeCompare(b.label,'es'));
 }
 function groupCreators(list){
   const map=new Map();
@@ -902,8 +901,6 @@ function creatorRankRow(r,position,total){
   return `<div class="rank-row" role="row" data-leading="${position===1}"><span class="rank-place" role="cell">${position}</span><div class="rank-identity" role="cell"><span class="rank-avatar person" aria-hidden="true">${esc(initials(r.label))}</span><div class="rank-name-block"><span class="rank-entity">${esc(r.label)}</span><span class="rank-tier">${esc(r.tier)}</span></div></div><div class="rank-followers" role="cell"><span>Instagram <b>${esc(follower(r.igFollowers))}</b></span><span>TikTok <b>${esc(follower(r.ttFollowers))}</b></span></div><div class="rank-count" role="cell"><span><b>${r.count}</b> totales</span><span class="rank-active">${r.active} activas</span></div><div class="rank-commission" role="cell"><span class="rank-mobile-label">Comisión</span><strong>${money(r.value)}</strong><div class="rank-share"><b>${pct(r.value,total)}</b><span class="rank-meter" aria-hidden="true"><span style="width:${percent(r.value,total)}%"></span></span></div></div></div>`;
 }
 function drawRanking(id){
-  if(id==='brand'&&dashMode==='creator')return drawCreatorBrandRanking();
-  if(id==='creator'&&dashMode==='creator')return drawCreatorCampaignBrandRanking();
   const all=rankingData[id]||[],total=sum(all,r=>r.value),term=g(id+'-search').value.trim().toLocaleLowerCase(),limit=g(id+'-limit').value;
   const matches=all.filter(r=>r.label.toLocaleLowerCase().includes(term));const visible=limit==='all'?matches:matches.slice(0,Number(limit));
   const entity=id==='brand'?'marcas':'creadores',campaignCount=all.reduce((s,r)=>s+r.count,0);
@@ -919,36 +916,11 @@ function drawRanking(id){
   const visibleValue=sum(visible,r=>r.value);
   g(id+'-foot').textContent=`${visible.length} de ${matches.length} ${entity}${term?' encontrad'+(id==='brand'?'as':'os'):''} · Suma visible: ${money(visibleValue)} (${pct(visibleValue,total)} del total${id==='creator'?' filtrado':''}).`;
 }
-function drawCreatorBrandRanking(){
-  const all=rankingData.brand||[],total=sum(all,r=>r.value),term=g('brand-search').value.trim().toLocaleLowerCase(),limit=g('brand-limit').value;
-  const matches=all.filter(r=>r.label.toLocaleLowerCase().includes(term)),visible=limit==='all'?matches:matches.slice(0,Number(limit));
-  g('brand-total').textContent=money(total);g('brand-contributors').textContent=`${all.length} marcas · ${all.reduce((s,r)=>s+r.count,0)} campañas`;
-  const heading='<div class="creator-brand-grid-head" role="row"><span>#</span><span>Marca / industria</span><span>Campañas</span><span>Colaboración</span><span>Dinero</span><span>Canje</span><span>Valor total</span></div>';
-  g('brand-list').innerHTML=visible.length?heading+visible.map(r=>{const position=all.indexOf(r)+1;return `<div class="creator-brand-row" role="row" data-leading="${position===1}"><span class="rank-place">${position}</span><div class="rank-identity"><span class="rank-avatar" aria-hidden="true">${esc(initials(r.label))}</span><div class="rank-name-block"><span class="rank-entity">${esc(r.label)}</span><span class="rank-industries">${r.industries.map(name=>`<span>${esc(name)}</span>`).join('')}</span></div></div><div class="campaign-count rank-count"><b>${r.count}</b></div><div class="creator-brand-types">${r.types.map(type=>`<span class="collab-pill ${type==='Pagada'?'paid':type==='Canje'?'barter':'mixed'}">${esc(COLABS.find(x=>x[0]===type)?.[1]||'')} ${esc(type)}</span>`).join('')}</div><div class="creator-brand-money cash"><span class="rank-mobile-label">Dinero</span><strong>${money(r.cash)}</strong></div><div class="creator-brand-money barter"><span class="rank-mobile-label">Canje</span><strong>${money(r.barter)}</strong></div><div class="creator-brand-money creator-brand-total"><span class="rank-mobile-label">Total</span><strong>${money(r.value)}</strong></div></div>`;}).join(''):'<div class="empty">Sin resultados. Prueba con otro nombre.</div>';
-  const visibleValue=sum(visible,r=>r.value);g('brand-foot').textContent=`${visible.length} de ${matches.length} marcas${term?' encontradas':''} · Valor visible: ${money(visibleValue)} (${pct(visibleValue,total)} del total).`;
-}
-function drawCreatorCampaignBrandRanking(){
-  const all=rankingData.creator||[],total=sum(all,r=>r.value),term=g('creator-search').value.trim().toLocaleLowerCase(),limit=g('creator-limit').value;
-  const matches=all.filter(r=>r.label.toLocaleLowerCase().includes(term)),visible=limit==='all'?matches:matches.slice(0,Number(limit));
-  g('creator-total').textContent=money(total);g('creator-contributors').textContent=`${all.length} marcas · ${all.reduce((s,r)=>s+r.count,0)} campañas`;
-  const heading='<div class="creator-brand-grid-head" role="row"><span>#</span><span>Marca / industria</span><span>Campañas</span><span>Colaboración</span><span>Dinero</span><span>Canje</span><span>Valor total</span></div>';
-  g('creator-list').innerHTML=visible.length?heading+visible.map(r=>{const position=all.indexOf(r)+1;return `<div class="creator-brand-row" role="row" data-leading="${position===1}"><span class="rank-place">${position}</span><div class="rank-identity"><span class="rank-avatar" aria-hidden="true">${esc(initials(r.label))}</span><div class="rank-name-block"><span class="rank-entity">${esc(r.label)}</span><span class="rank-industries">${r.industries.map(name=>`<span>${esc(name)}</span>`).join('')}</span></div></div><div class="campaign-count rank-count"><b>${r.count}</b></div><div class="creator-brand-types">${r.types.map(type=>`<span class="collab-pill ${type==='Pagada'?'paid':type==='Canje'?'barter':'mixed'}">${esc(COLABS.find(x=>x[0]===type)?.[1]||'')} ${esc(type)}</span>`).join('')}</div><div class="creator-brand-money cash"><span class="rank-mobile-label">Dinero</span><strong>${money(r.cash)}</strong></div><div class="creator-brand-money barter"><span class="rank-mobile-label">Canje</span><strong>${money(r.barter)}</strong></div><div class="creator-brand-money creator-brand-total"><span class="rank-mobile-label">Total</span><strong>${money(r.value)}</strong></div></div>`;}).join(''):'<div class="empty">Sin resultados. Prueba con otro nombre.</div>';
-  const visibleValue=sum(visible,r=>r.value);g('creator-foot').textContent=`${visible.length} de ${matches.length} marcas${term?' encontradas':''} · Valor visible: ${money(visibleValue)} (${pct(visibleValue,total)} del total).`;
-}
-function drawCharts(list=dashScope()){
-  const creator=dashMode==='creator';
-  g('dash-overview').classList.toggle('creator-overview',creator);g('dash-collab-card').hidden=!creator;
-  g('collection-note').textContent=creator?'Solo ingreso monetario · cobrado vs. pendiente. Los canjes se controlan por recepción.':'Comisión de Briev · monto y porcentaje.';
-  if(creator){
-    rankingData.brand=groupCreatorBrands(list);g('brand-eyebrow').textContent='Valor de colaboraciones';g('brand-title').textContent='Valor por marca';g('brand-note').textContent='Dinero y canjes de tu marca personal por marca. El canje se muestra como valor estimado, no como ingreso en efectivo.';g('brand-summary-label').textContent='Valor total';g('brand-sort-label').textContent='Mayor valor primero ↓';
-    const collected=sum(list.filter(c=>collabType(c)!=='Canje'&&c.cobro==='Pagado'),personalCashOf),pending=sum(list.filter(c=>collabType(c)!=='Canje'&&c.cobro!=='Pagado'),personalCashOf);
-    ring('collection',[{label:'Cobrado',icon:'✅',value:collected,color:'#5ec4e6'},{label:'Por cobrar',icon:'⏳',value:pending,color:'#b677b1'}],true);
-    const counts=COLABS.map((x,i)=>({label:x[0],icon:x[1],value:list.filter(c=>collabType(c)===x[0]).length,color:PAL[i%PAL.length]})).filter(r=>r.value>0);ring('dash-collab',counts);
-  }else{
-    rankingData.brand=groupBrands(list);g('brand-eyebrow').textContent='Distribución de ingresos';g('brand-title').textContent='Comisión por marca';g('brand-note').textContent='Industria y cobro por marca · importes de comisión de Briev, no de facturación. Cada estado indica cantidad de campañas e importe.';g('brand-summary-label').textContent='Comisión total';g('brand-sort-label').textContent='Mayor comisión primero ↓';
-    const collected=sum(list.filter(c=>c.cobro==='Pagado'),comOf),pending=sum(list.filter(c=>c.cobro!=='Pagado'),comOf);ring('collection',[{label:'Cobrado',icon:'✅',value:collected,color:'#5ec4e6'},{label:'Por cobrar',icon:'⏳',value:pending,color:'#b677b1'}],true);
-  }
-  drawRanking('brand');ring('dash-status',statusRows(list));ring('dash-industry',industryRows(list));drawMonth(list);
+function drawCharts(){
+  rankingData.brand=groupBrands(camps);drawRanking('brand');
+  const collected=sum(camps.filter(c=>c.cobro==='Pagado'),comOf),pending=sum(camps.filter(c=>c.cobro!=='Pagado'),comOf);
+  ring('collection',[{label:'Cobrado',icon:'✅',value:collected,color:'#5ec4e6'},{label:'Por cobrar',icon:'⏳',value:pending,color:'#b677b1'}],true);
+  ring('dash-status',statusRows(camps));ring('dash-industry',industryRows(camps));drawMonth();
 }
 const monthPointLabels={id:'brievMonthLabels',afterDatasetsDraw(chart){
   const {ctx,chartArea}=chart;if(!chartArea||chart.width<540)return;
@@ -963,33 +935,24 @@ const monthPointLabels={id:'brievMonthLabels',afterDatasetsDraw(chart){
     ctx.fillText(label,x,Math.max(16,point.y-10));lastRight=x+half;
   });ctx.restore();
 }};
-function drawMonth(list=dashScope()){
-  const creator=dashMode==='creator',cashMap=new Map(),barterMap=new Map(),agencyMap=new Map();
-  for(const c of list){const d=c.inicioCampana||c.inicioAcuerdo;if(!d)continue;const k=d.slice(0,7);if(creator){cashMap.set(k,(cashMap.get(k)||0)+cents(personalCashOf(c)));barterMap.set(k,(barterMap.get(k)||0)+cents(barterOf(c)));}else agencyMap.set(k,(agencyMap.get(k)||0)+cents(comOf(c)));}
-  const keys=[...new Set(creator?[...cashMap.keys(),...barterMap.keys()]:[...agencyMap.keys()])].sort(),months=[];
+function drawMonth(){
+  const byMonth=new Map();for(const c of camps){const d=c.inicioCampana||c.inicioAcuerdo;if(d){const k=d.slice(0,7);byMonth.set(k,(byMonth.get(k)||0)+cents(comOf(c)));}}
+  const keys=[...byMonth.keys()].sort(),months=[];
   if(keys.length){let [y,m]=keys[0].split('-').map(Number);const last=keys.at(-1);while(`${y}-${String(m).padStart(2,'0')}`<=last){months.push(`${y}-${String(m).padStart(2,'0')}`);m++;if(m>12){m=1;y++;}}}
-  if(creator){const cash=[...cashMap.values()].reduce((a,b)=>a+b,0)/100,barter=[...barterMap.values()].reduce((a,b)=>a+b,0)/100;g('month-title').textContent='💵 Ingresos y canjes por mes';g('month-note').textContent='Dinero y valor estimado del canje según inicio de campaña; el canje no se suma al ingreso monetario.';g('month-total').textContent='Total '+money(cash+barter);g('month-values').innerHTML=months.length?months.map(k=>`<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>💵 ${money((cashMap.get(k)||0)/100)} · 🎁 ${money((barterMap.get(k)||0)/100)}</strong></div>`).join(''):'<p class="form-hint">Agrega campañas de marca personal con fecha para ver la evolución mensual.</p>';}else{g('month-title').textContent='💵 Comisión por mes';g('month-note').textContent='Según inicio de campaña; si no existe, inicio del acuerdo. No representa la fecha de cobro.';g('month-total').textContent=money([...agencyMap.values()].reduce((a,b)=>a+b,0)/100);g('month-values').innerHTML=months.length?months.map(k=>`<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money((agencyMap.get(k)||0)/100)}</strong></div>`).join(''):'<p class="form-hint">Agrega campañas con fecha para ver la evolución mensual.</p>';}
-  const missing=list.filter(c=>!c.inicioCampana&&!c.inicioAcuerdo).length;g('month-missing').textContent=missing?`${missing} campaña(s) sin fecha: no se incluyen en la curva mensual.`:'';
-  charts.month?.destroy();delete charts.month;g('month-wrap').style.width='100%';if(typeof Chart==='undefined'||!months.length){g('month-wrap').hidden=true;g('month-details').open=typeof Chart==='undefined';return;}g('month-wrap').hidden=false;
-  const datasets=creator?[{label:'Ingreso monetario',data:months.map(k=>(cashMap.get(k)||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b114',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:months.length>24?2:4,pointHitRadius:18,borderWidth:2.5},{label:'Valor de canje',data:months.map(k=>(barterMap.get(k)||0)/100),borderColor:'#5ec4e6',backgroundColor:'#5ec4e614',fill:false,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:months.length>24?2:4,pointHitRadius:18,borderWidth:2.5}]:[{label:'Comisión',data:months.map(k=>(agencyMap.get(k)||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b114',fill:true,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:months.length>24?2:4,pointHitRadius:18,borderWidth:2.5}];
-  charts.month=new Chart(g('chMonth'),{type:'line',plugins:creator?[]:[monthPointLabels],data:{labels:months.map(k=>mesCorto(k+'-01')),datasets},options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:24,right:12}},interaction:{mode:'index',intersect:false},plugins:{legend:{display:creator,labels:{font:{family:'Poppins',size:10},boxWidth:10,boxHeight:10}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+money(ctx.parsed.y)}}},scales:{x:{grid:{display:false},ticks:{autoSkip:true,maxTicksLimit:8,maxRotation:0,color:'#696583',font:{family:'Poppins',size:11}}},y:{beginAtZero:true,grid:{color:'#f0eef7'},ticks:{maxTicksLimit:5,callback:value=>money(value),font:{family:'Poppins',size:11},color:'#696583'}}}}});
+  g('month-total').textContent=money([...byMonth.values()].reduce((a,b)=>a+b,0)/100);
+  const missing=camps.filter(c=>!c.inicioCampana&&!c.inicioAcuerdo).length;
+  g('month-values').innerHTML=months.length?months.map(k=>`<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money((byMonth.get(k)||0)/100)}</strong></div>`).join(''):'<p class="form-hint">Agrega campañas con fecha para ver la evolución mensual.</p>';
+  g('month-missing').textContent=missing?`${missing} campaña(s) sin fecha: no se incluyen en la curva mensual.`:'';
+  charts.month?.destroy();delete charts.month;g('month-wrap').style.width='100%';
+  if(typeof Chart==='undefined'||!months.length){g('month-wrap').hidden=true;g('month-details').open=typeof Chart==='undefined';return;}g('month-wrap').hidden=false;
+  charts.month=new Chart(g('chMonth'),{type:'line',plugins:[monthPointLabels],data:{labels:months.map(k=>mesCorto(k+'-01')),datasets:[{label:'Comisión',data:months.map(k=>(byMonth.get(k)||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b114',fill:true,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:months.length>24?2:4,pointHitRadius:18,borderWidth:2.5}]},options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:24,right:12}},interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'Comisión: '+money(ctx.parsed.y)}}},scales:{x:{grid:{display:false},ticks:{autoSkip:true,maxTicksLimit:8,maxRotation:0,color:'#696583',font:{family:'Poppins',size:11}}},y:{beginAtZero:true,grid:{color:'#f0eef7'},ticks:{maxTicksLimit:5,callback:value=>money(value),font:{family:'Poppins',size:11},color:'#696583'}}}}});
 }
 function renderResumen(){
-  const list=camps.filter(passes),creator=dashMode==='creator';
+  const list=camps.filter(passes);
   g('ciclo-mini').innerHTML=CICLOS.map(cy=>`<div class="mini"><div class="e">${cy[1]}</div><div><div class="n">${list.filter(c=>c.ciclo===cy[0]).length}</div><div class="l">${cy[0]}s</div></div></div>`).join('');
-  const valueOf=creator?personalValueOf:comOf,top=[...list].sort((a,b)=>valueOf(b)-valueOf(a)).slice(0,3);
-  g('top3-title').textContent=creator?'🏆 Top 3 campañas (por valor total)':'🏆 Top 3 campañas (por comisión)';
-  g('top3list').innerHTML=top.map((c,i)=>{const p=personalMeta(c),settlement=creator?creatorSettlementHtml(c):`<span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span>`;return `<article class="t3 ${i===0?'lead':''}"><div class="medal">${['🥇','🥈','🥉'][i]}</div><div class="info"><div class="m">${esc(c.marca)}</div><div class="s"><span>${esc(c.nombre||'Sin nombre')}</span>${creator?`<span>${esc(collabIcon(c))} ${esc(p.tipo)}</span>`:`<span>👤 ${esc(creatorName(c))}</span>`}<span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span>${settlement}</div></div><div class="amt"><div class="v">${money(valueOf(c))}</div><div class="p">${creator?'Valor total':'Comisión'} · ${mesLargo(c.inicioCampana||c.inicioAcuerdo)}</div></div><button class="btn btn-ghost btn-small" onclick="detail(${camps.indexOf(c)})">Ver campaña →</button></article>`;}).join('')||'<div class="empty">Sin campañas para este filtro.</div>';
-  g('summary-collab-card').hidden=!creator;
-  if(creator){
-    const rows=COLABS.map((x,i)=>({label:x[0],icon:x[1],value:list.filter(c=>collabType(c)===x[0]).length,color:PAL[i%PAL.length]})).filter(r=>r.value>0);ring('summary-collab',rows);
-    g('camp-rank-eyebrow').textContent='Valor de colaboraciones';g('camp-rank-title').textContent='Valor por marca';g('camp-rank-note').textContent='Dinero y valor estimado de canjes según los filtros. El canje no se contabiliza como ingreso monetario.';g('creator-summary-label').textContent='Valor total';g('camp-rank-sort-label').textContent='Mayor valor primero ↓';g('creator-search').placeholder='Buscar marca…';
-    rankingData.creator=groupCreatorBrands(list);drawCreatorCampaignBrandRanking();
-  }else{
-    g('camp-rank-eyebrow').textContent='Distribución de ingresos';g('camp-rank-title').textContent='Comisión por creador';g('camp-rank-note').textContent='Totales, activas y comisión según los filtros · tier y seguidores de la ficha del creador.';g('creator-summary-label').textContent='Comisión total';g('camp-rank-sort-label').textContent='Mayor comisión primero ↓';g('creator-search').placeholder='Buscar creador…';
-    rankingData.creator=groupCreators(list);drawRanking('creator');
-  }
-  ring('summary-status',statusRows(list));ring('summary-industry',industryRows(list));
+  const top=[...list].sort((a,b)=>comOf(b)-comOf(a)).slice(0,3);
+  g('top3list').innerHTML=top.map((c,i)=>`<article class="t3 ${i===0?'lead':''}"><div class="medal">${['🥇','🥈','🥉'][i]}</div><div class="info"><div class="m">${esc(c.marca)}</div><div class="s"><span>${esc(c.nombre||'Sin nombre')}</span><span>👤 ${esc(creatorName(c))}</span><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span></div></div><div class="amt"><div class="v">${money(comOf(c))}</div><div class="p">Comisión · ${mesLargo(c.inicioCampana||c.inicioAcuerdo)}</div></div><button class="btn btn-ghost btn-small" onclick="detail(${camps.indexOf(c)})">Ver campaña →</button></article>`).join('')||'<div class="empty">Sin campañas para este filtro.</div>';
+  rankingData.creator=groupCreators(list);drawRanking('creator');ring('summary-status',statusRows(list));ring('summary-industry',industryRows(list));
 }
 function setView(v){campView=v;for(const [key,value] of [['res','resumen'],['cards','cards'],['table','table']]){g('tg-'+key).classList.toggle('on',v===value);g('tg-'+key).setAttribute('aria-pressed',String(v===value));}g('camp-resumen').style.display=v==='resumen'?'block':'none';g('camp-cards').style.display=v==='cards'?'grid':'none';g('camp-table').style.display=v==='table'?'block':'none';if(v==='resumen')renderResumen();}
 function setCreView(v){for(const t of ['cards','table']){g('tg-cre-'+t).classList.toggle('on',v===t);g('tg-cre-'+t).setAttribute('aria-pressed',String(v===t));}g('cre-grid').style.display=v==='cards'?'grid':'none';g('cre-table').style.display=v==='table'?'block':'none';}
@@ -1041,38 +1004,32 @@ function collectDeliverables(previous){
 }
 function openCamp(i){
   if(busy||mode==='locked')return;fillModalSelects();editC=i??null;newCampId=uuid();editCampSnapshot=i===undefined?null:structuredClone(camps[i]);financeDirty=false;
-  const c=editCampSnapshot||{marca:'',nombre:'',creadorId:cres[0]?.id||null,creador:'',industria:'Fintech',monto:'',comPct:'',titular:dashMode==='creator'?'Propia':'Agencia',ciclo:'Activa',entregables:'',pauta:0,excl:0,diaspago:30,estado:'Prospecto',cobro:'Pendiente',brief:'no',inicioAcuerdo:'',inicioCampana:'',pagcr:'no'};
+  const c=editCampSnapshot||{marca:'',nombre:'',creadorId:cres[0]?.id||null,creador:'',industria:'Fintech',monto:'',comPct:'',titular:'Agencia',ciclo:'Activa',entregables:'',pauta:0,excl:0,diaspago:30,estado:'Prospecto',cobro:'Pendiente',brief:'no',inicioAcuerdo:'',inicioCampana:'',pagcr:'no'};
   g('camp-title').textContent=editCampSnapshot?'Editar campaña':'Nueva campaña';
   for(const [field,key] of Object.entries({'marca':'marca','nombre':'nombre','industria':'industria','titular':'titular','ciclo':'ciclo','monto':'monto','com-pct':'comPct','entregables':'entregables','pauta':'pauta','excl':'excl','diaspago':'diaspago','estado':'estado','cobro':'cobro','brief':'brief','inicio-acuerdo':'inicioAcuerdo','inicio-campana':'inicioCampana','pagcr':'pagcr'}))g('c-'+field).value=c[key]??'';
-  g('c-industria').value=industryOptions().find(([label])=>industryKey(label)===industryKey(c.industria))?.[0]||'Otro';g('c-new-industry').value='';toggleNewIndustry();
+  g('c-industria').value=industryOptions().find(([label])=>industryKey(label)===industryKey(c.industria))?.[0]||'Otro';
+  g('c-new-industry').value='';toggleNewIndustry();
   g('c-creador').value=c.creadorId||'other';g('c-other').value=c.creadorId?'':c.creador;toggleOtherCreator();
-  const p=personalMeta(c);g('c-colab').value=p.tipo;g('c-canje-desc').value=p.canjeDescripcion;g('c-canje-valor').value=p.canjeValor||'';g('c-canje-recibido').value=p.canjeRecibido;g('c-canje-fecha').value=p.canjeFecha;
   g('c-finance-mode').value=c.extras?.finanzas_modo==='porcentaje'?'porcentaje':'pago';g('c-pago').value=c.pago??'';
   financeDraft=editCampSnapshot?{monto:c.monto,pago:c.pago,comision:comOf(c),comPct:c.comPct}:null;financeError='';
-  const deliveries=deliveryData(c);draftDeliverables=deliveries.items.map(row=>({...row,id:++deliverySequence}));deliverablesDirty=false;g('c-entregables').value=deliveries.nota;g('delivery-legacy').hidden=!deliveries.legacy;renderDeliveryRows();togglePersonalFields(false);cCalc();open_('ov-camp');
-}
-function togglePersonalFields(changed=false){
-  const own=g('c-titular').value==='Propia',type=own?g('c-colab').value:'Pagada',barter=own&&type!=='Pagada',cash=!own||type!=='Canje';
-  g('personal-collab-section').hidden=!own;g('barter-fields').hidden=!barter;g('cash-amount-field').hidden=!cash;g('finance-mode-field').hidden=own;g('payment-days-field').hidden=own&&type==='Canje';g('collection-field').hidden=own&&type==='Canje';g('creator-paid-field').hidden=own;
-  g('c-canje-desc').required=barter;g('c-canje-valor').required=barter;g('c-monto').required=cash;g('c-monto-label').textContent=own?'Ingreso monetario acordado ($)':'Monto acordado con la marca ($)';
-  if(own&&type==='Canje'){g('c-monto').value=0;g('c-cobro').value='Pagado';g('c-diaspago').value=0;}
-  if(changed){financeDraft=null;financeDirty=true;cCalc(true);}
+  const deliveries=deliveryData(c);draftDeliverables=deliveries.items.map(row=>({...row,id:++deliverySequence}));deliverablesDirty=false;g('c-entregables').value=deliveries.nota;g('delivery-legacy').hidden=!deliveries.legacy;renderDeliveryRows();cCalc();open_('ov-camp');
 }
 function cCalc(changed=false){
-  financeDirty=financeDirty||changed;const own=g('c-titular').value==='Propia',type=own?g('c-colab').value:'Pagada',fixed=g('c-finance-mode').value!=='porcentaje';
-  g('c-com-pct').disabled=own||fixed;g('c-pago').disabled=own||!fixed;g('c-finance-mode').disabled=own;g('finance-pct-field').hidden=own||fixed;g('finance-pay-field').hidden=own||!fixed;g('c-com-pct').required=!own&&!fixed;g('c-pago').required=!own&&fixed;
+  financeDirty=financeDirty||changed;const own=g('c-titular').value==='Propia',fixed=g('c-finance-mode').value!=='porcentaje';
+  g('c-com-pct').disabled=own||fixed;g('c-pago').disabled=own||!fixed;g('c-finance-mode').disabled=own;
+  g('finance-pct-field').hidden=own||fixed;g('finance-pay-field').hidden=own||!fixed;
+  g('c-com-pct').required=!own&&!fixed;g('c-pago').required=!own&&fixed;
   try{
     if(changed||!financeDraft){
-      const cash=own&&type==='Canje'?0:g('c-monto').value;if(String(cash).trim()==='')throw new Error('Ingresa el monto que recibirás de la marca.');
+      if(String(g('c-monto').value).trim()==='')throw new Error('Ingresa el monto que recibirás de la marca.');
       if(!own&&String(g(fixed?'c-pago':'c-com-pct').value).trim()==='')throw new Error(fixed?'Ingresa el pago acordado al creador.':'Ingresa el porcentaje de comisión.');
-      financeDraft=own?computeAgreedFinance(cash,0,true):fixed?computeAgreedFinance(cash,g('c-pago').value,false):computeFinance(cash,g('c-com-pct').value);
+      financeDraft=fixed||own?computeAgreedFinance(g('c-monto').value,g('c-pago').value,own):computeFinance(g('c-monto').value,g('c-com-pct').value);
     }
     financeError='';const f=financeDraft;
-    if(!own){if(fixed)g('c-com-pct').value=f.comPct;else g('c-pago').value=f.pago;g('c-com').textContent=money(f.comision);g('c-com-l').textContent=`Tu comisión · ${f.monto?'≈ '+fmtPct(percent(f.comision,f.monto))+'%':'sin porcentaje'}`;g('c-payment-preview').textContent='Pago al creador: '+money(f.pago)+(editCampSnapshot&&!financeDirty?' · importes guardados conservados':fixed?' · comisión = monto recibido − pago al creador':'');return;}
-    const barter=type==='Pagada'?0:roundMoney(g('c-canje-valor').value||0),total=roundMoney(f.monto+barter);
-    if(type==='Canje'){g('c-com-l').textContent='Valor estimado del canje';g('c-com').textContent=money(barter);g('c-payment-preview').textContent='Ingreso monetario: $0.00 · El canje se registra como valor recibido, no como ingreso en efectivo.';}
-    else if(type==='Mixta'){g('c-com-l').textContent='Valor total de colaboración';g('c-com').textContent=money(total);g('c-payment-preview').textContent='Ingreso monetario: '+money(f.monto)+' · Valor de canje: '+money(barter);}
-    else{g('c-com-l').textContent='Ingreso monetario';g('c-com').textContent=money(f.monto);g('c-payment-preview').textContent='Marca personal · ingreso 100% tuyo.';}
+    // Switching the method alone must not round an agreed payment through a percentage.
+    if(fixed)g('c-com-pct').value=f.comPct;else g('c-pago').value=f.pago;
+    g('c-com').textContent=money(f.comision);g('c-com-l').textContent=own?'Ingreso propio':`Tu comisión · ${f.monto?'≈ '+fmtPct(percent(f.comision,f.monto))+'%':'sin porcentaje'}`;
+    g('c-payment-preview').textContent='Pago al creador: '+money(f.pago)+(editCampSnapshot&&!financeDirty?' · importes guardados conservados':fixed?' · comisión = monto recibido − pago al creador':'');
   }catch(e){financeDraft=null;financeError=e.message;g('c-com').textContent='—';g('c-payment-preview').textContent=e.message;}
 }
 function validateInputs(prefix){const inputs=[...document.querySelectorAll('#ov-'+prefix+' input, #ov-'+prefix+' select, #ov-'+prefix+' textarea')];for(const el of inputs){if(!el.checkValidity()){el.reportValidity();throw new Error('Revisa los campos del formulario.');}}}
@@ -1081,16 +1038,12 @@ async function saveCamp(){
   try{
     validateInputs('camp');if(!g('c-marca').value.trim())throw new Error('Escribe la marca.');
     const creator=cres.find(r=>r.id===g('c-creador').value);if(!creator&&!g('c-other').value.trim())throw new Error('Selecciona un creador o escribe su nombre.');
-    const previous=editCampSnapshot,own=g('c-titular').value==='Propia',type=own?g('c-colab').value:'Pagada';
+    const previous=editCampSnapshot;
     cCalc();if(!financeDraft)throw new Error(financeError||'Revisa los importes.');const f=financeDraft,deliveries=collectDeliverables(previous);
-    const extras={...deliveries.extras,finanzas_modo:own?'pago':g('c-finance-mode').value};
-    if(own){
-      const barter=type==='Pagada'?0:roundMoney(g('c-canje-valor').value||0);if(barter<0)throw new Error('El valor del canje no puede ser negativo.');
-      extras.marca_personal_v1={tipo:type,canjeDescripcion:type==='Pagada'?'':textField(g('c-canje-desc').value,300),canjeValor:barter,canjeRecibido:type==='Pagada'?'no':g('c-canje-recibido').value,canjeFecha:type==='Pagada'?'':validDate(g('c-canje-fecha').value||'')};
-    }else delete extras.marca_personal_v1;
-    const candidate=normalizeCamp({...previous,id:previous?.id||newCampId,...f,...deliveries,extras,marca:g('c-marca').value,nombre:g('c-nombre').value,creadorId:creator?.id||null,creador:creator?.nombre||g('c-other').value,industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,pauta:g('c-pauta').value,excl:g('c-excl').value,diaspago:own&&type==='Canje'?0:g('c-diaspago').value,estado:g('c-estado').value,cobro:own&&type==='Canje'?'Pagado':g('c-cobro').value,brief:g('c-brief').value,inicioAcuerdo:g('c-inicio-acuerdo').value,inicioCampana:g('c-inicio-campana').value,pagcr:own?'si':g('c-pagcr').value},cres);
+    const candidate=normalizeCamp({...previous,id:previous?.id||newCampId,...f,...deliveries,extras:{...deliveries.extras,finanzas_modo:g('c-finance-mode').value},marca:g('c-marca').value,nombre:g('c-nombre').value,creadorId:creator?.id||null,creador:creator?.nombre||g('c-other').value,industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,pauta:g('c-pauta').value,excl:g('c-excl').value,diaspago:g('c-diaspago').value,estado:g('c-estado').value,cobro:g('c-cobro').value,brief:g('c-brief').value,inicioAcuerdo:g('c-inicio-acuerdo').value,inicioCampana:g('c-inicio-campana').value,pagcr:g('c-pagcr').value},cres);
     setBusy(true);syncLabel('Guardando campaña…');const token=epoch;const saved=await writeRecord('camp',candidate,previous);if(token!==epoch)return;
-    const i=camps.findIndex(c=>c.id===saved.id);if(i<0)camps.push(saved);else camps[i]=saved;close_('ov-camp',true);renderAll();syncLabel(mode==='cloud'?'Guardado':mode==='local'?'Guardado en este navegador':'Cambios solo en la demo');toast(mode==='demo'?'Campaña actualizada en la demo.':'Campaña guardada.');
+    const i=camps.findIndex(c=>c.id===saved.id);if(i<0)camps.push(saved);else camps[i]=saved;
+    close_('ov-camp',true);renderAll();syncLabel(mode==='cloud'?'Guardado en Supabase':mode==='local'?'Guardado en este navegador':'Cambios solo en la demo');toast(mode==='demo'?'Campaña actualizada en la demo.':'Campaña guardada.');
   }catch(e){notice(friendly(e),true);alert(friendly(e));syncLabel('No se confirmó el guardado');}finally{setBusy(false);}
 }
 function fromDetailEdit(i){close_('ov-det');openCamp(i);}
@@ -1158,37 +1111,59 @@ function open_(id){lastFocus=document.activeElement;g(id).classList.add('on');g(
 function close_(id,force=false){if(busy&&!force)return;g(id).classList.remove('on');g('app').inert=hasModal();if(!hasModal())lastFocus?.focus?.();}
 function modalKeys(e){const overlay=document.querySelector('.overlay.on');if(!overlay)return;if(e.key==='Escape'&&overlay.id!=='ov-password'){close_(overlay.id);return;}if(e.key!=='Tab')return;const nodes=[...overlay.querySelectorAll('button,input,select,textarea,a[href]')].filter(x=>!x.disabled&&!x.hidden&&x.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&(document.activeElement===first||document.activeElement===overlay.querySelector('.modal'))){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
 
-function collabBadge(c){if(!isPersonal(c))return '';const type=collabType(c);return `<span class="collab-pill ${type==='Pagada'?'paid':type==='Canje'?'barter':'mixed'}">${esc(collabIcon(c))} ${esc(type)}</span>`;}
-function campaignFinancialCard(c){
-  if(!isPersonal(c))return `<div><div class="c">${money(comOf(c))}</div><div class="t">comisión · ${fmtPct(c.comPct)}% · monto ${money(c.monto)}</div></div>`;
-  const p=personalMeta(c),cash=personalCashOf(c),barter=barterOf(c),total=personalValueOf(c);
-  if(p.tipo==='Canje')return `<div><div class="c">${money(barter)}</div><div class="t">valor estimado del canje · ingreso monetario $0.00</div></div>`;
-  if(p.tipo==='Mixta')return `<div><div class="c">${money(total)}</div><div class="t">valor total · dinero ${money(cash)} + canje ${money(barter)}</div></div>`;
-  return `<div><div class="c">${money(cash)}</div><div class="t">ingreso monetario · marca personal</div></div>`;
-}
-function creatorSettlementHtml(c){
-  const p=personalMeta(c),parts=[];
-  if(p.tipo!=='Canje')parts.push(`<span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span>`);
-  if(p.tipo!=='Pagada')parts.push(`<span class="pill ${p.canjeRecibido==='si'?'pagado':'pend'}">${p.canjeRecibido==='si'?'🎁 Recibido':'🎁 Por recibir'}</span>`);
-  return `<span class="creator-settlement">${parts.join('')}</span>`;
-}
 function renderCamps(){
-  const creator=dashMode==='creator',scope=campaignScope(),idx=camps.map((c,i)=>i).filter(i=>passes(camps[i]));
-  g('camp-eyebrow').textContent=creator?'Briev Co. / Creadora':'Briev Co. / Agencia';
-  g('camp-count').textContent=`${idx.length} de ${scope.length} campañas · ${creator?'Marca personal':'Agencia'}`;
-  g('flt-creador').hidden=creator;g('flt-titular').hidden=true;
-  g('camp-head').innerHTML=creator?'<th>Marca / Campaña</th><th>Tipo</th><th>Mes</th><th>Industria</th><th class="num-r">Ingreso $</th><th class="num-r">Valor canje</th><th class="num-r">Valor total</th><th>Status</th><th>Cobro / canje</th><th>Origen</th>':'<th>Marca / Campaña</th><th>Mes</th><th>Creador</th><th>Industria</th><th class="num-r">Monto</th><th class="num-r">% Com.</th><th class="num-r">Comisión</th><th>Status</th><th>Cobro</th><th>Origen</th>';
-  g('camp-cards').innerHTML=idx.length?idx.map(i=>{const c=camps[i],personal=isPersonal(c),p=personalMeta(c);return `<div class="ccard ${personal?'propia':''}" onclick="detail(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(${i})}"><div class="cc-top"><div><div class="cc-marca">${esc(c.marca)}</div><div class="cc-name">${esc(c.nombre||'—')}</div></div>${titBadge(c.titular)}</div><div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span>${creator?'':`<span class="tag">👤 ${esc(creatorName(c))}</span>`}${collabBadge(c)}</div><div class="cc-det"><div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||'—')}</div></div><div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div><div class="d"><div class="l">Inicio campaña</div><div class="v">${fecha(c.inicioCampana)}</div></div>${personal&&p.tipo==='Canje'?`<div class="d"><div class="l">Canje recibido</div><div class="v">${p.canjeRecibido==='si'?'✅ Sí':'⏳ No'}</div></div>`:`<div class="d"><div class="l">Días de pago</div><div class="v">${c.diaspago?c.diaspago+' días':'—'}</div></div>`}<div class="d"><div class="l">Exclusividad</div><div class="v">${c.excl>0?c.excl+' días':'—'}</div></div></div><div class="cc-com">${campaignFinancialCard(c)}</div><div class="cc-pills"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span>${creator?creatorSettlementHtml(c):`<span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span>`}</div></div>`;}).join(''):`<div class="empty" style="grid-column:1/-1">No hay campañas en la vista ${creator?'Creadora':'Agencia'} con estos filtros.</div>`;
-  g('camp-rows').innerHTML=idx.length?idx.map(i=>{const c=camps[i],p=personalMeta(c);if(creator)return `<tr onclick="detail(${i})" tabindex="0" onkeydown="if(event.key==='Enter')detail(${i})"><td><div style="font-weight:600">${esc(c.marca)}</div><div style="font-size:11.5px;color:var(--muted)">${esc(c.nombre||'—')}</div></td><td>${collabBadge(c)}</td><td>${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td><td><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td><td class="num-r money">${money(personalCashOf(c))}</td><td class="num-r money">${money(barterOf(c))}</td><td class="num-r mine">${money(personalValueOf(c))}</td><td><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></td><td>${creatorSettlementHtml(c)}</td><td>${titBadge(c.titular)}</td></tr>`;return `<tr onclick="detail(${i})" tabindex="0" onkeydown="if(event.key==='Enter')detail(${i})"><td><div style="font-weight:600">${esc(c.marca)}</div><div style="font-size:11.5px;color:var(--muted)">${esc(c.nombre||'—')}</div></td><td>${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td><td>${esc(creatorName(c))}</td><td><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td><td class="num-r money">${money(c.monto)}</td><td class="num-r">${fmtPct(c.comPct)}%</td><td class="num-r mine">${money(comOf(c))}</td><td><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></td><td><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span></td><td>${titBadge(c.titular)}</td></tr>`;}).join(''):`<tr><td colspan="10" class="empty">No hay campañas en la vista ${creator?'Creadora':'Agencia'} con estos filtros.</td></tr>`;
-  if(campView==='resumen')renderResumen();
+  const idx=camps.map((c,i)=>i).filter(i=>passes(camps[i]));
+  g("camp-count").textContent=`${idx.length} de ${camps.length} campañas`;
+  g("camp-cards").innerHTML= idx.length? idx.map(i=>{const c=camps[i];return `
+    <div class="ccard ${c.titular==="Propia"?"propia":""}" onclick="detail(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(${i})}">
+      <div class="cc-top"><div><div class="cc-marca">${esc(c.marca)}</div><div class="cc-name">${esc(c.nombre||"—")}</div></div>${titBadge(c.titular)}</div>
+      <div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span><span class="tag">👤 ${esc(creatorName(c))}</span></div>
+      <div class="cc-det">
+        <div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||"—")}</div></div>
+        <div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div>
+        <div class="d"><div class="l">Inicio campaña</div><div class="v">${fecha(c.inicioCampana)}</div></div>
+        <div class="d"><div class="l">Días de pago</div><div class="v">${c.diaspago?c.diaspago+" días":"—"}</div></div>
+        <div class="d"><div class="l">Exclusividad</div><div class="v">${c.excl>0?c.excl+" días":"—"}</div></div>
+      </div>
+      <div class="cc-com"><div><div class="c">${money(comOf(c))}</div><div class="t">comisión · ${fmtPct(c.comPct)}% · monto ${money(c.monto)}</div></div></div>
+      <div class="cc-pills"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span><span class="pill ${c.cobro==="Pagado"?"pagado":"pend"}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span></div>
+    </div>`;}).join("") : `<div class="empty" style="grid-column:1/-1">No hay campañas con estos filtros.</div>`;
+  g("camp-rows").innerHTML= idx.length? idx.map(i=>{const c=camps[i];return `
+    <tr onclick="detail(${i})" tabindex="0" onkeydown="if(event.key==='Enter')detail(${i})">
+      <td><div style="font-weight:600">${esc(c.marca)}</div><div style="font-size:11.5px;color:var(--muted)">${esc(c.nombre||"—")}</div></td>
+      <td>${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td>
+      <td>${esc(creatorName(c))}</td><td><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td>
+      <td class="num-r money">${money(c.monto)}</td><td class="num-r">${fmtPct(c.comPct)}%</td><td class="num-r mine">${money(comOf(c))}</td>
+      <td><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></td>
+      <td><span class="pill ${c.cobro==="Pagado"?"pagado":"pend"}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span></td>
+      <td>${titBadge(c.titular)}</td>
+    </tr>`;}).join("") : `<tr><td colspan="10" class="empty">No hay campañas con estos filtros.</td></tr>`;
+  if(campView==="resumen")renderResumen();
 }
 
 function detail(i){
-  const c=camps[i],yn=v=>v>0?`✅ ${v} días`:'—',personal=isPersonal(c),p=personalMeta(c),cash=personalCashOf(c),barter=barterOf(c),total=personalValueOf(c);
-  const personalMoney=personal?(p.tipo==='Canje'?`<div class="det-com"><span>Valor estimado del canje</span><span class="v">${money(barter)}</span></div>`:p.tipo==='Mixta'?`<div class="det-com"><span>Valor total de colaboración</span><span class="v">${money(total)}</span></div>`:`<div class="det-com"><span>Ingreso de marca personal</span><span class="v">${money(cash)}</span></div>`):`<div class="det-com"><span>Tu comisión · ${fmtPct(c.comPct)}%</span><span class="v">${money(comOf(c))}</span></div>`;
-  const personalRows=personal?`<div class="det-row"><span class="k">Tipo de colaboración</span><span class="v">${esc(collabIcon(c))} ${esc(p.tipo)}</span></div><div class="det-row"><span class="k">Ingreso monetario</span><span class="v">${money(cash)}</span></div>${p.tipo!=='Pagada'?`<div class="det-row"><span class="k">Producto / servicio</span><span class="v">${esc(p.canjeDescripcion||'—')}</span></div><div class="det-row"><span class="k">Valor estimado del canje</span><span class="v">${money(barter)}</span></div><div class="det-row"><span class="k">Canje recibido</span><span class="v">${p.canjeRecibido==='si'?'✅ Sí':'⏳ No'}</span></div><div class="det-row"><span class="k">Fecha de recepción</span><span class="v">${fecha(p.canjeFecha)}</span></div>`:''}`:`<div class="det-row"><span class="k">Monto total</span><span class="v">${money(c.monto)}</span></div><div class="det-row"><span class="k">% de comisión (aprox.)</span><span class="v">${fmtPct(c.comPct)}%</span></div><div class="det-row"><span class="k">Pago al creador</span><span class="v">${money(c.pago)}</span></div>`;
-  const paymentRows=personal&&p.tipo==='Canje'?'':`<div class="det-row"><span class="k">Días de pago</span><span class="v">${c.diaspago?c.diaspago+' días':'—'}</span></div><div class="det-row"><span class="k">Cobro</span><span class="v"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span></span></div>`;
-  g('det-body').innerHTML=`<div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||'—')} · ${em(INDUS,c.industria)} ${esc(c.industria)}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div><div style="margin:6px 0 2px">${titBadge(c.titular)} ${collabBadge(c)} <span class="tag">${em(CICLOS,c.ciclo||'Activa')} ${esc(c.ciclo||'Activa')}</span></div>${personalMoney}<div class="det-row"><span class="k">Creador</span><span class="v">👤 ${esc(creatorName(c))}</span></div>${personalRows}<div class="det-row"><span class="k">Entregables</span><span class="v">${esc(c.entregables||'—')}</span></div><div class="det-row"><span class="k">Derechos de pauta</span><span class="v">${yn(c.pauta)}</span></div><div class="det-row"><span class="k">Exclusividad</span><span class="v">${yn(c.excl)}</span></div>${paymentRows}<div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div><div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div><div class="det-row"><span class="k">Brief</span><span class="v">${c.brief==='si'?'✅ Recibido':'❌ No recibido'}</span></div><div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></span></div>${personal?'':`<div class="det-row"><span class="k">Pagado al creador</span><span class="v">${c.pagcr==='si'?'✅ Sí':'⏳ No'}</span></div>`}<div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;open_('ov-det');
+  const c=camps[i],yn=v=>v>0?`✅ ${v} días`:"—";
+  g("det-body").innerHTML=`
+    <div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||"—")} · ${em(INDUS,c.industria)} ${esc(c.industria)}</div></div>
+      <div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
+    <div style="margin:6px 0 2px">${titBadge(c.titular)} <span class="tag">${em(CICLOS,c.ciclo||"Activa")} ${esc(c.ciclo||"Activa")}</span></div>
+    <div class="det-com"><span>${c.titular==="Propia"?"Ingreso (100% tuyo)":`Tu comisión · ${fmtPct(c.comPct)}%`}</span><span class="v">${money(comOf(c))}</span></div>
+    <div class="det-row"><span class="k">Creador</span><span class="v">👤 ${esc(creatorName(c))}</span></div>
+    <div class="det-row"><span class="k">Monto total</span><span class="v">${money(c.monto)}</span></div>
+    <div class="det-row"><span class="k">% de comisión (aprox.)</span><span class="v">${fmtPct(c.comPct)}%</span></div>
+    <div class="det-row"><span class="k">Pago al creador</span><span class="v">${money(c.pago)}</span></div>
+    <div class="det-row"><span class="k">Entregables</span><span class="v">${esc(c.entregables||"—")}</span></div>
+    <div class="det-row"><span class="k">Derechos de pauta</span><span class="v">${yn(c.pauta)}</span></div>
+    <div class="det-row"><span class="k">Exclusividad</span><span class="v">${yn(c.excl)}</span></div>
+    <div class="det-row"><span class="k">Días de pago</span><span class="v">${c.diaspago?c.diaspago+" días":"—"}</span></div>
+    <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div>
+    <div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div>
+    <div class="det-row"><span class="k">Brief</span><span class="v">${c.brief==="si"?"✅ Recibido":"❌ No recibido"}</span></div>
+    <div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></span></div>
+    <div class="det-row"><span class="k">Cobro</span><span class="v"><span class="pill ${c.cobro==="Pagado"?"pagado":"pend"}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span></span></div>
+    <div class="det-row"><span class="k">Pagado al creador</span><span class="v">${c.pagcr==="si"?"✅ Sí":"⏳ No"}</span></div>
+    <div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;
+  open_("ov-det");
 }
 
 function renderCres(){
@@ -1229,5 +1204,666 @@ function renderCres(){
 
 init();
 </script>
+
+
+<script id="briev-recovered-current-bridge">
+'use strict';
+(() => {
+  const applyRecoveredUI = () => {
+    const ownOption = [...(document.getElementById('c-titular')?.options || [])]
+      .find(o => o.value === 'Propia' || o.textContent.trim() === 'Propia');
+    if (ownOption) { ownOption.value = 'Propia'; ownOption.textContent = 'Marca personal'; }
+
+    const filter = document.getElementById('flt-titular');
+    if (filter) {
+      [...filter.options].forEach(o => {
+        if (o.value === 'Propia' || o.textContent.trim() === 'Propia') o.textContent = 'Marca personal';
+      });
+    }
+  };
+  applyRecoveredUI();
+  setTimeout(applyRecoveredUI, 0);
+})();
+</script>
+
+
+<!-- BRIEV_CREATOR_MODE_PATCH_START -->
+<style id="briev-creator-mode-styles">
+/* Context switch: added without touching the current header/mobile navigation. */
+.briev-context-wrap{display:flex;justify-content:flex-start;align-items:center;margin:-6px 0 22px}
+.briev-context-switch{display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px}
+.briev-context-switch button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:11.5px;font-weight:500;padding:8px 13px;border-radius:9px;cursor:pointer;min-height:38px;white-space:nowrap}
+.briev-context-switch button.on{background:var(--navy);color:#fff}
+.personal-collab{margin:5px 0 18px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#faf9fd}
+.personal-collab h4{font-size:14px;font-weight:600;margin:0 0 5px}
+.personal-collab .personal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.personal-collab .personal-grid .field{margin-bottom:0}
+.collab-pill{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:500;padding:4px 9px;border-radius:8px;white-space:nowrap}
+.collab-pill.paid{background:#f1e6f1;color:#7d4d79}
+.collab-pill.barter{background:#e2f2f7;color:#33788e}
+.collab-pill.mixed{background:#e6ebf6;color:#4b6387}
+.creator-kpi-note{display:block;margin-top:3px}
+.creator-overview{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.mp-value-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%}
+.mp-value-grid>span{display:block;padding:8px 9px;border-radius:9px;background:#f6f3f8;font-size:10px;color:var(--muted)}
+.mp-value-grid strong{display:block;margin-top:2px;color:var(--ink);font-size:13px;font-weight:600}
+.mp-value-grid .cash strong{color:#86507f}.mp-value-grid .barter strong{color:#397c96}
+.mp-brand-head,.mp-brand-row{display:grid;grid-template-columns:24px minmax(150px,1fr) 70px minmax(110px,.7fr) minmax(110px,.7fr) minmax(115px,.7fr);gap:12px;align-items:center;padding:13px 26px}
+.mp-brand-head{background:#f4f2f8;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:#756e8d;font-weight:600}
+.mp-brand-head>span:nth-child(n+4){text-align:right}
+.mp-brand-row{border-bottom:1px solid #efedf5;background:#fff;font-size:12px}
+.mp-brand-row:last-child{border-bottom:0}
+.mp-brand-money{text-align:right;font-variant-numeric:tabular-nums}
+.mp-brand-money strong{font-size:14px;font-weight:600}.mp-brand-money.cash strong{color:#86507f}.mp-brand-money.barter strong{color:#397c96}
+.mp-brand-types{display:flex;gap:4px;flex-wrap:wrap}
+.mp-pending-item{font-size:12px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.mp-pending-item:last-child{border-bottom:0}
+@media(max-width:1050px){.creator-overview{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:800px){
+  .briev-context-wrap{margin:-2px 0 18px}
+  .briev-context-switch{width:100%}
+  .briev-context-switch button{flex:1;min-height:42px}
+  .personal-collab .personal-grid{grid-template-columns:1fr}
+  .creator-overview{grid-template-columns:1fr!important}
+  .mp-brand-head{display:none}
+  .mp-brand-row{grid-template-columns:18px minmax(0,1fr) auto;grid-template-areas:"pos name total" ". types types" ". cash barter";gap:8px;padding:15px 16px}
+  .mp-brand-row .rank-place{grid-area:pos}.mp-brand-row .rank-identity{grid-area:name}.mp-brand-row .mp-brand-types{grid-area:types}
+  .mp-brand-row .mp-brand-money.cash{grid-area:cash;text-align:left;padding-top:8px;border-top:1px solid var(--line)}
+  .mp-brand-row .mp-brand-money.barter{grid-area:barter;padding-top:8px;border-top:1px solid var(--line)}
+  .mp-brand-row .mp-brand-money.total{grid-area:total}
+}
+@media(max-width:520px){
+  .mp-value-grid{grid-template-columns:1fr 1fr}.mp-value-grid>span:last-child{grid-column:1/-1}
+}
+</style>
+<script>
+'use strict';
+(() => {
+  const MP_COLLABS = [['Pagada','💵'],['Canje','🎁'],['Mixta','💵 + 🎁']];
+  let mpContext = 'agency';
+
+  const mpOrig = {
+    buildFilters: typeof buildFilters === 'function' ? buildFilters : null,
+    passes: typeof passes === 'function' ? passes : null,
+    titBadge: typeof titBadge === 'function' ? titBadge : null,
+    renderDash: typeof renderDash === 'function' ? renderDash : null,
+    drawCharts: typeof drawCharts === 'function' ? drawCharts : null,
+    drawMonth: typeof drawMonth === 'function' ? drawMonth : null,
+    drawRanking: typeof drawRanking === 'function' ? drawRanking : null,
+    renderCamps: typeof renderCamps === 'function' ? renderCamps : null,
+    renderResumen: typeof renderResumen === 'function' ? renderResumen : null,
+    detail: typeof detail === 'function' ? detail : null,
+    openCamp: typeof openCamp === 'function' ? openCamp : null,
+    cCalc: typeof cCalc === 'function' ? cCalc : null,
+    saveCamp: typeof saveCamp === 'function' ? saveCamp : null,
+    go: typeof go === 'function' ? go : null
+  };
+
+  const mpIsPersonal = c => c?.titular === 'Propia';
+  const mpScope = () => camps.filter(c => mpContext === 'creator' ? mpIsPersonal(c) : !mpIsPersonal(c));
+  const mpMeta = c => {
+    const raw = c?.extras?.marca_personal_v1;
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+      return {tipo:'Pagada',canjeDescripcion:'',canjeValor:0,canjeRecibido:'no',canjeFecha:''};
+    }
+    const tipo = MP_COLLABS.some(([v]) => v === raw.tipo) ? raw.tipo : 'Pagada';
+    return {
+      tipo,
+      canjeDescripcion: String(raw.canjeDescripcion || ''),
+      canjeValor: tipo === 'Pagada' ? 0 : roundMoney(raw.canjeValor || 0),
+      canjeRecibido: raw.canjeRecibido === 'si' ? 'si' : 'no',
+      canjeFecha: raw.canjeFecha || ''
+    };
+  };
+  const mpType = c => mpIsPersonal(c) ? mpMeta(c).tipo : 'Pagada';
+  const mpCash = c => mpIsPersonal(c) ? (mpType(c) === 'Canje' ? 0 : roundMoney(c.monto || 0)) : 0;
+  const mpBarter = c => mpIsPersonal(c) ? mpMeta(c).canjeValor : 0;
+  const mpValue = c => roundMoney(mpCash(c) + mpBarter(c));
+  const mpIcon = type => MP_COLLABS.find(([v]) => v === type)?.[1] || '💵';
+  const mpCollabBadge = c => {
+    if (!mpIsPersonal(c)) return '';
+    const type = mpType(c);
+    return `<span class="collab-pill ${type === 'Pagada' ? 'paid' : type === 'Canje' ? 'barter' : 'mixed'}">${mpIcon(type)} ${esc(type)}</span>`;
+  };
+  const mpIsActive = c => ['Activa','Renovada'].includes(c.ciclo) && ACTIVOS.includes(c.estado);
+  const mpCashStatus = c => mpCash(c) <= 0 ? 'Sin pago en dinero' : (c.cobro === 'Pagado' ? 'Cobrado' : cobroLabel(c.cobro));
+  const mpCanjeStatus = c => {
+    const m = mpMeta(c);
+    return m.tipo === 'Pagada' ? '' : (m.canjeRecibido === 'si' ? 'Canje recibido' : 'Canje pendiente');
+  };
+
+  function mpSwitchMarkup(prefix){
+    return `<div class="briev-context-switch" aria-label="Cambiar vista">
+      <button id="${prefix}-agency" type="button" onclick="setBrievContext('agency')">🏢 Agencia</button>
+      <button id="${prefix}-creator" type="button" onclick="setBrievContext('creator')">✨ Creadora</button>
+    </div>`;
+  }
+
+  function mpInstallUI(){
+    if (!g('briev-dash-context')) {
+      const top = g('page-dash')?.querySelector('.top');
+      if (top) top.insertAdjacentHTML('afterend', `<div class="briev-context-wrap" id="briev-dash-context">${mpSwitchMarkup('briev-dash')}</div>`);
+    }
+    if (!g('briev-camp-context')) {
+      const top = g('page-camp')?.querySelector('.top');
+      if (top) top.insertAdjacentHTML('afterend', `<div class="briev-context-wrap" id="briev-camp-context">${mpSwitchMarkup('briev-camp')}</div>`);
+    }
+    const titleSelect = g('c-titular');
+    if (titleSelect) {
+      const ownOpt = [...titleSelect.options].find(o => o.value === 'Propia' || o.textContent.trim() === 'Propia');
+      if (ownOpt) { ownOpt.value = 'Propia'; ownOpt.textContent = 'Marca personal'; }
+      titleSelect.addEventListener('change', () => togglePersonalFields(true));
+    }
+    if (!g('personal-collab-section') && titleSelect) {
+      const row = titleSelect.closest('.two');
+      row?.insertAdjacentHTML('afterend', `
+        <section class="personal-collab" id="personal-collab-section" hidden>
+          <h4>✨ Colaboración de marca personal</h4>
+          <p class="form-hint">Registra el dinero y el valor del producto o servicio por separado. El canje no se suma a tu ingreso monetario.</p>
+          <div class="personal-grid">
+            <div class="field">
+              <label for="c-colab">Tipo de colaboración</label>
+              <select id="c-colab">
+                <option value="Pagada">💵 Pagada</option>
+                <option value="Canje">🎁 Canje</option>
+                <option value="Mixta">💵 + 🎁 Mixta</option>
+              </select>
+            </div>
+            <div class="field" id="c-canje-valor-field">
+              <label for="c-canje-valor">Valor estimado del canje ($)</label>
+              <input id="c-canje-valor" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0.00">
+            </div>
+            <div class="field" id="c-canje-desc-field">
+              <label for="c-canje-desc">Producto o servicio recibido</label>
+              <input id="c-canje-desc" maxlength="300" placeholder="Ej. hospedaje, skincare, ropa…">
+            </div>
+            <div class="field" id="c-canje-recibido-field">
+              <label for="c-canje-recibido">¿Canje recibido?</label>
+              <select id="c-canje-recibido"><option value="no">⏳ No</option><option value="si">✅ Sí</option></select>
+            </div>
+            <div class="field" id="c-canje-fecha-field">
+              <label for="c-canje-fecha">Fecha de recepción</label>
+              <input id="c-canje-fecha" type="date">
+            </div>
+          </div>
+        </section>`);
+      g('c-colab')?.addEventListener('change', () => togglePersonalFields(true));
+      g('c-canje-valor')?.addEventListener('input', () => cCalc(true));
+      g('c-canje-recibido')?.addEventListener('change', () => togglePersonalFields(false));
+    }
+    if (!g('dash-collab-card')) {
+      const row = g('dash-industry')?.closest('.charts');
+      if (row) row.insertAdjacentHTML('beforeend', `<div class="chart-card distribution-card" id="dash-collab-card" hidden><h3>🤝 Tipo de colaboración</h3><p class="chart-note">Pagadas, canje y mixtas · cantidad y porcentaje.</p><div id="dash-collab"></div></div>`);
+    }
+    if (!g('summary-collab-card')) {
+      const row = g('summary-industry')?.closest('.charts');
+      if (row) row.insertAdjacentHTML('beforeend', `<div class="chart-card distribution-card" id="summary-collab-card" hidden><h3>🤝 Tipo de colaboración</h3><p class="chart-note">Campañas filtradas · cantidad y porcentaje.</p><div id="summary-collab"></div></div>`);
+    }
+    mpUpdateContextButtons();
+  }
+
+  function mpUpdateContextButtons(){
+    for (const prefix of ['briev-dash','briev-camp']) {
+      g(prefix+'-agency')?.classList.toggle('on', mpContext === 'agency');
+      g(prefix+'-creator')?.classList.toggle('on', mpContext === 'creator');
+    }
+  }
+
+  window.setBrievContext = function(mode){
+    mpContext = mode === 'creator' ? 'creator' : 'agency';
+    mpUpdateContextButtons();
+    if (g('flt-titular')) g('flt-titular').value = '';
+    renderDash();
+    renderCamps();
+  };
+
+  if (mpOrig.buildFilters) {
+    buildFilters = function(){
+      mpOrig.buildFilters();
+      const sel = g('flt-titular');
+      if (sel) {
+        const own = [...sel.options].find(o => o.value === 'Propia');
+        if (own) own.textContent = 'Marca personal';
+      }
+    };
+  }
+
+  if (mpOrig.passes) {
+    passes = function(c){
+      const inContext = mpContext === 'creator' ? mpIsPersonal(c) : !mpIsPersonal(c);
+      return inContext && mpOrig.passes(c);
+    };
+  }
+
+  titBadge = function(t){
+    return t === 'Propia'
+      ? '<span class="badge-tit t-pr">✨ Marca personal</span>'
+      : '<span class="badge-tit t-ag">🏢 Agencia</span>';
+  };
+
+  function mpDashboardIcons(){
+    const svg = body => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
+    const campaignSrc = document.querySelector('.nav a[href="#camp"] .nav-ic')?.src;
+    return {
+      campaigns: svg('<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6V4h8v2M3 11h18M9 15h6"/>'),
+      income: svg('<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v5c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 11v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/>'),
+      active: campaignSrc ? `<img src="${campaignSrc}" alt="">` : svg('<path d="M4 13V9l11-4v12L4 13Z"/><path d="M15 9h2a3 3 0 0 1 0 6h-2M6 13l1.5 6h4L10 14"/>'),
+      collection: svg('<path d="M4 7h15a2 2 0 0 1 2 2v9H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12"/><path d="M16 11h5v4h-5a2 2 0 0 1 0-4Z"/><path d="m7 11 2 2 4-4"/>'),
+      creators: svg('<circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M16 8.5a2.5 2.5 0 0 1 0 5M17 16a4 4 0 0 1 3.5 3"/>'),
+      gift: svg('<path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 1 1 2.1-3.85L12 7Zm0 0h4.5a2.5 2.5 0 1 0-2.1-3.85L12 7Z"/>')
+    };
+  }
+
+  renderDash = function(){
+    mpInstallUI();
+    const list = mpScope();
+    const creator = mpContext === 'creator';
+    const icons = mpDashboardIcons();
+    const card = (cls,icon,label,value,sub) => `<div class="kpi ${cls}"><span class="kpi-icon" aria-hidden="true">${icon}</span><div class="label">${label}</div><div class="num">${value}</div><div class="sub">${sub}</div></div>`;
+
+    const eyebrow = g('page-dash')?.querySelector('.eyebrow');
+    if (eyebrow) eyebrow.textContent = creator ? 'Briev Co. / Creadora' : 'Briev Co. / Agencia';
+
+    if (creator) {
+      const cash = sum(list, mpCash);
+      const barter = sum(list, mpBarter);
+      const total = roundMoney(cash + barter);
+      const active = list.filter(mpIsActive).length;
+      const paidCash = sum(list.filter(c => mpCash(c) > 0 && c.cobro === 'Pagado'), mpCash);
+      const pendingCash = roundMoney(cash - paidCash);
+      const receivedBarter = sum(list.filter(c => mpMeta(c).canjeRecibido === 'si'), mpBarter);
+      const pendingBarter = roundMoney(barter - receivedBarter);
+      g('kpis').innerHTML =
+        card('lilac',icons.income,'Ingreso monetario',money(cash),`${list.filter(c=>mpCash(c)>0).length} campaña${list.filter(c=>mpCash(c)>0).length===1?'':'s'} con pago`) +
+        card('cyan',icons.gift,'Valor de canjes',money(barter),`Recibido ${money(receivedBarter)}<br>Pendiente ${money(pendingBarter)}`) +
+        card('hero',icons.income,'Valor total de colaboraciones',money(total),`Dinero ${money(cash)}<br>Canjes ${money(barter)}`) +
+        card('sky',icons.active,'Campañas activas',active,`${pct(active,list.length)} de Marca personal`) +
+        card('soft',icons.collection,'Por cobrar',money(pendingCash),`Dinero pendiente · ${pct(paidCash,cash)} cobrado<br>Canjes por recibir ${money(pendingBarter)}`);
+    } else {
+      const fact = sum(list,c=>c.monto);
+      const com = sum(list,comOf);
+      const activeBase = list.filter(c=>c.ciclo==='Activa' && ACTIVOS.includes(c.estado)).length;
+      const renewed = list.filter(c=>c.ciclo==='Renovada' && ACTIVOS.includes(c.estado)).length;
+      const finalized = list.filter(c=>c.ciclo==='Finalizada').length;
+      const active = activeBase + renewed;
+      const paid = sum(list.filter(c=>c.cobro==='Pagado'),comOf);
+      const pending = roundMoney(com-paid);
+      const pay = sum(list.filter(c=>c.pagcr!=='si'),c=>c.pago);
+      g('kpis').innerHTML =
+        card('lilac',icons.campaigns,'Monto de campañas',money(fact),`${list.length} campañas · incluye propuestas`) +
+        card('hero',icons.income,'Ingresos Briev',money(com),'Comisión generada por Briev') +
+        card('sky',icons.active,'Campañas activas',active,`Activas ${activeBase} · Renovadas ${renewed}<br>Finalizadas ${finalized}`) +
+        card('cyan',icons.collection,'Cobros Briev',money(paid),`Cobrado<br>Pendiente de cobro ${money(pending)} · ${pct(paid,com)} del total`) +
+        card('soft',icons.creators,'Por pagar a creadores',money(pay),'Pagos pendientes a creadores');
+    }
+
+    drawCharts();
+
+    const alerts = g('alertList');
+    const alertsBox = alerts?.closest('.alerts');
+    const alertsTitle = alertsBox?.querySelector('h3');
+    const today = new Date(); today.setHours(12,0,0,0);
+    const soon = [];
+    for (const c of list) {
+      if (!c.inicioCampana) continue;
+      for (const [type,days] of [['Pauta',c.pauta],['Exclusividad',c.excl]]) {
+        if (days <= 0) continue;
+        const end = parseDay(c.inicioCampana); end.setDate(end.getDate()+days);
+        const diff = Math.round((end-today)/86400000);
+        if (diff >= 0 && diff <= 30) soon.push({diff,html:`${esc(type)} de <b>${esc(c.marca)}${creator?'':' · '+esc(creatorName(c))}</b> ${diff===0?'vence hoy':'vence en '+diff+' día'+(diff===1?'':'s')} · ${fecha(end.getFullYear()+'-'+String(end.getMonth()+1).padStart(2,'0')+'-'+String(end.getDate()).padStart(2,'0'))}`});
+      }
+    }
+    soon.sort((a,b)=>a.diff-b.diff);
+    if (creator) {
+      if (alertsTitle) alertsTitle.textContent = '⚠️ Pendientes de Marca personal';
+      const pendingBarters = list.filter(c=>mpBarter(c)>0 && mpMeta(c).canjeRecibido!=='si');
+      const barterHtml = pendingBarters.map(c=>`<div class="mp-pending-item">🎁 <b>${esc(c.marca)}</b> · ${esc(mpMeta(c).canjeDescripcion||'Canje pendiente')} · ${money(mpBarter(c))}</div>`).join('');
+      const rightsHtml = soon.map(x=>`<div class="a">${x.html}</div>`).join('');
+      alerts.innerHTML = barterHtml + rightsHtml || '<div class="none">Sin cobros, canjes o derechos próximos que requieran atención.</div>';
+    } else {
+      if (alertsTitle) alertsTitle.textContent = '⚠️ Derechos por vencer (próximos 30 días)';
+      alerts.innerHTML = soon.length ? soon.map(x=>`<div class="a">${x.html}</div>`).join('') : '<div class="none">Sin derechos por vencer en los próximos 30 días.</div>';
+      const missing = list.filter(c=>!c.inicioCampana&&(c.pauta>0||c.excl>0)).length;
+      if (missing) alerts.innerHTML += `<div class="a">${missing} campaña(s) con derechos sin fecha de inicio. Completa esa fecha para calcular vencimientos.</div>`;
+    }
+  };
+
+  function mpCollabRows(list){
+    return MP_COLLABS.map(([type,icon],i)=>({
+      label:type,icon,value:list.filter(c=>mpType(c)===type).length,color:PAL[i%PAL.length]
+    })).filter(r=>r.value>0);
+  }
+
+  function mpGroupCreatorBrands(list){
+    const map = new Map();
+    for (const c of list) {
+      const key = c.marca || 'Sin asignar';
+      const r = map.get(key) || {label:key,count:0,cash:0,barter:0,value:0,industries:new Set(),types:new Set()};
+      r.count++;
+      r.cash += cents(mpCash(c));
+      r.barter += cents(mpBarter(c));
+      r.value += cents(mpValue(c));
+      r.industries.add(normalizeIndustry(c.industria));
+      r.types.add(mpType(c));
+      map.set(key,r);
+    }
+    return [...map.values()].map(r=>({...r,cash:r.cash/100,barter:r.barter/100,value:r.value/100,industries:[...r.industries],types:[...r.types]})).sort((a,b)=>b.value-a.value||a.label.localeCompare(b.label,'es'));
+  }
+
+  function mpBrandPanelMode(creator){
+    const panel = document.querySelector('.commission-brand');
+    if (!panel) return;
+    const eyebrow = panel.querySelector('.rank-header .eyebrow');
+    const title = panel.querySelector('.rank-header h3');
+    const note = panel.querySelector('.rank-header .chart-note');
+    const summaryLabel = panel.querySelector('.rank-summary > span');
+    const sort = panel.querySelector('.rank-sort-label');
+    if (creator) {
+      if (eyebrow) eyebrow.textContent='Valor de colaboraciones';
+      if (title) title.textContent='Valor por marca';
+      if (note) note.textContent='Dinero y valor estimado del canje por marca. El canje permanece separado del ingreso monetario.';
+      if (summaryLabel) summaryLabel.textContent='Valor total';
+      if (sort) sort.textContent='Mayor valor primero ↓';
+    } else {
+      if (eyebrow) eyebrow.textContent='Distribución de ingresos';
+      if (title) title.textContent='Comisión por marca';
+      if (note) note.textContent='Industria y cobro por marca · importes de comisión de Briev, no de facturación.';
+      if (summaryLabel) summaryLabel.textContent='Comisión total';
+      if (sort) sort.textContent='Mayor comisión primero ↓';
+    }
+  }
+
+  function mpDrawCreatorBrands(){
+    const all = rankingData.brand || [];
+    const term = g('brand-search')?.value.trim().toLocaleLowerCase() || '';
+    const limit = g('brand-limit')?.value || '8';
+    const matches = all.filter(r=>r.label.toLocaleLowerCase().includes(term));
+    const visible = limit==='all'?matches:matches.slice(0,Number(limit));
+    const total = sum(all,r=>r.value);
+    g('brand-total').textContent = money(total);
+    g('brand-contributors').textContent = `${all.length} marcas · ${all.reduce((s,r)=>s+r.count,0)} campañas`;
+    g('brand-list').innerHTML = visible.length ? `<div class="mp-brand-head"><span>#</span><span>Marca / industria</span><span>Campañas</span><span>Dinero</span><span>Canje</span><span>Valor total</span></div>` + visible.map(r=>{
+      const pos=all.indexOf(r)+1;
+      return `<div class="mp-brand-row" data-leading="${pos===1}">
+        <span class="rank-place">${pos}</span>
+        <div class="rank-identity"><span class="rank-avatar" aria-hidden="true">${esc(initials(r.label))}</span><div class="rank-name-block"><span class="rank-entity">${esc(r.label)}</span><span class="rank-industries">${r.industries.map(x=>`<span>${esc(x)}</span>`).join('')}</span></div></div>
+        <div class="mp-brand-types"><span class="rank-count"><b>${r.count}</b></span>${r.types.map(t=>`<span class="collab-pill ${t==='Pagada'?'paid':t==='Canje'?'barter':'mixed'}">${mpIcon(t)} ${esc(t)}</span>`).join('')}</div>
+        <div class="mp-brand-money cash"><span class="rank-mobile-label">Dinero</span><strong>${money(r.cash)}</strong></div>
+        <div class="mp-brand-money barter"><span class="rank-mobile-label">Canje</span><strong>${money(r.barter)}</strong></div>
+        <div class="mp-brand-money total"><span class="rank-mobile-label">Total</span><strong>${money(r.value)}</strong></div>
+      </div>`;
+    }).join('') : '<div class="empty">Sin resultados. Prueba con otro nombre.</div>';
+    g('brand-foot').textContent = `${visible.length} de ${matches.length} marcas${term?' encontradas':''} · Valor visible ${money(sum(visible,r=>r.value))}.`;
+  }
+
+  if (mpOrig.drawRanking) {
+    drawRanking = function(id){
+      if (id==='brand' && mpContext==='creator') { mpDrawCreatorBrands(); return; }
+      return mpOrig.drawRanking(id);
+    };
+  }
+
+  drawCharts = function(){
+    const list = mpScope();
+    const creator = mpContext==='creator';
+    const collabCard = g('dash-collab-card');
+    if (collabCard) collabCard.hidden = !creator;
+    const overview = g('dash-industry')?.closest('.charts');
+    overview?.classList.toggle('creator-overview',creator);
+
+    mpBrandPanelMode(creator);
+    if (creator) {
+      rankingData.brand = mpGroupCreatorBrands(list);
+      drawRanking('brand');
+      const cashTotal = sum(list,mpCash);
+      const cashPaid = sum(list.filter(c=>mpCash(c)>0&&c.cobro==='Pagado'),mpCash);
+      const cashPending = roundMoney(cashTotal-cashPaid);
+      ring('collection',[
+        {label:'Cobrado',icon:'✅',value:cashPaid,color:'#5ec4e6'},
+        {label:'Pendiente de cobro',icon:'⏳',value:cashPending,color:'#b677b1'}
+      ],true);
+      ring('dash-status',statusRows(list));
+      ring('dash-industry',industryRows(list));
+      ring('dash-collab',mpCollabRows(list));
+    } else {
+      rankingData.brand = groupBrands(list);
+      drawRanking('brand');
+      const collected=sum(list.filter(c=>c.cobro==='Pagado'),comOf);
+      const pending=sum(list.filter(c=>c.cobro!=='Pagado'),comOf);
+      ring('collection',[
+        {label:'Cobrado',icon:'✅',value:collected,color:'#5ec4e6'},
+        {label:'Pendiente de cobro',icon:'⏳',value:pending,color:'#b677b1'}
+      ],true);
+      ring('dash-status',statusRows(list));
+      ring('dash-industry',industryRows(list));
+    }
+    drawMonth();
+  };
+
+  drawMonth = function(){
+    const list = mpScope();
+    const creator = mpContext==='creator';
+    const byMonth = new Map();
+    for (const c of list) {
+      const d=c.inicioCampana||c.inicioAcuerdo;
+      if (!d) continue;
+      const k=d.slice(0,7), row=byMonth.get(k)||{cash:0,barter:0,total:0};
+      if (creator) {
+        row.cash += cents(mpCash(c)); row.barter += cents(mpBarter(c)); row.total += cents(mpValue(c));
+      } else {
+        row.cash += cents(comOf(c)); row.total += cents(comOf(c));
+      }
+      byMonth.set(k,row);
+    }
+    const keys=[...byMonth.keys()].sort(),months=[];
+    if(keys.length){let [y,m]=keys[0].split('-').map(Number);const last=keys.at(-1);while(`${y}-${String(m).padStart(2,'0')}`<=last){months.push(`${y}-${String(m).padStart(2,'0')}`);m++;if(m>12){m=1;y++;}}}
+    const title=document.querySelector('.monthly-panel h3');
+    const note=document.querySelector('.monthly-panel .chart-note');
+    if(title) title.textContent=creator?'💵 Ingresos y canjes por mes':'💵 Comisión por mes';
+    if(note) note.textContent=creator?'Dinero y valor estimado del canje se muestran por separado.':'Según inicio de campaña; si no existe, inicio del acuerdo. No representa la fecha de cobro.';
+    g('month-total').textContent=money([...byMonth.values()].reduce((s,r)=>s+r.total,0)/100);
+    g('month-values').innerHTML=months.length?months.map(k=>{const r=byMonth.get(k)||{cash:0,barter:0,total:0};return creator
+      ? `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Dinero ${money(r.cash/100)}</span><span>Canje ${money(r.barter/100)}</span></small></div>`
+      : `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong></div>`;}).join('')
+      : '<p class="form-hint">Agrega campañas con fecha para ver la evolución mensual.</p>';
+    const missing=list.filter(c=>!c.inicioCampana&&!c.inicioAcuerdo);
+    g('month-missing').textContent=missing.length?`${missing.length} campaña(s) sin Inicio de campaña ni Inicio del acuerdo: no se incluyen en la curva mensual.`:'';
+    charts.month?.destroy(); delete charts.month;
+    g('month-wrap').style.width='100%';
+    if(typeof Chart==='undefined'||!months.length){g('month-wrap').hidden=true;g('month-details').open=typeof Chart==='undefined';return;}
+    g('month-wrap').hidden=false;
+    const datasets=creator?[
+      {label:'Ingreso monetario',data:months.map(k=>(byMonth.get(k)?.cash||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b112',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:3,borderWidth:2.5},
+      {label:'Valor de canje',data:months.map(k=>(byMonth.get(k)?.barter||0)/100),borderColor:'#5ec4e6',backgroundColor:'#5ec4e612',fill:false,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:3,borderWidth:2.5}
+    ]:[
+      {label:'Comisión',data:months.map(k=>(byMonth.get(k)?.total||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b114',fill:true,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:months.length>24?2:4,pointHitRadius:18,borderWidth:2.5}
+    ];
+    charts.month=new Chart(g('chMonth'),{type:'line',data:{labels:months.map(k=>mesCorto(k+'-01')),datasets},options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:24,right:12}},interaction:{mode:'index',intersect:false},plugins:{legend:{display:creator,position:'bottom',labels:{font:{family:'Poppins',size:10},boxWidth:10,color:'#696583'}},tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${money(ctx.parsed.y)}`}}},scales:{x:{grid:{display:false},ticks:{autoSkip:true,maxTicksLimit:8,maxRotation:0,color:'#696583',font:{family:'Poppins',size:11}}},y:{beginAtZero:true,grid:{color:'#f0eef7'},ticks:{maxTicksLimit:5,callback:v=>money(v),font:{family:'Poppins',size:11},color:'#696583'}}}}});
+  };
+
+  renderResumen = function(){
+    if (mpContext!=='creator') {
+      g('summary-collab-card')?.setAttribute('hidden','');
+      return mpOrig.renderResumen();
+    }
+    const list=camps.filter(passes);
+    g('summary-collab-card')?.removeAttribute('hidden');
+    g('ciclo-mini').innerHTML=CICLOS.map(cy=>`<div class="mini"><div class="e">${cy[1]}</div><div><div class="n">${list.filter(c=>c.ciclo===cy[0]).length}</div><div class="l">${cy[0]}s</div></div></div>`).join('');
+    const top=[...list].sort((a,b)=>mpValue(b)-mpValue(a)).slice(0,3);
+    g('top3list').innerHTML=top.map((c,i)=>`<article class="t3 ${i===0?'lead':''}"><div class="medal">${['🥇','🥈','🥉'][i]}</div><div class="info"><div class="m">${esc(c.marca)}</div><div class="s"><span>${esc(c.nombre||'Sin nombre')}</span>${mpCollabBadge(c)}<span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></div></div><div class="amt"><div class="v">${money(mpValue(c))}</div><div class="p">Valor total · dinero ${money(mpCash(c))} · canje ${money(mpBarter(c))}</div></div><button class="btn btn-ghost btn-small" onclick="detail(${camps.indexOf(c)})">Ver campaña →</button></article>`).join('')||'<div class="empty">Sin campañas para este filtro.</div>';
+    ring('summary-status',statusRows(list));
+    ring('summary-industry',industryRows(list));
+    ring('summary-collab',mpCollabRows(list));
+  };
+
+  renderCamps = function(){
+    mpInstallUI();
+    if (mpContext==='agency') {
+      const r=mpOrig.renderCamps();
+      const scoped=mpScope();
+      const idx=camps.filter(passes).length;
+      if(g('camp-count')) g('camp-count').textContent=`${idx} de ${scoped.length} campañas · Agencia`;
+      if(g('flt-creador')) g('flt-creador').hidden=false;
+      if(g('flt-titular')) g('flt-titular').hidden=true;
+      const ownOpt=[...g('flt-titular')?.options||[]].find(o=>o.value==='Propia'); if(ownOpt) ownOpt.textContent='Marca personal';
+      return r;
+    }
+    const idx=camps.map((c,i)=>i).filter(i=>passes(camps[i]));
+    const scoped=mpScope();
+    g('camp-count').textContent=`${idx.length} de ${scoped.length} campañas · Marca personal`;
+    if(g('flt-creador')) g('flt-creador').hidden=true;
+    if(g('flt-titular')) g('flt-titular').hidden=true;
+    const head=g('camp-table')?.querySelector('thead tr');
+    if(head) head.innerHTML='<th>Marca / Campaña</th><th>Tipo</th><th>Mes</th><th>Industria</th><th class="num-r">Ingreso $</th><th class="num-r">Valor canje</th><th class="num-r">Valor total</th><th>Status</th><th>Cobro / canje</th><th>Origen</th>';
+    g('camp-cards').innerHTML=idx.length?idx.map(i=>{const c=camps[i],m=mpMeta(c);return `<div class="ccard propia" onclick="detail(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(${i})}">
+      <div class="cc-top"><div><div class="cc-marca">${esc(c.marca)}</div><div class="cc-name">${esc(c.nombre||'—')}</div></div>${titBadge(c.titular)}</div>
+      <div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span>${mpCollabBadge(c)}</div>
+      <div class="cc-det"><div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||'—')}</div></div><div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div><div class="d"><div class="l">Inicio campaña</div><div class="v">${fecha(c.inicioCampana)}</div></div>${m.tipo!=='Pagada'?`<div class="d full"><div class="l">Canje</div><div class="v">${esc(m.canjeDescripcion||'Sin descripción')} · ${m.canjeRecibido==='si'?'✅ Recibido':'⏳ Pendiente'}</div></div>`:''}</div>
+      <div class="mp-value-grid"><span class="cash">Ingreso monetario<strong>${money(mpCash(c))}</strong></span><span class="barter">Valor canje<strong>${money(mpBarter(c))}</strong></span><span>Valor total<strong>${money(mpValue(c))}</strong></span></div>
+      <div class="cc-pills"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span>${mpCash(c)>0?`<span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroLabel(c.cobro))}</span>`:''}${m.tipo!=='Pagada'?`<span class="pill ${m.canjeRecibido==='si'?'pagado':'pend'}">${m.canjeRecibido==='si'?'✅ Canje recibido':'⏳ Canje pendiente'}</span>`:''}</div>
+    </div>`;}).join(''):'<div class="empty" style="grid-column:1/-1">No hay campañas de Marca personal con estos filtros.</div>';
+    g('camp-rows').innerHTML=idx.length?idx.map(i=>{const c=camps[i],m=mpMeta(c);const status=[mpCash(c)>0?mpCashStatus(c):'',m.tipo!=='Pagada'?mpCanjeStatus(c):''].filter(Boolean).join(' · ');return `<tr onclick="detail(${i})" tabindex="0" onkeydown="if(event.key==='Enter')detail(${i})">
+      <td data-label="Campaña"><div style="font-weight:600">${esc(c.marca)}</div><div style="font-size:11.5px;color:var(--muted)">${esc(c.nombre||'—')}</div></td>
+      <td data-label="Tipo">${mpCollabBadge(c)}</td>
+      <td data-label="Mes">${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td>
+      <td data-label="Industria"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td>
+      <td data-label="Ingreso $" class="num-r money">${money(mpCash(c))}</td>
+      <td data-label="Valor canje" class="num-r">${money(mpBarter(c))}</td>
+      <td data-label="Valor total" class="num-r mine">${money(mpValue(c))}</td>
+      <td data-label="Status"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></td>
+      <td data-label="Cobro / canje"><span class="pill ${((mpCash(c)<=0||c.cobro==='Pagado')&&(m.tipo==='Pagada'||m.canjeRecibido==='si'))?'pagado':'pend'}">${esc(status||'—')}</span></td>
+      <td data-label="Origen">${titBadge(c.titular)}</td>
+    </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas de Marca personal con estos filtros.</td></tr>';
+    if(campView==='resumen') renderResumen();
+  };
+
+  detail = function(i){
+    const c=camps[i];
+    if(!mpIsPersonal(c)) return mpOrig.detail(i);
+    const m=mpMeta(c),yn=v=>v>0?`✅ ${v} días`:'—';
+    g('det-body').innerHTML=`<div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||'—')} · ${em(INDUS,c.industria)} ${esc(c.industria)}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
+      <div style="margin:6px 0 2px">${titBadge(c.titular)} ${mpCollabBadge(c)} <span class="tag">${em(CICLOS,c.ciclo||'Activa')} ${esc(c.ciclo||'Activa')}</span></div>
+      <div class="det-com"><span>Valor total de colaboración</span><span class="v">${money(mpValue(c))}</span></div>
+      <div class="det-row"><span class="k">Ingreso monetario</span><span class="v">${money(mpCash(c))}</span></div>
+      <div class="det-row"><span class="k">Valor del canje</span><span class="v">${money(mpBarter(c))}</span></div>
+      ${m.tipo!=='Pagada'?`<div class="det-row"><span class="k">Producto / servicio</span><span class="v">${esc(m.canjeDescripcion||'—')}</span></div><div class="det-row"><span class="k">Canje recibido</span><span class="v">${m.canjeRecibido==='si'?'✅ Sí':'⏳ No'}</span></div><div class="det-row"><span class="k">Fecha de recepción</span><span class="v">${fecha(m.canjeFecha)}</span></div>`:''}
+      <div class="det-row"><span class="k">Entregables</span><span class="v">${esc(c.entregables||'—')}</span></div>
+      <div class="det-row"><span class="k">Derechos de pauta</span><span class="v">${yn(c.pauta)}</span></div>
+      <div class="det-row"><span class="k">Exclusividad</span><span class="v">${yn(c.excl)}</span></div>
+      ${mpCash(c)>0?`<div class="det-row"><span class="k">Días de pago</span><span class="v">${c.diaspago?c.diaspago+' días':'—'}</span></div>`:''}
+      <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div>
+      <div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div>
+      <div class="det-row"><span class="k">Brief</span><span class="v">${c.brief==='si'?'✅ Recibido':'❌ No recibido'}</span></div>
+      <div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></span></div>
+      ${mpCash(c)>0?`<div class="det-row"><span class="k">Cobro</span><span class="v"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroLabel(c.cobro))}</span></span></div>`:''}
+      <div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;
+    open_('ov-det');
+  };
+
+  window.togglePersonalFields = function(changed=false){
+    const own=g('c-titular')?.value==='Propia';
+    const type=own?(g('c-colab')?.value||'Pagada'):'Pagada';
+    if(g('personal-collab-section')) g('personal-collab-section').hidden=!own;
+    const showBarter=own&&type!=='Pagada';
+    for(const id of ['c-canje-valor-field','c-canje-desc-field','c-canje-recibido-field','c-canje-fecha-field']) if(g(id)) g(id).hidden=!showBarter;
+    if(g('c-canje-valor')) {g('c-canje-valor').disabled=!showBarter;g('c-canje-valor').required=showBarter;}
+    if(g('c-canje-desc')) g('c-canje-desc').disabled=!showBarter;
+    if(g('c-canje-recibido')) g('c-canje-recibido').disabled=!showBarter;
+    if(g('c-canje-fecha')) g('c-canje-fecha').disabled=!showBarter;
+    const montoLabel=g('c-monto')?.closest('.field')?.querySelector('label');
+    if(montoLabel) montoLabel.textContent=own?'Ingreso monetario ($)':'Monto acordado con la marca ($)';
+    if(g('c-monto')) {
+      if(own&&type==='Canje'){if(changed)g('c-monto').value='0';g('c-monto').disabled=true;}
+      else g('c-monto').disabled=false;
+    }
+    const financeModeField=g('c-finance-mode')?.closest('.field'); if(financeModeField) financeModeField.hidden=own;
+    const payCreatorField=g('c-pagcr')?.closest('.field'); if(payCreatorField) payCreatorField.hidden=own;
+    const cobroField=g('c-cobro')?.closest('.field'); if(cobroField) cobroField.hidden=own&&type==='Canje';
+    const daysField=g('c-diaspago')?.closest('.field'); if(daysField) daysField.hidden=own&&type==='Canje';
+    cCalc(changed);
+  };
+
+  openCamp = function(i){
+    mpInstallUI();
+    mpOrig.openCamp(i);
+    const c=i===undefined?null:camps[i];
+    if(i===undefined&&mpContext==='creator') g('c-titular').value='Propia';
+    const m=mpMeta(c);
+    if(g('c-colab')) g('c-colab').value=m.tipo;
+    if(g('c-canje-desc')) g('c-canje-desc').value=m.canjeDescripcion;
+    if(g('c-canje-valor')) g('c-canje-valor').value=m.canjeValor||'';
+    if(g('c-canje-recibido')) g('c-canje-recibido').value=m.canjeRecibido;
+    if(g('c-canje-fecha')) g('c-canje-fecha').value=m.canjeFecha;
+    togglePersonalFields(false);
+  };
+
+  cCalc = function(changed=false){
+    const own=g('c-titular')?.value==='Propia';
+    if(!own) return mpOrig.cCalc(changed);
+    financeDirty=financeDirty||changed;
+    const type=g('c-colab')?.value||'Pagada';
+    try{
+      const cash=type==='Canje'?0:g('c-monto').value;
+      if(type!=='Canje'&&String(cash).trim()==='') throw new Error('Ingresa el pago que recibirás de la marca.');
+      financeDraft=computeAgreedFinance(cash||0,0,true);
+      financeError='';
+      const barter=type==='Pagada'?0:roundMoney(g('c-canje-valor')?.value||0);
+      if(type==='Canje'){g('c-com-l').textContent='Valor estimado del canje';g('c-com').textContent=money(barter);g('c-payment-preview').textContent='Ingreso monetario: $0.00 · El canje no se suma a tus ingresos en efectivo.';}
+      else if(type==='Mixta'){g('c-com-l').textContent='Valor total de colaboración';g('c-com').textContent=money(financeDraft.monto+barter);g('c-payment-preview').textContent=`Ingreso monetario: ${money(financeDraft.monto)} · Canje: ${money(barter)}.`;}
+      else {g('c-com-l').textContent='Ingreso monetario';g('c-com').textContent=money(financeDraft.monto);g('c-payment-preview').textContent='El 100% del monto corresponde a Marca personal.';}
+      if(g('c-pago')) g('c-pago').value=0;
+      if(g('c-com-pct')) g('c-com-pct').value=100;
+      g('finance-pct-field').hidden=true;g('finance-pay-field').hidden=true;
+    }catch(e){financeDraft=null;financeError=e.message;g('c-com').textContent='—';g('c-payment-preview').textContent=e.message;}
+  };
+
+  saveCamp = async function(){
+    if(busy||mode==='locked')return;
+    try{
+      validateInputs('camp');
+      if(!g('c-marca').value.trim()) throw new Error('Escribe la marca.');
+      const own=g('c-titular').value==='Propia',type=own?(g('c-colab')?.value||'Pagada'):'Pagada';
+      const creator=cres.find(r=>r.id===g('c-creador').value);
+      const otherName=g('c-other').value.trim();
+      if(!own&&!creator&&!otherName) throw new Error('Selecciona un creador o escribe su nombre.');
+      cCalc(); if(!financeDraft) throw new Error(financeError||'Revisa los importes.');
+      const previous=editCampSnapshot,deliveries=collectDeliverables(previous),f=financeDraft;
+      const extras={...deliveries.extras,finanzas_modo:own?'pago':g('c-finance-mode').value};
+      if(own){
+        const barter=type==='Pagada'?0:roundMoney(g('c-canje-valor')?.value||0);
+        if(type!=='Pagada'&&barter<=0) throw new Error('Ingresa el valor estimado del canje.');
+        extras.marca_personal_v1={tipo:type,canjeDescripcion:type==='Pagada'?'':textField(g('c-canje-desc')?.value||'',300),canjeValor:barter,canjeRecibido:type==='Pagada'?'no':g('c-canje-recibido').value,canjeFecha:type==='Pagada'?'':validDate(g('c-canje-fecha')?.value||'')};
+      } else {
+        delete extras.marca_personal_v1;
+      }
+      const candidate=normalizeCamp({...previous,id:previous?.id||newCampId,...f,...deliveries,extras,
+        marca:g('c-marca').value,nombre:g('c-nombre').value,creadorId:creator?.id||null,creador:creator?.nombre||(own?(otherName||'Marca personal'):otherName),
+        industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,pauta:g('c-pauta').value,excl:g('c-excl').value,
+        diaspago:own&&type==='Canje'?0:g('c-diaspago').value,estado:g('c-estado').value,cobro:own&&type==='Canje'?'Pendiente':g('c-cobro').value,
+        brief:g('c-brief').value,inicioAcuerdo:g('c-inicio-acuerdo').value,inicioCampana:g('c-inicio-campana').value,pagcr:own?'si':g('c-pagcr').value},cres);
+      setBusy(true);syncLabel('Guardando campaña…');const token=epoch;const saved=await writeRecord('camp',candidate,previous);if(token!==epoch)return;
+      const idx=camps.findIndex(c=>c.id===saved.id);if(idx<0)camps.push(saved);else camps[idx]=saved;
+      close_('ov-camp',true);renderAll();syncLabel(mode==='cloud'?'Guardado en Supabase':mode==='local'?'Guardado en este navegador':'Cambios solo en la demo');toast(mode==='demo'?'Campaña actualizada en la demo.':'Campaña guardada.');
+    }catch(e){notice(friendly(e),true);alert(friendly(e));syncLabel('No se confirmó el guardado');}finally{setBusy(false);}
+  };
+
+  if (mpOrig.go) {
+    go = function(page,el){
+      const result=mpOrig.go(page,el);
+      if(page==='dash') renderDash();
+      if(page==='camp') renderCamps();
+      return result;
+    };
+  }
+
+  mpInstallUI();
+  setTimeout(() => {
+    mpInstallUI();
+    if (g('app') && !g('app').hidden) { buildFilters(); renderDash(); renderCamps(); }
+  }, 0);
+})();
+</script>
+<!-- BRIEV_CREATOR_MODE_PATCH_END -->
+
 </body>
 </html>
