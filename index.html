@@ -153,6 +153,7 @@
 :root{--muted:#696583;--purple-text:#86507f;--line:#e4e2ef}
 [hidden]{display:none!important}button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}button:disabled{opacity:.55;cursor:wait}
 :focus-visible{outline:3px solid #458dad;outline-offset:3px}a{color:#405e86}body{line-height:1.5}
+.attach-btn{background:none;border:none;padding:0;margin:0;font:inherit;color:#405e86;text-decoration:underline;cursor:pointer;text-align:right}
 .topbar{padding:16px max(20px,calc((100vw - 1320px)/2));gap:30px}.topbar .logo{display:block;flex:0 0 112px;width:112px;height:32px;min-width:112px;overflow:visible}.nav a{font-size:13px}.nav a.on{color:var(--navy);font-weight:600}
 .main{max-width:1360px;padding:28px 24px 60px}.top h1{font-size:27px;letter-spacing:-.6px}.top{flex-wrap:wrap}.top p{max-width:670px}
 .eyebrow{font-size:10px;letter-spacing:.14em;font-weight:600;text-transform:uppercase;color:var(--purple-text);margin-bottom:5px}.top-actions,.session-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -169,7 +170,7 @@
 .ccard{outline-offset:3px}.cc-name,.cc-det .v,.det-row .v{overflow-wrap:anywhere}.cc-com .c,.mine,.det-com .v{color:var(--purple-text)}.det-row{gap:20px}.det-row .v{max-width:64%}.det-head{flex-wrap:wrap;gap:12px}.calc{color:var(--navy)}.calc .v{font-variant-numeric:tabular-nums}.calc-pay{margin:-7px 0 20px;font-size:12px;color:var(--muted)}
 table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font-weight:600;white-space:nowrap}td{vertical-align:middle}.cre-table td:first-child{min-width:170px}.creator-cell{display:flex;align-items:center;gap:10px}.avatar{width:34px;height:34px;background:#e9e0ef;color:var(--navy);display:grid;place-items:center;border-radius:11px;font-size:11px;font-weight:600;flex:none}.creator-name{font-size:13px;font-weight:600}.tier{display:inline-block;background:#eeecf6;color:var(--navy);padding:3px 8px;border-radius:7px;font-size:10px}.cre-table tr{cursor:default}.cre-table .action-cell{white-space:nowrap}.ico{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:#f7f5fb;color:var(--navy);font-family:inherit;font-weight:500;font-size:11px;min-height:36px;padding:7px 10px;cursor:pointer}.ico.danger{color:#923b50;background:#fff5f7;border-color:#edd1d9}.cr-act{position:static;float:right;margin:0 0 12px 12px}.cr .name{overflow-wrap:anywhere}.cr .badges{clear:both}
 .form-hint{font-size:11px;color:var(--muted);margin:0 0 14px}.field input:disabled{opacity:.7}.modal{max-width:620px}.modal-act{flex-wrap:wrap}.overlay{z-index:100}.auth{min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(150deg,#26224f 0%,#393563 70%,#6c7198)}.auth-card{background:white;border-radius:22px;padding:32px;width:100%;max-width:450px}.auth-brand{background:var(--navy);border-radius:12px;padding:18px;margin-bottom:24px}.auth-brand .logo{width:125px;height:35px;display:block}.auth-card h1{font-size:24px;margin-bottom:8px}.auth-card>p{font-size:12px;color:var(--muted);margin-bottom:22px}.auth-card .btn{width:100%;margin-bottom:9px}.auth-card small{display:block;font-size:10px;color:var(--muted);margin-top:10px}.auth-card .auth-error{color:#953348;font-size:12px;white-space:pre-wrap;margin:12px 0}.toast{position:fixed;right:24px;bottom:20px;z-index:110;background:var(--navy);color:white;border-radius:12px;padding:13px 18px;font-size:12px;max-width:calc(100vw - 48px);box-shadow:0 5px 22px #26224f30}.toast:empty{display:none}
-@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.kpi.hero{grid-column:span 2}.ring-layout{grid-template-columns:130px minmax(0,1fr);gap:15px}.ring{width:130px}.ring::after{inset:20px}.grid-cr{grid-template-columns:1fr 1fr}}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.kpis.creator-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.kpi.hero{grid-column:span 2}.ring-layout{grid-template-columns:130px minmax(0,1fr);gap:15px}.ring{width:130px}.ring::after{inset:20px}.grid-cr{grid-template-columns:1fr 1fr}}
 @media(max-width:800px){.topbar{padding:14px 18px;gap:12px;position:relative}.topbar .logo{flex:0 0 110px;width:110px;min-width:110px;height:31px}.nav{order:3;width:100%;overflow:auto;gap:5px}.nav a{flex:1;justify-content:center;padding:10px 8px;font-size:12px}.nav-ic{width:20px;height:20px}.session-actions{margin-left:auto}.session-actions button{font-size:10px;padding:7px 9px}.main{padding:22px 16px 40px}.charts{grid-template-columns:1fr}.ring-layout{grid-template-columns:145px minmax(0,1fr);gap:22px}.ring{width:145px}.grid-cr{grid-template-columns:1fr}.mini3{grid-template-columns:repeat(3,1fr);gap:8px}.mini{padding:12px;gap:8px}.mini .e{font-size:20px}.mini .n{font-size:21px}.mini .l{font-size:10px}.top3{grid-template-columns:repeat(3,minmax(240px,1fr));overflow-x:auto;scroll-snap-type:x mandatory}.t3{scroll-snap-align:start}.top3-hint{display:block!important}.two,.three{grid-template-columns:1fr}.top h1{font-size:24px}}
 @media(max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi.hero{grid-column:1/-1;grid-row:1}.kpi.hero .num{font-size:32px}.kpi{padding:16px;min-height:140px}.kpi .num{font-size:20px}.chart-card,.wide-chart{padding:18px}.ring-layout{grid-template-columns:1fr;justify-items:center}.legend{width:100%;max-height:300px}.ring{width:160px}.ring::after{inset:26px}.legend li{font-size:12px}.rank-top{font-size:11px}.rank-value{font-size:11px}.controls .toggle{width:100%;overflow-x:auto}.toggle button{font-size:11px;flex:1;white-space:nowrap}.filters{width:100%}.filters select{max-width:100%;flex:1}.grid-camp{grid-template-columns:minmax(0,1fr)}.modal{padding:22px 18px}.overlay{padding:10px}.auth-card{padding:25px}.cr-act{float:none;justify-content:flex-end;margin:0 0 14px}.cre-controls .search{width:100%}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
@@ -1251,11 +1252,7 @@ init();
 .collab-pill.paid{background:#f3e7f2;color:#86507f}
 .collab-pill.barter{background:#e4f4f9;color:#397c96}
 .collab-pill.mixed{background:#e7edf7;color:#4d6b91}
-.kpis.creator-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
-.creator-kpis .creator-total{grid-column:1/-1}
-.creator-kpis .creator-half{grid-column:span 3}
-.creator-kpis .creator-third{grid-column:span 2}
-.creator-kpis .creator-total .num{font-size:clamp(28px,3vw,38px)}
+.kpis.creator-kpis{grid-template-columns:repeat(6,minmax(0,1fr))}
 .charts.creator-overview{grid-template-columns:repeat(4,minmax(0,1fr))}
 .origin-note{margin-top:10px;padding:8px 10px;border-radius:9px;background:#f7f5fb;color:var(--muted);font-size:10px;line-height:1.5}
 .mp-value-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
@@ -1283,10 +1280,6 @@ init();
 }
 @media(max-width:650px){
   .kpis.creator-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .creator-kpis .creator-total{grid-column:1/-1}
-  .creator-kpis .creator-half{grid-column:span 1}
-  .creator-kpis .creator-third{grid-column:span 1}
-  .creator-kpis .creator-third:last-child{grid-column:1/-1}
   .personal-grid{grid-template-columns:1fr}
   .creator-brand-summary .brand-summary-row,.general-brand-row{
     grid-template-columns:20px minmax(0,1fr) auto;
@@ -1395,15 +1388,30 @@ init();
   function collectDocumentsList(){
     return draftDocuments.filter(d=>d.dataUrl).map(d=>({etiqueta:textField(d.etiqueta||'Documento',120),nombre:d.nombre,mime:d.mime,size:d.size,dataUrl:d.dataUrl}));
   }
-  function attachmentsHtml(c){
+  function attachmentsHtml(c,i){
     const brief=briefData(c),docs=c?.extras?.documentos_v1||[],fechaCobro=c?.extras?.fecha_estimada_cobro||'';
     let html='';
     if(fechaCobro)html+=`<div class="det-row"><span class="k">Fecha estimada de cobro</span><span class="v">${fecha(fechaCobro)}</span></div>`;
     if(brief.tipo==='link')html+=`<div class="det-row"><span class="k">Brief</span><span class="v"><a href="${esc(brief.link)}" target="_blank" rel="noopener">Abrir link ↗</a></span></div>`;
-    else if(brief.tipo==='archivo'&&brief.archivo)html+=`<div class="det-row"><span class="k">Brief</span><span class="v"><a href="${brief.archivo.dataUrl}" download="${esc(brief.archivo.nombre)}">${esc(brief.archivo.nombre)} ↓</a></span></div>`;
-    if(docs.length)html+=`<div class="det-row"><span class="k">Documentos</span><span class="v">${docs.map(d=>`<a href="${d.dataUrl}" download="${esc(d.nombre)}">${esc(d.etiqueta||d.nombre)} ↓</a>`).join('<br>')}</span></div>`;
+    else if(brief.tipo==='archivo'&&brief.archivo)html+=`<div class="det-row"><span class="k">Brief</span><span class="v"><button type="button" class="attach-btn" onclick="openCampAttachment(${i},'brief',-1)">${esc(brief.archivo.nombre)} ↓</button></span></div>`;
+    if(docs.length)html+=`<div class="det-row"><span class="k">Documentos</span><span class="v">${docs.map((d,idx)=>`<button type="button" class="attach-btn" onclick="openCampAttachment(${i},'doc',${idx})">${esc(d.etiqueta||d.nombre)} ↓</button>`).join('<br>')}</span></div>`;
     return html;
   }
+  async function shareOrDownload(dataUrl,name,mime){
+    try{
+      const res=await fetch(dataUrl),blob=await res.blob();
+      const file=new File([blob],name,{type:mime||blob.type||'application/octet-stream'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:name});return;}
+    }catch(e){if(e?.name==='AbortError')return;}
+    const a=document.createElement('a');a.href=dataUrl;a.download=name;a.rel='noopener';a.target='_blank';
+    document.body.appendChild(a);a.click();a.remove();
+  }
+  window.openCampAttachment=async function(campIndex,kind,idx){
+    const c=camps[campIndex];if(!c)return;
+    const file=kind==='brief'?briefData(c).archivo:(c.extras?.documentos_v1||[])[idx];
+    if(!file||!file.dataUrl){toast('No se encontró el archivo.');return;}
+    await shareOrDownload(file.dataUrl,file.nombre,file.mime);
+  };
 
   const orig = {
     renderDash, renderCamps, renderResumen, drawCharts, drawMonth, drawRanking,
@@ -2168,7 +2176,7 @@ init();
         <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div><div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div>
         <div class="det-row"><span class="k">Ciclo</span><span class="v">${cycleBadge(c)}</span></div><div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></span></div>
         ${cash(c)>0?`<div class="det-row"><span class="k">Estado de cobro</span><span class="v"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></span></div>`:''}
-        ${attachmentsHtml(c)}
+        ${attachmentsHtml(c,i)}
         <div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;
     }else{
       const yn=v=>v>0?`✅ ${v} días`:'—';
@@ -2179,7 +2187,7 @@ init();
         <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div><div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div>
         <div class="det-row"><span class="k">Ciclo</span><span class="v">${cycleBadge(c)}</span></div><div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></span></div>
         <div class="det-row"><span class="k">Estado de cobro</span><span class="v"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></span></div><div class="det-row"><span class="k">Pagado al creador</span><span class="v">${c.pagcr==='si'?'✅ Sí':'⏳ No'}</span></div>
-        ${attachmentsHtml(c)}
+        ${attachmentsHtml(c,i)}
         <div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;
     }
     open_('ov-det');
