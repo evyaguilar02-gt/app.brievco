@@ -209,6 +209,8 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 /* Campaign agreement and quantity-based deliverables. */
 .delivery-editor{margin:20px 0;padding:16px;border:1px solid var(--line);border-radius:14px;background:#faf9fd;min-width:0}.delivery-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.delivery-head h4{font-size:14px;font-weight:600;margin:0}.delivery-row{display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}.delivery-row .field{margin:0;min-width:0}.delivery-row input,.delivery-row select{min-height:44px;min-width:0;width:100%}.delivery-remove{margin-top:23px;min-height:44px}.delivery-editor>.field{margin-top:16px}.delivery-preview{background:#eee8f4;border-radius:10px;padding:12px;margin-top:12px}.delivery-preview>span{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#62517b}.delivery-preview p{font-size:12px;line-height:1.6;margin:5px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}.modal textarea{width:100%;min-height:76px;max-width:100%;resize:vertical;font:inherit;font-size:12px;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:white}.legacy-rate{font-size:11px;margin-top:12px;line-height:1.6;padding:9px 12px;background:#f5f2f8;border-radius:8px;overflow-wrap:anywhere}.legacy-rate summary{cursor:pointer}.rate-detail{display:block;color:var(--muted);font-size:10px;line-height:1.5;margin-top:5px;overflow-wrap:anywhere}.rate-grid .rate{min-width:0}.rate-grid .r-v{overflow-wrap:anywhere}#c-payment-preview{line-height:1.6}#r-legacy-rate[hidden],#finance-pct-field[hidden],#finance-pay-field[hidden]{display:none!important}
 @media(max-width:540px){.delivery-editor{padding:12px}.delivery-head{align-items:stretch}.delivery-head h4{flex-basis:100%}.delivery-head .btn{width:100%;min-height:44px}.delivery-row{grid-template-columns:70px minmax(0,1fr);gap:8px}.delivery-remove{grid-column:1/-1;justify-self:end;margin-top:0;padding:8px 12px}.modal .field input,.modal .field select,.modal .field textarea{font-size:16px;min-height:44px}.legacy-rate summary{min-height:44px;display:flex;align-items:center}}
+.doc-row{display:grid;grid-template-columns:1fr 1.3fr auto;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}.doc-row .field{margin:0;min-width:0}.doc-row input{min-height:44px;min-width:0;width:100%}.doc-row .doc-file-name{font-size:10.5px;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}.doc-remove{margin-top:23px;min-height:44px}
+@media(max-width:540px){.doc-row{grid-template-columns:minmax(0,1fr);gap:8px}.doc-remove{justify-self:end;margin-top:0;padding:8px 12px}}
 
 
 
@@ -285,6 +287,16 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
     #page-dash>.top,#page-camp>.top{align-items:center!important}
 }
 
+/* Ciclo first; condensed "Filtrar por" toggle keeps mobile filters from eating vertical space. */
+.filters-toggle{display:none}
+@media(max-width:700px){
+    .filters-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px;font-size:12.5px;padding:10px 13px}
+    .controls{flex-direction:column;align-items:stretch}
+    .controls .filters{display:none;width:100%;order:2}
+    .controls .filters.open{display:flex}
+    .controls .toggle{order:3;width:100%;overflow-x:auto}
+    .filters select{flex:1 1 calc(50% - 5px);min-width:130px}
+}
 </style>
 </head>
 <body>
@@ -357,7 +369,9 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
       <div class="top"><div><h1>Campañas</h1><p id="camp-count"></p></div>
         <button class="btn btn-grad new-campaign-btn" onclick="openCamp()">+ Nueva campaña</button></div>
       <div class="controls">
-        <div class="filters">
+        <button type="button" class="btn btn-ghost filters-toggle" id="filters-toggle" onclick="toggleFiltersPanel()" aria-expanded="false" aria-controls="camp-filters">🔎 Filtrar por</button>
+        <div class="filters" id="camp-filters">
+          <select id="flt-ciclo" onchange="renderCamps()"></select>
           <select id="flt-estado" onchange="renderCamps()"></select>
           <select id="flt-creador" onchange="renderCamps()"></select>
           <select id="flt-marca" onchange="renderCamps()"></select>
@@ -445,6 +459,21 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
     <div class="field"><label for="c-inicio-acuerdo">Inicio del acuerdo / contrato</label><input id="c-inicio-acuerdo" type="date"></div>
     <div class="field"><label for="c-inicio-campana">Inicio de la campaña</label><input id="c-inicio-campana" type="date"></div>
   </div>
+  <div class="two">
+    <div class="field"><label for="c-fecha-cobro">Fecha estimada de cobro (opcional)</label><input id="c-fecha-cobro" type="date"><p class="form-hint">Solo para seguimiento; no bloquea el guardado de la campaña.</p></div>
+  </div>
+  <section class="delivery-editor" aria-labelledby="docs-title">
+    <div class="delivery-head"><h4 id="docs-title">📎 Brief y documentos</h4></div>
+    <p class="form-hint">El brief se puede agregar como link o como archivo. Los documentos (contrato, brief, etc.) se adjuntan como archivo. Máximo 6 MB por archivo y 9 MB en total por campaña; para archivos más pesados, comparte un link.</p>
+    <div class="two">
+      <div class="field"><label for="c-brief-tipo">Brief — ¿link o archivo?</label><select id="c-brief-tipo" onchange="toggleBriefSource(true)"><option value="">Sin adjuntar</option><option value="link">🔗 Link</option><option value="archivo">📄 Archivo</option></select></div>
+      <div class="field" id="c-brief-link-field" hidden><label for="c-brief-link">Link del brief</label><input id="c-brief-link" type="url" maxlength="600" placeholder="https://…" oninput="updateBriefLink(this.value)"></div>
+    </div>
+    <div class="field" id="c-brief-file-field" hidden><label for="c-brief-file">Archivo del brief</label><input id="c-brief-file" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,image/*" onchange="handleBriefFile(this.files[0])"><p class="form-hint" id="c-brief-file-name"></p></div>
+    <div class="delivery-head" style="margin-top:18px"><h4>📁 Documentos (contrato, brief, etc.)</h4><button type="button" class="btn btn-ghost" id="doc-add" onclick="addDocumentField()">＋ Agregar documento</button></div>
+    <div id="doc-rows"></div>
+    <p id="doc-empty" class="form-hint">Todavía no hay documentos adjuntos.</p>
+  </section>
   <div class="modal-act"><button class="btn btn-ghost" onclick="close_('ov-camp')">Cancelar</button><button class="btn btn-grad" onclick="saveCamp()">Guardar</button></div>
 </div></div>
 
@@ -482,7 +511,8 @@ const INDUS=[["Fintech","💳"],["Belleza","💄"],["Comida y bebida","🍔"],["
 const CICLOS=[["Activa","🟢"],["Renovada","🔄"],["Finalizada","🏁"]];
 const ACTIVOS=["Contrato firmado","En producción","En aprobación","Contenido aprobado","Publicado","Facturado"];
 const PAL=['#b677b1','#81a4d0','#5ec4e6','#26224f','#a783b9','#6a8eba','#3a96b7','#847ca6','#c79dc3','#587395','#94d5e9','#ac91b8'];
-const em=(l,v)=>l.find(x=>x[0]===v)?.[1]||(l===INDUS&&v?'🏷️':'');
+const em=(l,v)=>l.find(x=>x[0]===v)?.[1]||'';
+const indTag=v=>{const icon=em(INDUS,v);return (icon?icon+' ':'')+esc(v);};
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const g=id=>document.getElementById(id);
 const initials=n=>String(n).trim().split(/\s+/).slice(0,2).map(s=>s[0]||'').join('').toUpperCase();
@@ -785,7 +815,7 @@ async function deleteRecord(kind,record){
   }
 }
 
-function opt(list){return list.map(x=>`<option value="${esc(x[0])}">${x[1]} ${esc(x[0])}</option>`).join('');}
+function opt(list){return list.map(x=>`<option value="${esc(x[0])}">${x[1]?x[1]+' ':''}${esc(x[0])}</option>`).join('');}
 const NEW_INDUSTRY='__new_industry__';
 const industryKey=value=>String(value).normalize('NFC').trim().replace(/\s+/g,' ').toLocaleLowerCase('es');
 function normalizeIndustry(value){
@@ -795,7 +825,7 @@ function normalizeIndustry(value){
 function industryOptions(){
   const catalog=new Map(INDUS.map(([label,icon])=>[industryKey(label),[label,icon]]));
   const custom=[];
-  for(const c of camps){const label=normalizeIndustry(c.industria),key=industryKey(label);if(!catalog.has(key)){const entry=[label,'🏷️'];catalog.set(key,entry);custom.push(entry);}}
+  for(const c of camps){const label=normalizeIndustry(c.industria),key=industryKey(label);if(!catalog.has(key)){const entry=[label,''];catalog.set(key,entry);custom.push(entry);}}
   return [...INDUS,...custom.sort((a,b)=>a[0].localeCompare(b[0],'es'))];
 }
 function toggleNewIndustry(focus=false){
@@ -1119,7 +1149,7 @@ function renderCamps(){
   g("camp-cards").innerHTML= idx.length? idx.map(i=>{const c=camps[i];return `
     <div class="ccard ${c.titular==="Propia"?"propia":""}" onclick="detail(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(${i})}">
       <div class="cc-top"><div><div class="cc-marca">${esc(c.marca)}</div><div class="cc-name">${esc(c.nombre||"—")}</div></div>${titBadge(c.titular)}</div>
-      <div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span><span class="tag">👤 ${esc(creatorName(c))}</span></div>
+      <div class="cc-meta"><span class="tag">${indTag(c.industria)}</span><span class="tag">👤 ${esc(creatorName(c))}</span></div>
       <div class="cc-det">
         <div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||"—")}</div></div>
         <div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div>
@@ -1134,7 +1164,7 @@ function renderCamps(){
     <tr onclick="detail(${i})" tabindex="0" onkeydown="if(event.key==='Enter')detail(${i})">
       <td><div style="font-weight:600">${esc(c.marca)}</div><div style="font-size:11.5px;color:var(--muted)">${esc(c.nombre||"—")}</div></td>
       <td>${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td>
-      <td>${esc(creatorName(c))}</td><td><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td>
+      <td>${esc(creatorName(c))}</td><td><span class="tag">${indTag(c.industria)}</span></td>
       <td class="num-r money">${money(c.monto)}</td><td class="num-r">${fmtPct(c.comPct)}%</td><td class="num-r mine">${money(comOf(c))}</td>
       <td><span class="pill">${em(ESTADOS,c.estado)} ${esc(c.estado)}</span></td>
       <td><span class="pill ${c.cobro==="Pagado"?"pagado":"pend"}">${em(COBROS,c.cobro)} ${esc(c.cobro)}</span></td>
@@ -1146,7 +1176,7 @@ function renderCamps(){
 function detail(i){
   const c=camps[i],yn=v=>v>0?`✅ ${v} días`:"—";
   g("det-body").innerHTML=`
-    <div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||"—")} · ${em(INDUS,c.industria)} ${esc(c.industria)}</div></div>
+    <div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||"—")} · ${indTag(c.industria)}</div></div>
       <div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
     <div style="margin:6px 0 2px">${titBadge(c.titular)} <span class="tag">${em(CICLOS,c.ciclo||"Activa")} ${esc(c.ciclo||"Activa")}</span></div>
     <div class="det-com"><span>${c.titular==="Propia"?"Ingreso (100% tuyo)":`Tu comisión · ${fmtPct(c.comPct)}%`}</span><span class="v">${money(comOf(c))}</span></div>
@@ -1292,13 +1322,88 @@ init();
     {label:'Prospecto', value:'Prospecto', icon:'🔍'},
     {label:'Negociación', value:'Negociación', icon:'🤝'},
     {label:'Confirmada', value:'Acuerdo alcanzado', icon:'✅'},
+    {label:'Contrato firmado', value:'Contrato firmado', icon:'✍️'},
     {label:'En producción', value:'En producción', icon:'🎬'},
     {label:'En aprobación', value:'En aprobación', icon:'📤'},
     {label:'Publicada', value:'Publicado', icon:'📢'}
   ];
   const CYCLE_ORDER = {Activa:0,Renovada:1,Finalizada:2};
   const COLLABS = [['Pagada','💵'],['Canje','🎁'],['Mixta','💵 + 🎁']];
+  const collabLabel = t => t==='Pagada'?'Pago':t;
   let brievContext = 'general';
+  let draftDocuments=[], documentSequence=0, briefDraft={tipo:'',link:'',archivo:null};
+  const MAX_DOC_BYTES=6*1024*1024;
+  const MAX_TOTAL_ATTACHMENT_BYTES=9*1024*1024;
+  function fileToDataUrl(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error('No se pudo leer "'+file.name+'".'));reader.readAsDataURL(file);});}
+  function checkFileSize(file){if(file.size>MAX_DOC_BYTES)throw new Error('El archivo "'+file.name+'" supera 6 MB. Usa un archivo más liviano o comparte un link.');}
+  function briefData(c){
+    const raw=c?.extras?.brief_v1;
+    if(raw&&typeof raw==='object'&&!Array.isArray(raw)&&['link','archivo'].includes(raw.tipo))return raw;
+    return {tipo:'',link:'',archivo:null};
+  }
+  window.toggleBriefSource=function(userChanged=false){
+    const tipo=g('c-brief-tipo').value;
+    g('c-brief-link-field').hidden=tipo!=='link';
+    g('c-brief-file-field').hidden=tipo!=='archivo';
+    if(userChanged){
+      briefDraft.tipo=tipo;
+      if(tipo!=='link')briefDraft.link='';
+      if(tipo!=='archivo'){briefDraft.archivo=null;g('c-brief-file-name').textContent='';g('c-brief-file').value='';}
+    }
+  };
+  window.updateBriefLink=function(value){briefDraft.tipo='link';briefDraft.link=value;};
+  window.handleBriefFile=async function(file){
+    if(!file)return;
+    try{
+      checkFileSize(file);
+      const dataUrl=await fileToDataUrl(file);
+      briefDraft={tipo:'archivo',link:'',archivo:{nombre:file.name,mime:file.type||'application/octet-stream',size:file.size,dataUrl}};
+      g('c-brief-file-name').textContent='Archivo listo: '+file.name+' ('+Math.round(file.size/1024)+' KB)';
+    }catch(e){g('c-brief-file-name').textContent=e.message;g('c-brief-file').value='';}
+  };
+  function collectBrief(){
+    if(!briefDraft.tipo)return null;
+    if(briefDraft.tipo==='link'){
+      const link=textField(briefDraft.link||'',600);
+      if(!link)throw new Error('Escribe el link del brief o cambia a "Sin adjuntar".');
+      try{new URL(link);}catch{throw new Error('El link del brief no es una URL válida (debe empezar con https://).');}
+      return {tipo:'link',link};
+    }
+    if(!briefDraft.archivo)throw new Error('Selecciona el archivo del brief o cambia a "Sin adjuntar".');
+    return {tipo:'archivo',archivo:briefDraft.archivo};
+  }
+  function renderDocRows(focusId=null){
+    g('doc-rows').innerHTML=draftDocuments.map(row=>`<div class="doc-row"><div class="field"><label for="doc-label-${row.id}">Etiqueta</label><input id="doc-label-${row.id}" type="text" maxlength="120" placeholder="Ej. Contrato firmado" value="${esc(row.etiqueta)}" oninput="changeDocLabel(${row.id},this.value)"></div><div class="field"><label for="doc-file-${row.id}">Archivo</label><input id="doc-file-${row.id}" type="file" onchange="changeDocFile(${row.id},this.files[0])"><p class="doc-file-name">${row.nombre?esc(row.nombre)+' ('+Math.round(row.size/1024)+' KB)':'Sin archivo seleccionado'}</p></div><button type="button" class="btn btn-ghost doc-remove" aria-label="Eliminar documento" onclick="removeDocumentField(${row.id})">🗑️</button></div>`).join('');
+    g('doc-empty').hidden=draftDocuments.length>0;
+    if(focusId!==null)g('doc-label-'+focusId)?.focus();
+  }
+  window.addDocumentField=function(){
+    if(busy||draftDocuments.length>=15)return;
+    const id=++documentSequence;draftDocuments.push({id,etiqueta:'',nombre:'',mime:'',size:0,dataUrl:''});renderDocRows(id);
+  };
+  window.changeDocLabel=function(id,value){const row=draftDocuments.find(r=>r.id===id);if(row)row.etiqueta=value;};
+  window.changeDocFile=async function(id,file){
+    const row=draftDocuments.find(r=>r.id===id);if(!row||!file)return;
+    try{
+      checkFileSize(file);
+      const dataUrl=await fileToDataUrl(file);
+      row.nombre=file.name;row.mime=file.type||'application/octet-stream';row.size=file.size;row.dataUrl=dataUrl;
+      renderDocRows();
+    }catch(e){alert(e.message);}
+  };
+  window.removeDocumentField=function(id){draftDocuments=draftDocuments.filter(r=>r.id!==id);renderDocRows();};
+  function collectDocumentsList(){
+    return draftDocuments.filter(d=>d.dataUrl).map(d=>({etiqueta:textField(d.etiqueta||'Documento',120),nombre:d.nombre,mime:d.mime,size:d.size,dataUrl:d.dataUrl}));
+  }
+  function attachmentsHtml(c){
+    const brief=briefData(c),docs=c?.extras?.documentos_v1||[],fechaCobro=c?.extras?.fecha_estimada_cobro||'';
+    let html='';
+    if(fechaCobro)html+=`<div class="det-row"><span class="k">Fecha estimada de cobro</span><span class="v">${fecha(fechaCobro)}</span></div>`;
+    if(brief.tipo==='link')html+=`<div class="det-row"><span class="k">Brief</span><span class="v"><a href="${esc(brief.link)}" target="_blank" rel="noopener">Abrir link ↗</a></span></div>`;
+    else if(brief.tipo==='archivo'&&brief.archivo)html+=`<div class="det-row"><span class="k">Brief</span><span class="v"><a href="${brief.archivo.dataUrl}" download="${esc(brief.archivo.nombre)}">${esc(brief.archivo.nombre)} ↓</a></span></div>`;
+    if(docs.length)html+=`<div class="det-row"><span class="k">Documentos</span><span class="v">${docs.map(d=>`<a href="${d.dataUrl}" download="${esc(d.nombre)}">${esc(d.etiqueta||d.nombre)} ↓</a>`).join('<br>')}</span></div>`;
+    return html;
+  }
 
   const orig = {
     renderDash, renderCamps, renderResumen, drawCharts, drawMonth, drawRanking,
@@ -1312,7 +1417,8 @@ init();
   const statusGroup = value => {
     if (value === 'Prospecto') return 'Prospecto';
     if (['Propuesta enviada','Negociación'].includes(value)) return 'Negociación';
-    if (['Acuerdo alcanzado','Contrato firmado','Firmado'].includes(value)) return 'Confirmada';
+    if (value === 'Acuerdo alcanzado') return 'Confirmada';
+    if (['Contrato firmado','Firmado'].includes(value)) return 'Contrato firmado';
     if (value === 'En producción') return 'En producción';
     if (['En aprobación','Contenido aprobado'].includes(value)) return 'En aprobación';
     if (['Publicado','Entregado','Facturado','Pagado'].includes(value)) return 'Publicada';
@@ -1321,7 +1427,7 @@ init();
   const statusIcon = value => STATUS_UI.find(x=>x.label===statusGroup(value))?.icon || '•';
   const statusText = value => statusGroup(value);
   const storedStatus = value => STATUS_UI.find(x=>x.label===statusGroup(value))?.value || 'Prospecto';
-  const cobroText = value => value === 'Pendiente' ? 'Pendiente de facturar' : value === 'Pagado' ? 'Cobrado' : value;
+  const cobroText = value => value === 'Pendiente' ? 'Pendiente de cobro' : value === 'Pagado' ? 'Cobrado' : value;
   const cycleBadge = c => `<span class="cycle-pill">${em(CICLOS,c.ciclo||'Activa')} ${esc(c.ciclo||'Activa')}</span>`;
 
   const meta = c => {
@@ -1347,7 +1453,7 @@ init();
   const collabBadge = c => {
     if (!isPersonal(c)) return '';
     const t=collabType(c);
-    return `<span class="collab-pill ${t==='Pagada'?'paid':t==='Canje'?'barter':'mixed'}">${collabIcon(t)} ${esc(t)}</span>`;
+    return `<span class="collab-pill ${t==='Pagada'?'paid':t==='Canje'?'barter':'mixed'}">${collabIcon(t)} ${esc(collabLabel(t))}</span>`;
   };
   const creatorSelf = () => cres.find(r=>r.nombre?.trim().toLocaleLowerCase('es')===SELF_NAME.toLocaleLowerCase('es'));
 
@@ -1368,11 +1474,11 @@ init();
       const row=g('c-titular')?.closest('.two');
       row?.insertAdjacentHTML('afterend',`
         <section class="personal-collab" id="personal-collab-section" hidden>
-          <h4>✨ Colaboración de Marca personal</h4>
+          <h4>✨ Colaboración personal</h4>
           <p class="form-hint">El dinero y el valor del canje se registran por separado. El canje no se cuenta como ingreso monetario.</p>
           <div class="personal-grid">
             <div class="field"><label for="c-colab">Tipo de colaboración</label>
-              <select id="c-colab"><option value="Pagada">💵 Pagada</option><option value="Canje">🎁 Canje</option><option value="Mixta">💵 + 🎁 Mixta</option></select>
+              <select id="c-colab"><option value="Pagada">💵 Pago</option><option value="Canje">🎁 Canje</option><option value="Mixta">💵 + 🎁 Mixta</option></select>
             </div>
             <div class="field" id="c-canje-valor-field"><label for="c-canje-valor">Valor estimado del canje ($)</label><input id="c-canje-valor" type="number" min="0" step="0.01" max="9999999999.99" placeholder="0.00"></div>
             <div class="field" id="c-canje-desc-field"><label for="c-canje-desc">Producto o servicio</label><input id="c-canje-desc" maxlength="300" placeholder="Ej. hospedaje, skincare, ropa…"></div>
@@ -1399,7 +1505,7 @@ init();
     }
     // Static wording: internal value remains Propia for DB compatibility.
     const own=[...(g('c-titular')?.options||[])].find(o=>o.value==='Propia'||o.textContent.trim()==='Propia');
-    if(own){own.value='Propia';own.textContent='Marca personal';}
+    if(own){own.value='Propia';own.textContent='Personal';}
     updateContextUI();
   }
 
@@ -1458,10 +1564,24 @@ init();
     setFilter('flt-creador',[...new Set(list.map(creatorName))].sort((a,b)=>a.localeCompare(b,'es')),'Creador');
     setFilter('flt-marca',[...new Set(list.map(c=>c.marca))].sort((a,b)=>a.localeCompare(b,'es')),'Marca');
     setFilter('flt-industria',[...new Set(list.map(c=>c.industria))].sort((a,b)=>a.localeCompare(b,'es')),'Industria');
-    setFilter('flt-titular',['Agencia','Marca personal'],'Origen');
+    setFilter('flt-titular',['Agencia','Personal'],'Origen');
     setFilter('flt-ciclo',CICLOS.map(x=>x[0]),'Ciclo');
     if(g('flt-creador')) g('flt-creador').hidden=brievContext==='creator';
     if(g('flt-titular')) g('flt-titular').hidden=brievContext!=='general';
+    updateFiltersToggleLabel();
+  };
+
+  function updateFiltersToggleLabel(){
+    const btn=g('filters-toggle'),panel=g('camp-filters');if(!btn||!panel)return;
+    const active=[...panel.querySelectorAll('select')].filter(s=>!s.hidden&&s.value).length;
+    const open=panel.classList.contains('open');
+    btn.textContent=(open?'▲ ':'▼ ')+'Filtrar por'+(active?` (${active})`:'');
+    btn.setAttribute('aria-expanded',String(open));
+  }
+  window.toggleFiltersPanel=function(){
+    const panel=g('camp-filters');if(!panel)return;
+    panel.classList.toggle('open');
+    updateFiltersToggleLabel();
   };
 
   passes = function(c){
@@ -1473,19 +1593,19 @@ init();
     if(g('flt-industria')?.value && c.industria!==g('flt-industria').value) return false;
     if(g('flt-ciclo')?.value && c.ciclo!==g('flt-ciclo').value) return false;
     if(g('flt-titular')?.value){
-      const origin=isPersonal(c)?'Marca personal':'Agencia';
+      const origin=isPersonal(c)?'Personal':'Agencia';
       if(origin!==g('flt-titular').value) return false;
     }
     return true;
   };
 
   titBadge = function(t){
-    return t==='Propia'?'<span class="badge-tit t-pr">✨ Marca personal</span>':'<span class="badge-tit t-ag">🏢 Agencia</span>';
+    return t==='Propia'?'<span class="badge-tit t-pr">✨ Personal</span>':'<span class="badge-tit t-ag">🏢 Agencia</span>';
   };
 
   fillModalSelects = function(){
     g('c-estado').innerHTML=STATUS_UI.map(x=>`<option value="${esc(x.value)}">${x.icon} ${esc(x.label)}</option>`).join('');
-    g('c-cobro').innerHTML='<option value="Pendiente">⏳ Pendiente de facturar</option><option value="Facturado">🧾 Facturado</option><option value="Pagado">✅ Cobrado</option>';
+    g('c-cobro').innerHTML='<option value="Pendiente">⏳ Pendiente de cobro</option><option value="Facturado">🧾 Facturado</option><option value="Pagado">✅ Cobrado</option>';
     g('c-ciclo').innerHTML=opt(CICLOS);
     g('c-industria').innerHTML=opt(industryOptions())+`<option value="${NEW_INDUSTRY}">＋ Agregar industria…</option>`;
     g('c-creador').innerHTML=cres.map(r=>`<option value="${r.id}">${esc(r.nombre)}</option>`).join('')+'<option value="other">— otro creador —</option>';
@@ -1568,6 +1688,19 @@ init();
     g('c-canje-recibido').value=m.canjeRecibido;
     g('c-canje-fecha').value=m.canjeFecha;
     togglePersonalFields(false);
+
+    const bd=briefData(current);
+    briefDraft={tipo:bd.tipo,link:bd.link||'',archivo:bd.archivo||null};
+    g('c-brief-tipo').value=bd.tipo||'';
+    g('c-brief-link').value=bd.link||'';
+    g('c-brief-file').value='';
+    g('c-brief-file-name').textContent=bd.archivo?('Archivo guardado: '+bd.archivo.nombre+' ('+Math.round(bd.archivo.size/1024)+' KB)'):'';
+    toggleBriefSource(false);
+
+    draftDocuments=(current?.extras?.documentos_v1||[]).map(d=>({id:++documentSequence,etiqueta:d.etiqueta||'',nombre:d.nombre||'',mime:d.mime||'',size:d.size||0,dataUrl:d.dataUrl||''}));
+    renderDocRows();
+
+    g('c-fecha-cobro').value=current?.extras?.fecha_estimada_cobro||'';
   };
 
   cCalc = function(changed=false){
@@ -1592,7 +1725,7 @@ init();
       }else{
         g('c-com-l').textContent='Ingreso monetario';
         g('c-com').textContent=money(financeDraft.monto);
-        g('c-payment-preview').textContent='El 100% del monto corresponde a Marca personal.';
+        g('c-payment-preview').textContent='El 100% del monto corresponde a Personal.';
       }
       g('c-pago').value=0;g('c-com-pct').value=100;
     }catch(e){
@@ -1629,6 +1762,15 @@ init();
         };
       }else delete extras.marca_personal_v1;
 
+      const briefAttachment=collectBrief();
+      const documentosList=collectDocumentsList();
+      const totalAttachedBytes=(briefAttachment?.archivo?.size||0)+documentosList.reduce((s,d)=>s+d.size,0);
+      if(totalAttachedBytes>MAX_TOTAL_ATTACHMENT_BYTES)throw new Error('Los archivos adjuntos suman '+Math.round(totalAttachedBytes/1024/1024)+' MB; el máximo por campaña es '+Math.round(MAX_TOTAL_ATTACHMENT_BYTES/1024/1024)+' MB. Comparte un link o comprime los archivos.');
+      if(briefAttachment)extras.brief_v1=briefAttachment;else delete extras.brief_v1;
+      extras.documentos_v1=documentosList;
+      const fechaEstimadaCobro=validDate(g('c-fecha-cobro').value||'');
+      if(fechaEstimadaCobro)extras.fecha_estimada_cobro=fechaEstimadaCobro;else delete extras.fecha_estimada_cobro;
+
       const candidate=normalizeCamp({
         ...previous,id:previous?.id||newCampId,...f,...deliveries,extras,
         marca:g('c-marca').value,nombre:g('c-nombre').value,
@@ -1662,7 +1804,7 @@ init();
   };
 
   function collabRows(list){
-    return COLLABS.map(([t,icon],i)=>({label:t,icon,value:list.filter(c=>collabType(c)===t).length,color:PAL[i%PAL.length]})).filter(r=>r.value>0);
+    return COLLABS.map(([t,icon],i)=>({label:collabLabel(t),icon,value:list.filter(c=>collabType(c)===t).length,color:PAL[i%PAL.length]})).filter(r=>r.value>0);
   }
 
   function kpiIcons(){
@@ -1691,30 +1833,17 @@ init();
   renderDash = function(){
     installUI();sortCamps();
     const list=scope(),icons=kpiIcons(),kp=g('kpis');
-    kp.classList.toggle('creator-kpis',brievContext==='creator');
     const eyebrow=g('page-dash')?.querySelector('.eyebrow');
     if(eyebrow) eyebrow.textContent=brievContext==='general'?'Briev Co. / Vista general':brievContext==='agency'?'Briev Co. / Agencia':'Briev Co. / Creadora';
 
-    if(brievContext==='creator'){
-      const cashTotal=sum(list,cash),barterTotal=sum(list,barter),total=roundMoney(cashTotal+barterTotal);
-      const receivedBarter=sum(list.filter(c=>meta(c).canjeRecibido==='si'),barter);
-      const paid=sum(list.filter(c=>cash(c)>0&&c.cobro==='Pagado'),cash),pending=roundMoney(cashTotal-paid);
-      const active=list.filter(c=>c.ciclo==='Activa').length,renewed=list.filter(c=>c.ciclo==='Renovada').length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
-      kp.innerHTML=
-        card('hero',icons.income,'Monto total de colaboraciones',money(total),`Ingreso monetario ${money(cashTotal)} · Canjes ${money(barterTotal)}`,'creator-total')+
-        card('lilac',icons.income,'Ingreso monetario',money(cashTotal),`${list.filter(c=>cash(c)>0).length} colaboración${list.filter(c=>cash(c)>0).length===1?'':'es'} con pago`,'creator-half')+
-        card('cyan',icons.gift,'Valor de canjes',money(barterTotal),`Recibido ${money(receivedBarter)} · Pendiente ${money(roundMoney(barterTotal-receivedBarter))}`,'creator-half')+
-        card('sky',icons.collection,'Cobrado',money(paid),`${pct(paid,cashTotal)} del ingreso monetario`,'creator-third')+
-        card('soft',icons.collection,'Por cobrar',money(pending),'Solo pagos monetarios pendientes','creator-third')+
-        card('lilac',icons.active,'Campañas activas',active+renewed,`Activas ${active} · Renovadas ${renewed}<br>Finalizadas ${finalized}`,'creator-third');
-    }else if(brievContext==='agency'){
+    if(brievContext==='agency'){
       const fact=sum(list,c=>c.monto),inc=sum(list,comOf);
       const active=list.filter(c=>c.ciclo==='Activa').length,renewed=list.filter(c=>c.ciclo==='Renovada').length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
       const paid=sum(list.filter(c=>c.cobro==='Pagado'),comOf),pending=roundMoney(inc-paid),pay=sum(list.filter(c=>c.pagcr!=='si'),c=>c.pago);
       kp.innerHTML=
         card('lilac',icons.amount,'Monto de campañas',money(fact),`${list.length} campañas de agencia`)+
         card('hero',icons.income,'Ingresos Briev',money(inc),'Comisión generada por Agencia')+
-        card('sky',icons.active,'Campañas activas',active+renewed,`Activas ${active} · Renovadas ${renewed}<br>Finalizadas ${finalized}`)+
+        card('sky',icons.active,'Campañas activas',active+renewed,`Activas ${active}<br>Renovadas ${renewed}<br>Finalizadas ${finalized}`)+
         card('cyan',icons.collection,'Cobrado',money(paid),`Por cobrar ${money(pending)} · ${pct(paid,inc)} del total`)+
         card('soft',icons.creators,'Por pagar a creadores',money(pay),'Pagos pendientes a creadores');
     }else{
@@ -1725,10 +1854,10 @@ init();
       const paidPersonal=sum(list.filter(c=>isPersonal(c)&&cash(c)>0&&c.cobro==='Pagado'),cash);
       const paid=roundMoney(paidAgency+paidPersonal),pending=roundMoney(inc-paid),pay=sum(list.filter(c=>!isPersonal(c)&&c.pagcr!=='si'),c=>c.pago);
       kp.innerHTML=
-        card('lilac',icons.amount,'Monto monetario de campañas',money(roundMoney(amountAgency+amountPersonal)),`Agencia ${money(amountAgency)} · Marca personal ${money(amountPersonal)}<br>Canjes no incluidos ${money(b.barter)}`)+
-        card('hero',icons.income,'Ingresos totales',money(inc),`Agencia ${money(b.agency)}<br>Marca personal ${money(b.personal)} · Canjes no incluidos`)+
-        card('sky',icons.active,'Campañas activas',active+renewed,`Activas ${active} · Renovadas ${renewed}<br>Finalizadas ${finalized}`)+
-        card('cyan',icons.collection,'Cobrado',money(paid),`Agencia ${money(paidAgency)} · Marca personal ${money(paidPersonal)}<br>Por cobrar ${money(pending)}`)+
+        card('lilac',icons.amount,'Monto monetario de campañas',money(inc),`Agencia ${money(b.agency)}<br>Personal ${money(b.personal)} · Canjes no incluidos`)+
+        card('hero',icons.income,'Ingresos totales',money(roundMoney(amountAgency+amountPersonal)),`Agencia ${money(amountAgency)} · Personal ${money(amountPersonal)}<br>Canjes no incluidos ${money(b.barter)}`)+
+        card('sky',icons.active,'Campañas activas',active+renewed,`Activas ${active}<br>Renovadas ${renewed}<br>Finalizadas ${finalized}`)+
+        card('cyan',icons.collection,'Cobrado',money(paid),`Agencia ${money(paidAgency)} · Personal ${money(paidPersonal)}<br>Por cobrar ${money(pending)}`)+
         card('soft',icons.creators,'Por pagar a creadores',money(pay),'Solo campañas de Agencia');
     }
     drawCharts();
@@ -1740,6 +1869,7 @@ init();
     const today=new Date();today.setHours(12,0,0,0);const soon=[];
     for(const c of list){
       if(!c.inicioCampana) continue;
+      if(statusGroup(c.estado)!=='Publicada') continue;
       for(const [type,days] of [['Pauta',c.pauta],['Exclusividad',c.excl]]){
         if(days<=0) continue;
         const end=parseDay(c.inicioCampana);end.setDate(end.getDate()+days);
@@ -1748,37 +1878,23 @@ init();
       }
     }
     soon.sort((a,b)=>a.diff-b.diff);
-    if(brievContext==='creator'){
-      if(title) title.textContent='⚠️ Pendientes de Marca personal';
-      const pendingBarter=list.filter(c=>barter(c)>0&&meta(c).canjeRecibido!=='si');
-      alerts.innerHTML=pendingBarter.map(c=>`<div class="a">🎁 <b>${esc(c.marca)}</b> · ${esc(meta(c).canjeDescripcion||'Canje pendiente')} · ${money(barter(c))}</div>`).join('')+
-        soon.map(x=>`<div class="a">${x.html}</div>`).join('');
-      if(!alerts.innerHTML) alerts.innerHTML='<div class="none">Sin canjes o derechos próximos que requieran atención.</div>';
-    }else{
-      if(title) title.textContent='⚠️ Derechos por vencer (próximos 30 días)';
-      alerts.innerHTML=soon.length?soon.map(x=>`<div class="a">${x.html}</div>`).join(''):'<div class="none">Sin derechos por vencer en los próximos 30 días.</div>';
-    }
+    if(title) title.textContent='⚠️ Derechos por vencer (próximos 30 días)';
+    alerts.innerHTML=soon.length?soon.map(x=>`<div class="a">${x.html}</div>`).join(''):'<div class="none">Sin derechos por vencer en los próximos 30 días.</div>';
   }
 
-  function annotateGeneral(){
-    const a=camps.filter(c=>!isPersonal(c)).length,p=camps.filter(isPersonal).length;
+  function annotateGeneral(list){
+    const a=list.filter(c=>!isPersonal(c)).length,p=list.filter(isPersonal).length;
     const statusNote=g('dash-status')?.closest('.chart-card')?.querySelector('.chart-note');
     const indNote=g('dash-industry')?.closest('.chart-card')?.querySelector('.chart-note');
-    if(statusNote) statusNote.textContent=`${camps.length} campañas · Agencia ${a} · Marca personal ${p}.`;
-    if(indNote) indNote.textContent=`Todas las industrias · Agencia ${a} · Marca personal ${p}.`;
+    if(statusNote) statusNote.textContent=`${list.length} campañas · Agencia ${a} · Personal ${p}.`;
+    if(indNote) indNote.textContent=`Todas las industrias · Agencia ${a} · Personal ${p}.`;
   }
 
   drawCharts = function(){
-    const list=scope(),creator=brievContext==='creator',general=brievContext==='general';
-    const collabCard=g('dash-collab-card');
-    if(collabCard) collabCard.hidden=!creator;
-    g('dash-industry')?.closest('.charts')?.classList.toggle('creator-overview',creator);
-    const ranking=document.querySelector('.dashboard-ranking');
-    if(ranking) ranking.style.display=creator?'none':'block';
+    const list=scope(),agencyOnly=brievContext==='agency';
 
     ring('dash-status',statusRows(list));
     ring('dash-industry',industryRows(list));
-    if(creator) ring('dash-collab',collabRows(list));
 
     const totalIncome=sum(list,income),paid=sum(list.filter(c=>income(c)>0&&c.cobro==='Pagado'),income),pending=roundMoney(totalIncome-paid);
     ring('collection',[
@@ -1787,19 +1903,19 @@ init();
     ],true);
 
     const collectNote=g('collection')?.closest('.chart-card')?.querySelector('.chart-note');
-    if(creator&&collectNote) collectNote.textContent='Solo ingreso monetario; los canjes se controlan por recepción.';
-    else if(general&&collectNote){
+    if(agencyOnly){if(collectNote) collectNote.textContent='Comisión de Agencia · monto y porcentaje.';}
+    else if(collectNote){
       const b=monetaryBreakdown(list);
-      collectNote.textContent=`Ingreso monetario total · Agencia ${money(b.agency)} · Marca personal ${money(b.personal)}.`;
-    }else if(collectNote) collectNote.textContent='Comisión de Agencia · monto y porcentaje.';
+      collectNote.textContent=`Ingreso monetario total · Agencia ${money(b.agency)} · Personal ${money(b.personal)}.`;
+    }
 
-    if(general) annotateGeneral();
+    annotateGeneral(list);
 
-    if(brievContext==='agency'){
+    if(agencyOnly){
       rankingData.brand=groupBrands(list);
       configureBrandPanel('agency');
       orig.drawRanking('brand');
-    }else if(general){
+    }else{
       configureBrandPanel('general');
       drawGeneralBrands();
     }
@@ -1812,7 +1928,7 @@ init();
     if(mode==='general'){
       if(eyebrow)eyebrow.textContent='Distribución de ingresos';
       if(title)title.textContent='Ingresos por marca';
-      if(note)note.textContent='Comisión de Agencia + ingreso monetario de Marca personal. Los canjes no se suman como ingreso.';
+      if(note)note.textContent='Comisión de Agencia + ingreso monetario de Personal. Los canjes no se suman como ingreso.';
       if(sumLabel)sumLabel.textContent='Ingreso total';
       if(sort)sort.textContent='Mayor ingreso primero ↓';
     }else{
@@ -1824,9 +1940,9 @@ init();
     }
   }
 
-  function generalBrandRows(){
+  function generalBrandRows(list){
     const map=new Map();
-    for(const c of camps){
+    for(const c of list){
       const key=c.marca||'Sin asignar',r=map.get(key)||{label:key,count:0,agency:0,personal:0,total:0,industries:new Set()};
       const value=income(c);r.count++;r.total+=cents(value);
       if(isPersonal(c))r.personal+=cents(value);else r.agency+=cents(value);
@@ -1836,7 +1952,7 @@ init();
   }
 
   function drawGeneralBrands(){
-    const all=generalBrandRows(),term=g('brand-search')?.value.trim().toLocaleLowerCase()||'',limit=g('brand-limit')?.value||'8';
+    const all=generalBrandRows(scope()),term=g('brand-search')?.value.trim().toLocaleLowerCase()||'',limit=g('brand-limit')?.value||'8';
     const matches=all.filter(r=>r.label.toLocaleLowerCase().includes(term)),visible=limit==='all'?matches:matches.slice(0,Number(limit));
     g('brand-total').textContent=money(sum(all,r=>r.total));
     g('brand-contributors').textContent=`${all.length} marcas · ${all.reduce((s,r)=>s+r.count,0)} campañas`;
@@ -1844,26 +1960,23 @@ init();
       <span class="rank-place">${all.indexOf(r)+1}</span>
       <span class="brand-summary-name">${esc(r.label)}<small class="brand-summary-sub">${r.industries.map(esc).join(' · ')} · ${r.count} campaña${r.count===1?'':'s'}</small></span>
       <span class="brand-summary-money agency"><small>Agencia</small><strong>${money(r.agency)}</strong></span>
-      <span class="brand-summary-money personal"><small>Marca personal</small><strong>${money(r.personal)}</strong></span>
+      <span class="brand-summary-money personal"><small>Personal</small><strong>${money(r.personal)}</strong></span>
       <span class="brand-summary-money brand-total"><small>Total</small><strong>${money(r.total)}</strong></span>
     </div>`).join(''):'<div class="empty">Sin resultados.</div>';
     g('brand-foot').textContent=`${visible.length} de ${matches.length} marcas · Ingreso visible ${money(sum(visible,r=>r.total))}.`;
   }
 
   drawRanking = function(id){
-    if(id==='brand'&&brievContext==='general') return drawGeneralBrands();
-    if(id==='brand'&&brievContext==='creator') return;
+    if(id==='brand'&&brievContext!=='agency') return drawGeneralBrands();
     return orig.drawRanking(id);
   };
 
   drawMonth = function(){
-    const list=scope(),byMonth=new Map();
+    const list=scope(),byMonth=new Map(),agencyOnly=brievContext==='agency';
     for(const c of list){
       const d=c.inicioCampana||c.inicioAcuerdo;if(!d)continue;
-      const k=d.slice(0,7),r=byMonth.get(k)||{agency:0,personal:0,cash:0,barter:0,total:0};
-      if(brievContext==='creator'){
-        r.cash+=cents(cash(c));r.barter+=cents(barter(c));r.total+=cents(creatorValue(c));
-      }else if(brievContext==='agency'){
+      const k=d.slice(0,7),r=byMonth.get(k)||{agency:0,personal:0,total:0};
+      if(agencyOnly){
         r.agency+=cents(comOf(c));r.total+=cents(comOf(c));
       }else{
         if(isPersonal(c))r.personal+=cents(cash(c));else r.agency+=cents(comOf(c));
@@ -1874,22 +1987,18 @@ init();
     const keys=[...byMonth.keys()].sort(),months=[];
     if(keys.length){let[y,m]=keys[0].split('-').map(Number);const last=keys.at(-1);while(`${y}-${String(m).padStart(2,'0')}`<=last){months.push(`${y}-${String(m).padStart(2,'0')}`);m++;if(m>12){m=1;y++;}}}
     const title=document.querySelector('.monthly-panel h3'),note=document.querySelector('.monthly-panel .chart-note');
-    if(brievContext==='creator'){
-      if(title)title.textContent='💵 Ingresos y canjes por mes';
-      if(note)note.textContent='Ingreso monetario y valor estimado del canje se muestran por separado.';
-    }else if(brievContext==='agency'){
+    if(agencyOnly){
       if(title)title.textContent='💵 Comisión por mes';
       if(note)note.textContent='Comisión de campañas de Agencia según inicio de campaña o acuerdo.';
     }else{
       if(title)title.textContent='💵 Ingresos por mes';
-      if(note)note.textContent='Agencia + Marca personal pagada/mixta. Los canjes no se cuentan como ingreso.';
+      if(note)note.textContent='Agencia + Personal pagada/mixta. Los canjes no se cuentan como ingreso.';
     }
     g('month-total').textContent=money([...byMonth.values()].reduce((s,r)=>s+r.total,0)/100);
     g('month-values').innerHTML=months.length?months.map(k=>{
-      const r=byMonth.get(k)||{agency:0,personal:0,cash:0,barter:0,total:0};
-      if(brievContext==='creator')return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Dinero ${money(r.cash/100)}</span><span>Canje ${money(r.barter/100)}</span></small></div>`;
-      if(brievContext==='general')return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Agencia ${money(r.agency/100)}</span><span>Marca personal ${money(r.personal/100)}</span></small></div>`;
-      return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong></div>`;
+      const r=byMonth.get(k)||{agency:0,personal:0,total:0};
+      if(agencyOnly)return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong></div>`;
+      return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Agencia ${money(r.agency/100)}</span><span>Personal ${money(r.personal/100)}</span></small></div>`;
     }).join(''):'<p class="form-hint">Agrega campañas con fecha para ver la evolución mensual.</p>';
     const missing=list.filter(c=>!c.inicioCampana&&!c.inicioAcuerdo);
     g('month-missing').textContent=missing.length?`${missing.length} campaña(s) sin fecha de inicio: no se incluyen en la curva mensual.`:'';
@@ -1897,15 +2006,11 @@ init();
     if(typeof Chart==='undefined'||!months.length){g('month-wrap').hidden=true;return;}
     g('month-wrap').hidden=false;
     let datasets;
-    if(brievContext==='creator')datasets=[
-      {label:'Ingreso monetario',data:months.map(k=>(byMonth.get(k)?.cash||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b112',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:3,borderWidth:2.5},
-      {label:'Valor de canje',data:months.map(k=>(byMonth.get(k)?.barter||0)/100),borderColor:'#5ec4e6',backgroundColor:'#5ec4e612',fill:false,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:3,borderWidth:2.5}
-    ];
-    else if(brievContext==='general')datasets=[
+    if(agencyOnly)datasets=[{label:'Comisión Agencia',data:months.map(k=>(byMonth.get(k)?.total||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b114',fill:true,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:3,borderWidth:2.5}];
+    else datasets=[
       {label:'Agencia',data:months.map(k=>(byMonth.get(k)?.agency||0)/100),borderColor:'#26224f',backgroundColor:'#26224f12',fill:false,tension:.25,pointBackgroundColor:'#26224f',pointRadius:3,borderWidth:2.5},
-      {label:'Marca personal',data:months.map(k=>(byMonth.get(k)?.personal||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b112',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:3,borderWidth:2.5}
+      {label:'Personal',data:months.map(k=>(byMonth.get(k)?.personal||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b112',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:3,borderWidth:2.5}
     ];
-    else datasets=[{label:'Comisión Agencia',data:months.map(k=>(byMonth.get(k)?.total||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b114',fill:true,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:3,borderWidth:2.5}];
     charts.month=new Chart(g('chMonth'),{type:'line',data:{labels:months.map(k=>mesCorto(k+'-01')),datasets},options:{
       responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},
       plugins:{legend:{display:datasets.length>1,position:'bottom',labels:{font:{family:'Poppins',size:10},boxWidth:10,color:'#696583'}},tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${money(ctx.parsed.y)}`}}},
@@ -1921,7 +2026,7 @@ init();
   function agencyCard(c,i){
     return `<div class="ccard" onclick="detail(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(${i})}">
       <div class="cc-top"><div><div class="cc-marca">${esc(c.marca)}</div><div class="cc-name">${esc(c.nombre||'—')}</div></div>${titBadge(c.titular)}</div>
-      <div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span><span class="tag">👤 ${esc(creatorName(c))}</span>${cycleBadge(c)}</div>
+      <div class="cc-meta"><span class="tag">${indTag(c.industria)}</span><span class="tag">👤 ${esc(creatorName(c))}</span>${cycleBadge(c)}</div>
       <div class="cc-det"><div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||'—')}</div></div><div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div><div class="d"><div class="l">Inicio campaña</div><div class="v">${fecha(c.inicioCampana)}</div></div><div class="d"><div class="l">Días de pago</div><div class="v">${c.diaspago?c.diaspago+' días':'—'}</div></div><div class="d"><div class="l">Exclusividad</div><div class="v">${c.excl>0?c.excl+' días':'—'}</div></div></div>
       <div class="cc-com"><div><div class="c">${money(comOf(c))}</div><div class="t">comisión · ${fmtPct(c.comPct)}% · monto ${money(c.monto)}</div></div></div>
       <div class="cc-pills"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></div>
@@ -1932,7 +2037,7 @@ init();
     const m=meta(c);
     return `<div class="ccard propia" onclick="detail(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(${i})}">
       <div class="cc-top"><div><div class="cc-marca">${esc(c.marca)}</div><div class="cc-name">${esc(c.nombre||'—')}</div></div>${titBadge(c.titular)}</div>
-      <div class="cc-meta"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span>${collabBadge(c)}${cycleBadge(c)}</div>
+      <div class="cc-meta"><span class="tag">${indTag(c.industria)}</span>${collabBadge(c)}${cycleBadge(c)}</div>
       <div class="cc-det"><div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||'—')}</div></div><div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div><div class="d"><div class="l">Inicio campaña</div><div class="v">${fecha(c.inicioCampana)}</div></div>${m.tipo!=='Pagada'?`<div class="d full"><div class="l">Canje</div><div class="v">${esc(m.canjeDescripcion||'Sin descripción')} · ${m.canjeRecibido==='si'?'✅ Recibido':'⏳ Pendiente de recibir'}</div></div>`:''}</div>
       <div class="mp-value-grid"><span class="cash">Ingreso monetario<strong>${money(cash(c))}</strong></span><span class="barter">Valor canje<strong>${money(barter(c))}</strong></span><span>Valor total<strong>${money(creatorValue(c))}</strong></span></div>
       <div class="cc-pills"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span>${cash(c)>0?`<span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span>`:''}${m.tipo!=='Pagada'?`<span class="pill ${m.canjeRecibido==='si'?'pagado':'pend'}">${m.canjeRecibido==='si'?'✅ Canje recibido':'⏳ Canje pendiente'}</span>`:''}</div>
@@ -1942,7 +2047,7 @@ init();
   renderCamps = function(){
     installUI();buildFilters();
     const idx=campaignIndices(),list=scope();
-    g('camp-count').textContent=`${idx.length} de ${list.length} campañas · ${brievContext==='general'?'General':brievContext==='agency'?'Agencia':'Marca personal'}`;
+    g('camp-count').textContent=`${idx.length} de ${list.length} campañas · ${brievContext==='general'?'General':brievContext==='agency'?'Agencia':'Personal'}`;
     g('camp-cards').innerHTML=idx.length?idx.map(i=>isPersonal(camps[i])?personalCard(camps[i],i):agencyCard(camps[i],i)).join(''):'<div class="empty" style="grid-column:1/-1">No hay campañas con estos filtros.</div>';
     renderCampTable(idx);
     if(campView==='resumen') renderResumen();
@@ -1955,21 +2060,21 @@ init();
       g('camp-rows').innerHTML=idx.length?idx.map(i=>{const c=camps[i];return `<tr onclick="detail(${i})">
         <td data-label="Campaña"><b>${esc(c.marca)}</b><div style="font-size:11px;color:var(--muted)">${esc(c.nombre||'—')}</div></td>
         <td data-label="Ciclo">${cycleBadge(c)}</td><td data-label="Mes">${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td><td data-label="Creador">${esc(creatorName(c))}</td>
-        <td data-label="Industria"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td><td data-label="Monto" class="num-r money">${money(c.monto)}</td><td data-label="% comisión" class="num-r">${fmtPct(c.comPct)}%</td><td data-label="Comisión Briev" class="num-r mine">${money(comOf(c))}</td>
+        <td data-label="Industria"><span class="tag">${indTag(c.industria)}</span></td><td data-label="Monto" class="num-r money">${money(c.monto)}</td><td data-label="% comisión" class="num-r">${fmtPct(c.comPct)}%</td><td data-label="Comisión Briev" class="num-r mine">${money(comOf(c))}</td>
         <td data-label="Status"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></td><td data-label="Estado de cobro"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></td>
       </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas.</td></tr>';
     }else if(brievContext==='creator'){
       head.innerHTML='<th>Marca / Campaña</th><th>Ciclo</th><th>Tipo</th><th>Mes</th><th>Industria</th><th class="num-r">Ingreso $</th><th class="num-r">Valor canje</th><th class="num-r">Valor total</th><th>Status</th><th>Cobro / canje</th>';
       g('camp-rows').innerHTML=idx.length?idx.map(i=>{const c=camps[i],m=meta(c),state=[cash(c)>0?cobroText(c.cobro):'',m.tipo!=='Pagada'?(m.canjeRecibido==='si'?'Canje recibido':'Canje pendiente'):''].filter(Boolean).join(' · ');return `<tr onclick="detail(${i})">
-        <td data-label="Campaña"><b>${esc(c.marca)}</b><div style="font-size:11px;color:var(--muted)">${esc(c.nombre||'—')}</div></td><td data-label="Ciclo">${cycleBadge(c)}</td><td data-label="Tipo">${collabBadge(c)}</td><td data-label="Mes">${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td><td data-label="Industria"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td>
+        <td data-label="Campaña"><b>${esc(c.marca)}</b><div style="font-size:11px;color:var(--muted)">${esc(c.nombre||'—')}</div></td><td data-label="Ciclo">${cycleBadge(c)}</td><td data-label="Tipo">${collabBadge(c)}</td><td data-label="Mes">${mesCorto(c.inicioCampana||c.inicioAcuerdo)}</td><td data-label="Industria"><span class="tag">${indTag(c.industria)}</span></td>
         <td data-label="Ingreso $" class="num-r money">${money(cash(c))}</td><td data-label="Valor canje" class="num-r">${money(barter(c))}</td><td data-label="Valor total" class="num-r mine">${money(creatorValue(c))}</td>
         <td data-label="Status"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></td><td data-label="Cobro / canje"><span class="pill ${((cash(c)<=0||c.cobro==='Pagado')&&(m.tipo==='Pagada'||m.canjeRecibido==='si'))?'pagado':'pend'}">${esc(state||'—')}</span></td>
-      </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas de Marca personal.</td></tr>';
+      </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas en Personal.</td></tr>';
     }else{
       head.innerHTML='<th>Marca / Campaña</th><th>Origen</th><th>Ciclo</th><th>Status</th><th>Creador</th><th>Industria</th><th class="num-r">Monto marca</th><th class="num-r">Ingreso</th><th class="num-r">Canje</th><th>Cobro / canje</th>';
       g('camp-rows').innerHTML=idx.length?idx.map(i=>{const c=camps[i],m=meta(c),personal=isPersonal(c),state=personal?[cash(c)>0?cobroText(c.cobro):'',m.tipo!=='Pagada'?(m.canjeRecibido==='si'?'Canje recibido':'Canje pendiente'):''].filter(Boolean).join(' · '):cobroText(c.cobro);return `<tr onclick="detail(${i})">
         <td data-label="Campaña"><b>${esc(c.marca)}</b><div style="font-size:11px;color:var(--muted)">${esc(c.nombre||'—')}</div></td><td data-label="Origen">${titBadge(c.titular)}</td><td data-label="Ciclo">${cycleBadge(c)}</td><td data-label="Status"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></td>
-        <td data-label="Creador">${personal?SELF_NAME:esc(creatorName(c))}</td><td data-label="Industria"><span class="tag">${em(INDUS,c.industria)} ${esc(c.industria)}</span></td><td data-label="Monto marca" class="num-r">${money(personal?cash(c):c.monto)}</td><td data-label="Ingreso" class="num-r mine">${money(income(c))}</td><td data-label="Canje" class="num-r">${money(personal?barter(c):0)}</td><td data-label="Cobro / canje">${esc(state||'—')}</td>
+        <td data-label="Creador">${personal?SELF_NAME:esc(creatorName(c))}</td><td data-label="Industria"><span class="tag">${indTag(c.industria)}</span></td><td data-label="Monto marca" class="num-r">${money(personal?cash(c):c.monto)}</td><td data-label="Ingreso" class="num-r mine">${money(income(c))}</td><td data-label="Canje" class="num-r">${money(personal?barter(c):0)}</td><td data-label="Cobro / canje">${esc(state||'—')}</td>
       </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas.</td></tr>';
     }
   }
@@ -1986,7 +2091,7 @@ init();
     const top=[...list].sort((a,b)=>(brievContext==='creator'?creatorValue(b):income(b))-(brievContext==='creator'?creatorValue(a):income(a))).slice(0,3);
     g('top3list').innerHTML=top.map((c,i)=>`<article class="t3 ${i===0?'lead':''}">
       <div class="medal">${['🥇','🥈','🥉'][i]}</div><div class="info"><div class="m">${esc(c.marca)}</div><div class="s"><span>${esc(c.nombre||'Sin nombre')}</span>${isPersonal(c)?collabBadge(c):`<span>👤 ${esc(creatorName(c))}</span>`}${cycleBadge(c)}<span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></div></div>
-      <div class="amt"><div class="v">${money(brievContext==='creator'?creatorValue(c):income(c))}</div><div class="p">${brievContext==='creator'?`Valor total · dinero ${money(cash(c))} · canje ${money(barter(c))}`:isPersonal(c)?'Ingreso Marca personal':'Comisión Briev'}</div></div><button class="btn btn-ghost btn-small" onclick="detail(${camps.indexOf(c)})">Ver campaña →</button>
+      <div class="amt"><div class="v">${money(brievContext==='creator'?creatorValue(c):income(c))}</div><div class="p">${brievContext==='creator'?`Valor total · dinero ${money(cash(c))} · canje ${money(barter(c))}`:isPersonal(c)?'Ingreso Personal':'Comisión Briev'}</div></div><button class="btn btn-ghost btn-small" onclick="detail(${camps.indexOf(c)})">Ver campaña →</button>
     </article>`).join('')||'<div class="empty">Sin campañas para este filtro.</div>';
     if(brievContext!=='creator'){
       ring('summary-status',statusRows(list));ring('summary-industry',industryRows(list));
@@ -2013,7 +2118,7 @@ init();
     const c=camps[i];if(!c)return;
     if(isPersonal(c)){
       const m=meta(c),yn=v=>v>0?`✅ ${v} días`:'—';
-      g('det-body').innerHTML=`<div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||'—')} · ${em(INDUS,c.industria)} ${esc(c.industria)}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
+      g('det-body').innerHTML=`<div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||'—')} · ${indTag(c.industria)}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
         <div style="margin:6px 0 2px">${titBadge(c.titular)} ${collabBadge(c)} ${cycleBadge(c)}</div>
         <div class="det-com"><span>Monto total de colaboración</span><span class="v">${money(creatorValue(c))}</span></div>
         <div class="det-row"><span class="k">Creadora</span><span class="v">${esc(SELF_NAME)}</span></div>
@@ -2025,16 +2130,18 @@ init();
         <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div><div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div>
         <div class="det-row"><span class="k">Ciclo</span><span class="v">${cycleBadge(c)}</span></div><div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></span></div>
         ${cash(c)>0?`<div class="det-row"><span class="k">Estado de cobro</span><span class="v"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></span></div>`:''}
+        ${attachmentsHtml(c)}
         <div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;
     }else{
       const yn=v=>v>0?`✅ ${v} días`:'—';
-      g('det-body').innerHTML=`<div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||'—')} · ${em(INDUS,c.industria)} ${esc(c.industria)}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
+      g('det-body').innerHTML=`<div class="det-head"><div><div class="m">${esc(c.marca)}</div><div class="c">${esc(c.nombre||'—')} · ${indTag(c.industria)}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>
         <div style="margin:6px 0 2px">${titBadge(c.titular)} ${cycleBadge(c)}</div><div class="det-com"><span>Comisión Briev · ${fmtPct(c.comPct)}%</span><span class="v">${money(comOf(c))}</span></div>
         <div class="det-row"><span class="k">Creador</span><span class="v">👤 ${esc(creatorName(c))}</span></div><div class="det-row"><span class="k">Monto total</span><span class="v">${money(c.monto)}</span></div><div class="det-row"><span class="k">Pago al creador</span><span class="v">${money(c.pago)}</span></div>
         <div class="det-row"><span class="k">Entregables</span><span class="v">${esc(c.entregables||'—')}</span></div><div class="det-row"><span class="k">Derechos de pauta</span><span class="v">${yn(c.pauta)}</span></div><div class="det-row"><span class="k">Exclusividad</span><span class="v">${yn(c.excl)}</span></div>
         <div class="det-row"><span class="k">Inicio del acuerdo / contrato</span><span class="v">${fecha(c.inicioAcuerdo)}</span></div><div class="det-row"><span class="k">Inicio de la campaña</span><span class="v">${fecha(c.inicioCampana)}</span></div>
         <div class="det-row"><span class="k">Ciclo</span><span class="v">${cycleBadge(c)}</span></div><div class="det-row"><span class="k">Status</span><span class="v"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></span></div>
         <div class="det-row"><span class="k">Estado de cobro</span><span class="v"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></span></div><div class="det-row"><span class="k">Pagado al creador</span><span class="v">${c.pagcr==='si'?'✅ Sí':'⏳ No'}</span></div>
+        ${attachmentsHtml(c)}
         <div class="modal-act" style="margin-top:16px"><button class="btn btn-ghost" onclick="close_('ov-det')">Cerrar</button></div>`;
     }
     open_('ov-det');
