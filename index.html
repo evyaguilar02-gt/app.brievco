@@ -957,15 +957,17 @@ function drawCharts(){
 }
 const monthPointLabels={id:'brievMonthLabels',afterDatasetsDraw(chart){
   const {ctx,chartArea}=chart;if(!chartArea||chart.width<540)return;
-  const points=chart.getDatasetMeta(0).data,values=chart.data.datasets[0].data;
-  let lastRight=-Infinity;
   ctx.save();ctx.font='500 11px Poppins, sans-serif';ctx.fillStyle='#514b70';ctx.textAlign='center';ctx.textBaseline='bottom';
-  points.forEach((point,i)=>{
-    if(point.skip||!Number.isFinite(point.x)||!Number.isFinite(point.y))return;
-    const label=money(values[i]),half=ctx.measureText(label).width/2;
-    const x=Math.max(chartArea.left+half,Math.min(chartArea.right-half,point.x));
-    if(x-half<lastRight+8)return;
-    ctx.fillText(label,x,Math.max(16,point.y-10));lastRight=x+half;
+  chart.data.datasets.forEach((dataset,datasetIndex)=>{
+    const points=chart.getDatasetMeta(datasetIndex).data,values=dataset.data;let lastRight=-Infinity;
+    ctx.fillStyle=dataset.borderColor||'#514b70';
+    points.forEach((point,i)=>{
+      if(point.skip||!Number.isFinite(point.x)||!Number.isFinite(point.y)||!Number(values[i]))return;
+      const label=money(values[i]),half=ctx.measureText(label).width/2;
+      const x=Math.max(chartArea.left+half,Math.min(chartArea.right-half,point.x));
+      if(x-half<lastRight+8)return;
+      ctx.fillText(label,x,Math.max(16,point.y-9));lastRight=x+half;
+    });
   });ctx.restore();
 }};
 function drawMonth(){
@@ -2130,7 +2132,7 @@ init();
       }else if(brievContext==='agency'){
         r.agency+=cents(comOf(c));r.total+=cents(comOf(c));
       }else{
-        if(isPersonal(c))r.personal+=cents(cash(c));else r.agency+=cents(comOf(c));
+        if(isPersonal(c)){r.personal+=cents(cash(c));r.barter+=cents(barter(c));}else r.agency+=cents(comOf(c));
         r.total=r.agency+r.personal;
       }
       byMonth.set(k,r);
@@ -2152,7 +2154,7 @@ init();
     g('month-values').innerHTML=months.length?months.map(k=>{
       const r=byMonth.get(k)||{agency:0,personal:0,cash:0,barter:0,total:0};
       if(brievContext==='creator')return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Dinero ${money(r.cash/100)}</span><span>Canje ${money(r.barter/100)}</span></small></div>`;
-      if(brievContext==='general')return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Agencia ${money(r.agency/100)}</span><span>Personal ${money(r.personal/100)}</span></small></div>`;
+      if(brievContext==='general')return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong><small class="month-breakdown"><span>Agencia ${money(r.agency/100)}</span><span>Personal ${money(r.personal/100)}</span><span>Canje ${money(r.barter/100)} · no incluido</span></small></div>`;
       return `<div class="month-chip"><span>${mesLargo(k+'-01')}</span><strong>${money(r.total/100)}</strong></div>`;
     }).join(''):'<p class="form-hint">Agrega campañas con fecha para ver la evolución mensual.</p>';
     const missing=list.filter(c=>!c.inicioCampana&&!c.inicioAcuerdo);
@@ -2167,10 +2169,11 @@ init();
     ];
     else if(brievContext==='general')datasets=[
       {label:'Agencia',data:months.map(k=>(byMonth.get(k)?.agency||0)/100),borderColor:'#26224f',backgroundColor:'#26224f12',fill:false,tension:.25,pointBackgroundColor:'#26224f',pointRadius:3,borderWidth:2.5},
-      {label:'Personal',data:months.map(k=>(byMonth.get(k)?.personal||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b112',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:3,borderWidth:2.5}
+      {label:'Personal',data:months.map(k=>(byMonth.get(k)?.personal||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b112',fill:false,tension:.25,pointBackgroundColor:'#b677b1',pointRadius:3,borderWidth:2.5},
+      {label:'Canjes',data:months.map(k=>(byMonth.get(k)?.barter||0)/100),borderColor:'#5ec4e6',backgroundColor:'#5ec4e612',fill:false,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:3,borderWidth:2.5,borderDash:[6,4]}
     ];
     else datasets=[{label:'Comisión Agencia',data:months.map(k=>(byMonth.get(k)?.total||0)/100),borderColor:'#b677b1',backgroundColor:'#b677b114',fill:true,tension:.25,pointBackgroundColor:'#5ec4e6',pointRadius:3,borderWidth:2.5}];
-    charts.month=new Chart(g('chMonth'),{type:'line',data:{labels:months.map(k=>mesCorto(k+'-01')),datasets},options:{
+    charts.month=new Chart(g('chMonth'),{type:'line',plugins:[monthPointLabels],data:{labels:months.map(k=>mesCorto(k+'-01')),datasets},options:{
       responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},
       plugins:{legend:{display:datasets.length>1,position:'bottom',labels:{font:{family:'Poppins',size:10},boxWidth:10,color:'#696583'}},tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${money(ctx.parsed.y)}`}}},
       scales:{x:{grid:{display:false},ticks:{autoSkip:true,maxTicksLimit:8,maxRotation:0,color:'#696583',font:{family:'Poppins',size:11}}},y:{beginAtZero:true,grid:{color:'#f0eef7'},ticks:{maxTicksLimit:5,callback:v=>money(v),font:{family:'Poppins',size:11},color:'#696583'}}}
