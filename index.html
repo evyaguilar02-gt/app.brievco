@@ -343,6 +343,10 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 .followup-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
 .followup-head h3{font-size:18px;margin:0 0 3px}.followup-head .chart-note{margin:0}
 .follow-select{font-family:'Poppins';font-size:12px;border:1px solid var(--line);border-radius:10px;background:#faf9fd;color:var(--ink);padding:9px 11px;min-height:40px}
+.follow-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;background:#f1eff6;border:1px solid var(--line);border-radius:13px;padding:5px;margin:0 0 14px}
+.follow-tab{border:0;background:transparent;color:var(--muted);font:inherit;font-size:10px;font-weight:600;line-height:1.25;padding:10px 8px;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;min-width:0}
+.follow-tab b{display:grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:#e2ddea;color:var(--navy);font-size:9px}
+.follow-tab.on{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(38,34,79,.16)}.follow-tab.on b{background:rgba(255,255,255,.18);color:#fff}
 .follow-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
 .follow-summary .follow-kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px 15px}
 .follow-kpi strong{display:block;font-size:22px}.follow-kpi span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
@@ -386,6 +390,8 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 .detail-badges{display:flex;gap:6px;flex-wrap:wrap;margin:9px 0 3px}.detail-badges .tag,.detail-badges .badge-tit,.detail-badges .cycle-pill,.detail-badges .collab-pill{margin:0}
 .detail-icon-list{border-top:1px solid var(--line);margin-top:6px}.detail-icon-row{display:grid;grid-template-columns:34px minmax(0,1fr) minmax(100px,auto);gap:10px;align-items:center;padding:11px 2px;border-bottom:1px solid var(--line)}
 .detail-icon{width:32px;height:32px;border-radius:10px;background:#f0ecf5;display:grid;place-items:center;font-size:15px}.detail-icon-copy{min-width:0}.detail-icon-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}.detail-icon-value{font-size:12px;font-weight:600;text-align:right;overflow-wrap:anywhere}.detail-icon-note{font-size:9.5px;color:var(--muted);margin-top:2px}
+.detail-info-list{border-top:1px solid var(--line);margin-top:6px}.detail-info-row{display:grid;grid-template-columns:minmax(118px,.85fr) minmax(0,1.15fr);gap:14px;align-items:center;padding:12px 2px;border-bottom:1px solid var(--line)}
+.detail-info-copy{min-width:0}.detail-info-label{font-size:9px;text-transform:uppercase;letter-spacing:.065em;color:var(--muted);font-weight:600}.detail-info-note{font-size:9.5px;color:var(--muted);margin-top:3px;line-height:1.4}.detail-info-value{font-size:12px;font-weight:600;text-align:right;overflow-wrap:anywhere}
 .detail-plan{display:grid;gap:8px;margin-top:12px}.detail-plan-row{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:10px;align-items:center;background:#faf9fd;border:1px solid var(--line);border-radius:11px;padding:10px 12px}.detail-plan-number{height:32px;width:32px;border-radius:9px;background:#e9e4f1;display:grid;place-items:center;font-size:10px;font-weight:700}.detail-plan-main strong{display:block;font-size:12px}.detail-plan-main small{font-size:9.5px;color:var(--muted)}.detail-plan-state{text-align:right;font-size:10px;font-weight:600}
 .detail-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
 .detail-mini{background:#faf9fd;border:1px solid var(--line);border-radius:11px;padding:10px 12px;min-width:0}
@@ -405,7 +411,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 @media(max-width:700px){
   .camp-top-actions{display:flex!important;gap:6px!important}
   .excel-export-btn{min-height:36px!important;padding:7px 10px!important;font-size:11px!important}
-  .followup-head{flex-direction:column}.follow-select{width:100%;font-size:16px}
+  .followup-head{flex-direction:column}.follow-select{width:100%;font-size:16px}.follow-tab{font-size:9px;padding:9px 5px;gap:4px}
   .follow-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.follow-summary .follow-kpi{padding:10px}.follow-kpi strong{font-size:18px}.follow-kpi span{font-size:8px}
   .follow-event{grid-template-columns:34px minmax(0,1fr);padding:11px}.follow-event-date{grid-column:2;text-align:left;display:flex;gap:8px;align-items:center}.follow-event-date small{display:inline;margin:0}
   .delivery-row-core{grid-template-columns:70px minmax(0,1fr)}.delivery-row-core .delivery-name-field{grid-column:1/-1}
@@ -417,7 +423,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
   .detail-summary-grid{grid-template-columns:1fr 1fr}.detail-mini.full{grid-column:1/-1}
   .detail-delivery-dates{grid-template-columns:1fr}.follow-summary{grid-template-columns:1fr 1fr 1fr}
   .export-actions{grid-template-columns:1fr}
-  .detail-icon-row{grid-template-columns:32px minmax(0,1fr)}.detail-icon-value{grid-column:2;text-align:left}.detail-plan-row{grid-template-columns:34px minmax(0,1fr)}.detail-plan-state{grid-column:2;text-align:left}
+  .detail-info-row{grid-template-columns:minmax(108px,.9fr) minmax(0,1.1fr);gap:10px}.detail-plan-row{grid-template-columns:34px minmax(0,1fr)}.detail-plan-state{grid-column:2;text-align:left}
 }
 </style>
 
@@ -520,12 +526,11 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
       <section id="camp-followup" class="followup-center" style="display:none" aria-label="Seguimiento de campañas">
         <div class="followup-head">
           <div><div class="eyebrow">Centro operativo</div><h3>Seguimiento</h3><p class="chart-note">Cobros, pagos a creadores y vencimientos de pauta o exclusividad.</p></div>
-          <select id="follow-type" class="follow-select" onchange="renderCampaignFollowup()" aria-label="Filtrar seguimiento por tipo">
-            <option value="all">Todos los hitos</option>
-            <option value="cobro">Cobros</option>
-            <option value="pago_creador">Pagos a creadores</option>
-            <option value="derecho">Pauta y exclusividad</option>
-          </select>
+        </div>
+        <div class="follow-tabs" role="tablist" aria-label="Sección de seguimiento">
+          <button type="button" id="follow-tab-cobro" class="follow-tab on" role="tab" aria-selected="true" onclick="switchCampaignFollowup('cobro')"><span>Cobros</span><b id="follow-count-cobro">0</b></button>
+          <button type="button" id="follow-tab-pago_creador" class="follow-tab" role="tab" aria-selected="false" onclick="switchCampaignFollowup('pago_creador')"><span>Pagos a creadores</span><b id="follow-count-pago_creador">0</b></button>
+          <button type="button" id="follow-tab-derecho" class="follow-tab" role="tab" aria-selected="false" onclick="switchCampaignFollowup('derecho')"><span>Pauta y exclusividad</span><b id="follow-count-derecho">0</b></button>
         </div>
         <div id="follow-summary" class="follow-summary"></div>
         <div id="follow-list" class="follow-list"></div>
@@ -2955,7 +2960,7 @@ init();
   }
 
   /* ---------- Tracking center ---------- */
-  let v3FollowType='all';
+  let v3FollowType='cobro';
   function v3Event(c,type,action,dateValue,done=false,amount=0,icon='•',extra=''){
     const iso=v3Date(dateValue);if(!iso||done)return null;
     const diff=v3DayDiff(iso);
@@ -3007,12 +3012,22 @@ init();
     return `<article class="follow-event ${t.cls}"><div class="follow-icon">${e.icon}</div><div><div class="follow-event-title">${v3Esc(e.action)}${amount}</div><div class="follow-event-meta">${v3Esc(e.c.marca)}${v3Esc(campaign)} · ${v3Esc(creatorName(e.c))}${e.extra?` · ${v3Esc(e.extra)}`:''}</div></div><div class="follow-event-date">${fecha(e.iso)}<small>${t.label}</small></div></article>`;
   }
 
+  window.switchCampaignFollowup=function(type='cobro'){
+    v3FollowType=['cobro','pago_creador','derecho'].includes(type)?type:'cobro';
+    renderCampaignFollowup();
+  };
+
   window.renderCampaignFollowup=function(){
     const panel=g('camp-followup');if(!panel)return;
-    v3FollowType=g('follow-type')?.value||v3FollowType||'all';
+    if(!['cobro','pago_creador','derecho'].includes(v3FollowType))v3FollowType='cobro';
     const list=camps.filter(passes);
-    let events=v3TrackingEvents(list);
-    if(v3FollowType!=='all')events=events.filter(e=>e.type===v3FollowType);
+    const allEvents=v3TrackingEvents(list);
+    for(const type of ['cobro','pago_creador','derecho']){
+      const button=g(`follow-tab-${type}`),active=type===v3FollowType;
+      if(button){button.classList.toggle('on',active);button.setAttribute('aria-selected',String(active));}
+      if(g(`follow-count-${type}`))g(`follow-count-${type}`).textContent=String(allEvents.filter(e=>e.type===type).length);
+    }
+    const events=allEvents.filter(e=>e.type===v3FollowType);
     const overdue=events.filter(e=>e.diff<0).length,today=events.filter(e=>e.diff===0).length,next=events.filter(e=>e.diff>0).length;
     g('follow-summary').innerHTML=`<div class="follow-kpi"><span>Vencidos</span><strong>${overdue}</strong></div><div class="follow-kpi"><span>Hoy</span><strong>${today}</strong></div><div class="follow-kpi"><span>Próximos</span><strong>${next}</strong></div>`;
     if(!events.length){g('follow-list').innerHTML='<div class="follow-empty">No hay hitos pendientes para esta vista y filtros.</div>';return;}
@@ -3047,21 +3062,21 @@ init();
   };
 
   /* ---------- Campaign detail tabs ---------- */
-  function v3IconRow(icon,label,value,note=''){
-    return `<div class="detail-icon-row"><span class="detail-icon" aria-hidden="true">${icon}</span><div class="detail-icon-copy"><div class="detail-icon-label">${label}</div>${note?`<div class="detail-icon-note">${note}</div>`:''}</div><div class="detail-icon-value">${value}</div></div>`;
+  function v3InfoRow(label,value,note=''){
+    return `<div class="detail-info-row"><div class="detail-info-copy"><div class="detail-info-label">${label}</div>${note?`<div class="detail-info-note">${note}</div>`:''}</div><div class="detail-info-value">${value}</div></div>`;
   }
   function v3AttachmentRows(c,i){
     const brief=c?.extras?.brief_v1||{},docs=Array.isArray(c?.extras?.documentos_v1)?c.extras.documentos_v1:[];
     let out='';
-    if(brief.tipo==='link'&&brief.link)out+=v3IconRow('📎','Brief',`<a href="${v3Esc(brief.link)}" target="_blank" rel="noopener">Abrir link ↗</a>`);
-    else if(brief.tipo==='archivo'&&brief.archivo)out+=v3IconRow('📎','Brief',`${v3Esc(brief.archivo.nombre)} · <button class="attach-btn" onclick="viewCampAttachment(${i},'brief',-1)">Ver</button> · <button class="attach-btn" onclick="downloadCampAttachment(${i},'brief',-1)">Descargar</button>`);
-    if(docs.length)out+=v3IconRow('📁','Documentos',docs.map((d,idx)=>`${v3Esc(d.etiqueta||d.nombre)} <button class="attach-btn" onclick="viewCampAttachment(${i},'doc',${idx})">Ver</button>`).join('<br>'));
+    if(brief.tipo==='link'&&brief.link)out+=v3InfoRow('Brief',`<a href="${v3Esc(brief.link)}" target="_blank" rel="noopener">Abrir link ↗</a>`);
+    else if(brief.tipo==='archivo'&&brief.archivo)out+=v3InfoRow('Brief',`${v3Esc(brief.archivo.nombre)} · <button class="attach-btn" onclick="viewCampAttachment(${i},'brief',-1)">Ver</button> · <button class="attach-btn" onclick="downloadCampAttachment(${i},'brief',-1)">Descargar</button>`);
+    if(docs.length)out+=v3InfoRow('Documentos',docs.map((d,idx)=>`${v3Esc(d.etiqueta||d.nombre)} <button class="attach-btn" onclick="viewCampAttachment(${i},'doc',${idx})">Ver</button>`).join('<br>'));
     return out;
   }
   function v3BadgeRow(c){
     const personal=v3Personal(c),m=v3PersonalMeta(c);
     const pipeline=window.brievIsPipeline?.(c),cycle=pipeline?'○ Oportunidad':`${em(CICLOS,c.ciclo||'Activa')} ${v3Esc(c.ciclo||'Activa')}`;
-    return `<div class="detail-badges"><span class="badge-tit ${personal?'t-pr':'t-ag'}">${personal?'✨ Personal':'🏢 Agencia'}</span><span class="tag">🏷️ ${v3Esc(c.industria||'Sin categoría')}</span><span class="tag">👤 ${v3Esc(personal?V3_SELF_NAME:creatorName(c))}</span><span class="cycle-pill">${cycle}</span>${personal?`<span class="collab-pill">${m.tipo==='Pagada'?'💵 Pago':m.tipo==='Canje'?'🎁 Canje':'💵 + 🎁 Mixta'}</span>`:''}</div>`;
+    return `<div class="detail-badges"><span class="badge-tit ${personal?'t-pr':'t-ag'}">${personal?'✨ Personal':'🏢 Agencia'}</span><span class="tag">${indTag(c.industria||'Otro')}</span><span class="tag">👤 ${v3Esc(personal?V3_SELF_NAME:creatorName(c))}</span><span class="cycle-pill">${cycle}</span>${personal?`<span class="collab-pill">${m.tipo==='Pagada'?'💵 Pago':m.tipo==='Canje'?'🎁 Canje':'💵 + 🎁 Mixta'}</span>`:''}</div>`;
   }
   function v3DetailHeader(c,i,tab){
     return `<div class="det-head"><div><div class="m">${v3Esc(c.marca)}</div><div class="c">${v3Esc(c.nombre||'—')}</div></div><div style="display:flex;gap:4px"><button class="ico" onclick="fromDetailEdit(${i})">✏️ Editar</button><button class="ico danger" onclick="delCamp(${i})">🗑️ Eliminar</button></div></div>${v3BadgeRow(c)}<div class="detail-tabs"><button class="${tab==='summary'?'on':''}" onclick="showCampaignDetailTab(${i},'summary')">Resumen</button><button class="${tab==='deliveries'?'on':''}" onclick="showCampaignDetailTab(${i},'deliveries')">Entregables</button><button class="${tab==='finance'?'on':''}" onclick="showCampaignDetailTab(${i},'finance')">Finanzas</button></div>`;
@@ -3069,17 +3084,17 @@ init();
   function v3SummaryTab(c,i){
     const personal=v3Personal(c),m=v3PersonalMeta(c),last=v3LastPublication(c);
     const collection=personal&&m.tipo==='Canje'?'No aplica':c.cobro==='Pagado'?'✅ Cobrado':c.cobro==='Facturado'?'🧾 Facturado':'⏳ Pendiente de cobro';
-    let rows=v3IconRow('👤',personal?'Creadora':'Creador',v3Esc(personal?V3_SELF_NAME:creatorName(c)));
+    let rows='';
     if(personal){
-      rows+=v3IconRow('💵','Ingreso monetario',money(v3Cash(c)))+v3IconRow('🎁','Valor de canje',money(v3Barter(c)))+v3IconRow('✨','Valor total',money(v3Cash(c)+v3Barter(c)));
-      if(m.tipo!=='Pagada')rows+=v3IconRow('🎀','Producto / servicio',`${v3Esc(m.canjeDescripcion||'—')} · ${m.canjeRecibido==='si'?'✅ Recibido':'⏳ Pendiente'}`);
+      rows+=v3InfoRow('Ingreso monetario',money(v3Cash(c)))+v3InfoRow('Valor de canje',money(v3Barter(c)))+v3InfoRow('Valor total',money(v3Cash(c)+v3Barter(c)));
+      if(m.tipo!=='Pagada')rows+=v3InfoRow('Producto / servicio',`${v3Esc(m.canjeDescripcion||'—')} · ${m.canjeRecibido==='si'?'✅ Recibido':'⏳ Pendiente'}`);
     }else{
-      rows+=v3IconRow('💰','Monto total',money(c.monto))+v3IconRow('✨','Comisión Briev',money(comOf(c)),`${fmtPct(c.comPct)}% del monto total`)+v3IconRow('💸','Pago al creador',money(c.pago));
+      rows+=v3InfoRow('Monto total',money(c.monto))+v3InfoRow('Comisión Briev',money(comOf(c)),`${fmtPct(c.comPct)}% del monto total`)+v3InfoRow('Pago al creador',money(c.pago));
     }
-    rows+=v3IconRow('📦','Entregables',v3Esc(c.entregables||'—'))+v3IconRow('📣','Derechos de pauta',Number(c.pauta)>0?`${c.pauta} días`:'—')+v3IconRow('🔒','Exclusividad',Number(c.excl)>0?`${c.excl} días`:'—')+v3IconRow('🤝','Inicio acuerdo / contrato',fecha(c.inicioAcuerdo))+v3IconRow('📢','Última publicación',fecha(last))+v3IconRow('📍','Status',v3Esc(v3StatusText(c.estado)))+v3IconRow('💳','Estado de cobro',collection)+v3IconRow('📄','Brief',c.brief==='si'?'✅ Recibido':'❌ No recibido');
-    if(!personal)rows+=v3IconRow('✅','Pagado al creador',c.pagcr==='si'?'Sí':'⏳ No');
+    rows+=v3InfoRow('Entregables',v3Esc(c.entregables||'—'))+v3InfoRow('Derechos de pauta',Number(c.pauta)>0?`✅ ${c.pauta} días`:'—')+v3InfoRow('Exclusividad',Number(c.excl)>0?`✅ ${c.excl} días`:'—')+v3InfoRow('Inicio acuerdo / contrato',fecha(c.inicioAcuerdo))+v3InfoRow('Última publicación',fecha(last))+v3InfoRow('Status',v3Esc(v3StatusText(c.estado)))+v3InfoRow('Estado de cobro',collection)+v3InfoRow('Brief',c.brief==='si'?'✅ Recibido':'❌ No recibido');
+    if(!personal)rows+=v3InfoRow('Pagado al creador',c.pagcr==='si'?'✅ Sí':'⏳ No');
     rows+=v3AttachmentRows(c,i);
-    return `<div class="detail-icon-list">${rows}</div>`;
+    return `<div class="detail-info-list">${rows}</div>`;
   }
   function v3DeliveriesTab(c){
     const items=v3DeliveryItems(c),last=v3LastPublication(c);
@@ -3087,7 +3102,7 @@ init();
       const name=textField(row.nombre||'',120)||`${v3FormatLabel(row.tipo)}${items.length>1?' '+(index+1):''}`;
       return `<article class="detail-delivery"><div class="detail-delivery-head"><div><strong>${v3Esc(name)}</strong><span>${v3Esc(row.cantidad||1)} × ${v3Esc(v3FormatLabel(row.tipo))}</span></div></div></article>`;
     }).join(''):'<div class="empty">Esta campaña todavía no tiene entregables estructurados. Puedes agregarlos desde Editar campaña.</div>';
-    return `<div class="detail-icon-list" style="margin-bottom:12px">${v3IconRow('📢','Última publicación',fecha(last))}</div><div class="detail-delivery-list">${rows}</div><p class="detail-note">Briev conserva únicamente el resumen de piezas. Guiones, aprobaciones y coordinación continúan en WhatsApp.</p>`;
+    return `<div class="detail-info-list" style="margin-bottom:12px">${v3InfoRow('Última publicación',fecha(last))}</div><div class="detail-delivery-list">${rows}</div><p class="detail-note">Briev conserva únicamente el resumen de piezas. Guiones, aprobaciones y coordinación continúan en WhatsApp.</p>`;
   }
   function v3FinanceTriggerLabel(c){
     const m=v3FinanceMeta(c),t=m.cobroDesde;
