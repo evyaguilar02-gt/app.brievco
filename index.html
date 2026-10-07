@@ -16,6 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>
 <style>
   :root{--navy:#26224f;--bg:#F4F4F9;--card:#fff;--ink:#26224f;--muted:#8a86a8;--line:#ecebf4;
     --purple:#b677b1;--blue:#81a4d0;--cyan:#5ec4e6;--grad:linear-gradient(135deg,#b677b1 0%,#81a4d0 55%,#5ec4e6 100%);--green:#5f9e6e;--amber:#d99a3c;}
@@ -331,7 +333,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 </style>
 
 <style id="briev-seguimiento-v3-styles">
-/* V3 · Seguimiento operativo + Excel. Keeps the existing Briev visual language. */
+/* V3 · Seguimiento operativo + exportación. Keeps the existing Briev visual language. */
 .camp-top-actions{width:auto!important;margin-left:auto!important;flex:0 0 auto!important}
 .excel-export-btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 #camp-table{display:none!important}
@@ -379,10 +381,14 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 .detail-note{font-size:10px;color:var(--muted);line-height:1.6;margin-top:10px}
 
 .excel-modal{max-width:650px}.excel-include{display:flex;gap:9px;flex-wrap:wrap;background:#faf9fd;border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin:5px 0 14px;font-size:11px}.excel-include-title{width:100%;font-size:9px;text-transform:uppercase;color:var(--muted);letter-spacing:.07em;font-weight:600}
+.export-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.export-format{display:flex;align-items:center;gap:10px;text-align:left;padding:13px 14px;min-height:66px}
+.export-format-icon{font-size:23px;line-height:1;flex:none}.export-format-copy{display:flex;flex-direction:column;gap:2px}
+.export-format-copy strong{font-size:12px}.export-format-copy small{font-size:9.5px;font-weight:400;line-height:1.4;opacity:.78}
 
 @media(max-width:700px){
   .camp-top-actions{display:flex!important;gap:6px!important}
-  .excel-export-btn{min-height:36px!important;padding:7px 10px!important;font-size:11px!important}.excel-export-btn span{display:none}
+  .excel-export-btn{min-height:36px!important;padding:7px 10px!important;font-size:11px!important}
   .followup-head{flex-direction:column}.follow-select{width:100%;font-size:16px}
   .follow-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.follow-summary .follow-kpi{padding:10px}.follow-kpi strong{font-size:18px}.follow-kpi span{font-size:8px}
   .follow-event{grid-template-columns:34px minmax(0,1fr);padding:11px}.follow-event-date{grid-column:2;text-align:left;display:flex;gap:8px;align-items:center}.follow-event-date small{display:inline;margin:0}
@@ -393,6 +399,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 @media(max-width:420px){
   .detail-summary-grid{grid-template-columns:1fr 1fr}.detail-mini.full{grid-column:1/-1}
   .detail-delivery-dates{grid-template-columns:1fr}.follow-summary{grid-template-columns:1fr 1fr 1fr}
+  .export-actions{grid-template-columns:1fr}
 }
 </style>
 
@@ -470,7 +477,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 
     <section class="page" id="page-camp">
       <div class="top"><div><h1>Campañas</h1><p id="camp-count"></p></div>
-        <div class="top-actions camp-top-actions"><button class="btn btn-ghost excel-export-btn" type="button" onclick="openExcelExport()" aria-label="Exportar campañas a Excel" title="Exportar Excel">⇩ <span>Excel</span></button><button class="btn btn-grad new-campaign-btn" onclick="openCamp()">+ Nueva campaña</button></div></div>
+        <div class="top-actions camp-top-actions"><button class="btn btn-ghost excel-export-btn" type="button" onclick="openExcelExport()" aria-label="Exportar campañas" title="Exportar campañas">⇩ <span>Exportar</span></button><button class="btn btn-grad new-campaign-btn" onclick="openCamp()">+ Nueva campaña</button></div></div>
       <div class="controls">
         <button type="button" class="btn btn-ghost filters-toggle" id="filters-toggle" onclick="toggleFiltersPanel()" aria-expanded="false" aria-controls="camp-filters">🔎 Filtrar por</button>
         <div class="filters" id="camp-filters">
@@ -625,8 +632,8 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 
 
 <div class="overlay" id="ov-excel"><div class="modal excel-modal" role="dialog" aria-modal="true" aria-labelledby="excel-title" tabindex="-1">
-  <h3 id="excel-title">Exportar campañas a Excel</h3>
-  <p class="form-hint">La exportación parte de la vista y filtros actuales de Campañas. Puedes acotarla por marca, creador o ciclo.</p>
+  <h3 id="excel-title">Exportar campañas</h3>
+  <p class="form-hint">El archivo respetará la vista y los filtros activos de Campañas. Si quieres, puedes acotarlo aún más por marca, creador o ciclo.</p>
   <div class="two">
     <div class="field"><label>Vista</label><input id="excel-view" type="text" readonly></div>
     <div class="field"><label for="excel-cycle">Ciclo</label><select id="excel-cycle"></select></div>
@@ -636,11 +643,15 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
     <div class="field" id="excel-creator-field"><label for="excel-creator">Creador</label><select id="excel-creator"></select></div>
   </div>
   <div class="excel-include">
-    <span class="excel-include-title">El archivo incluye</span>
+    <span class="excel-include-title">Contenido de la exportación</span>
     <span>✓ Campañas</span><span>✓ Entregables</span><span>✓ Seguimiento</span>
   </div>
-  <p class="form-hint">Campañas incluye importes, comisión Briev, pago/comisión del creador, fechas, status, cobro, brief, derechos, canjes y documentos.</p>
-  <div class="modal-act"><button class="btn btn-ghost" type="button" onclick="close_('ov-excel')">Cancelar</button><button class="btn btn-grad" type="button" onclick="downloadCampaignExcel()">⇩ Descargar Excel</button></div>
+  <p class="form-hint">El XLSX conserva las hojas de trabajo completas. El PDF presenta un reporte con resumen, campañas y seguimiento pendiente.</p>
+  <div class="export-actions">
+    <button class="btn btn-ghost export-format" type="button" onclick="downloadCampaignExcel()"><span class="export-format-icon" aria-hidden="true">▦</span><span class="export-format-copy"><strong>Excel (.xlsx)</strong><small>Datos completos para filtrar y analizar</small></span></button>
+    <button class="btn btn-grad export-format" type="button" onclick="downloadCampaignPdf()"><span class="export-format-icon" aria-hidden="true">▤</span><span class="export-format-copy"><strong>PDF (.pdf)</strong><small>Reporte listo para presentar o compartir</small></span></button>
+  </div>
+  <div class="modal-act"><button class="btn btn-ghost" type="button" onclick="close_('ov-excel')">Cancelar</button></div>
 </div></div>
 
 <div class="overlay" id="ov-data"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="data-title" tabindex="-1"><h3 id="data-title">Tus datos de Briev</h3><p class="form-hint" id="data-help"></p><button class="btn btn-ghost" onclick="exportData()">↓ Descargar respaldo JSON</button><div class="field" style="margin-top:20px"><label for="import-file">Importar respaldo (solo en una base vacía)</label><input type="file" id="import-file" accept=".json,application/json" onchange="previewImport(this.files[0])"></div><button class="btn btn-ghost" onclick="previewLegacy()">Buscar datos de la versión anterior en este navegador</button><p class="form-hint" id="import-preview" style="margin-top:15px"></p><button class="btn btn-primary" id="import-confirm" hidden onclick="commitImport()">Importar estos registros</button><div class="modal-act"><button class="btn btn-ghost" onclick="close_('ov-data')">Cerrar</button></div></div></div>
@@ -1690,10 +1701,11 @@ init();
     };
   };
   const collabType = c => isPersonal(c) ? meta(c).tipo : 'Pagada';
-  const cash = c => isPersonal(c) ? (collabType(c)==='Canje'?0:roundMoney(c.monto||0)) : 0;
-  const barter = c => isPersonal(c) ? meta(c).canjeValor : 0;
+  const isPipelineStatus = c => ['Prospecto','Negociación','Propuesta enviada'].includes(c?.estado);
+  const cash = c => isPersonal(c) && !isPipelineStatus(c) ? (collabType(c)==='Canje'?0:roundMoney(c.monto||0)) : 0;
+  const barter = c => isPersonal(c) && !isPipelineStatus(c) ? meta(c).canjeValor : 0;
   const creatorValue = c => roundMoney(cash(c)+barter(c));
-  const income = c => isPersonal(c) ? cash(c) : comOf(c);
+  const income = c => isPipelineStatus(c) ? 0 : (isPersonal(c) ? cash(c) : comOf(c));
   const collabIcon = type => COLLABS.find(([v])=>v===type)?.[1]||'💵';
   const collabBadge = c => {
     if (!isPersonal(c)) return '';
@@ -2012,11 +2024,15 @@ init();
       const fechaPublicacionFinal=validDate(g('c-fecha-publicacion-final').value||'');
       if(fechaPublicacionFinal)extras.fecha_publicacion_ultimo_contenido=fechaPublicacionFinal;else delete extras.fecha_publicacion_ultimo_contenido;
 
+      const selectedStatus=g('c-estado').value;
+      const selectedCycle=['Prospecto','Negociación','Propuesta enviada'].includes(selectedStatus)
+        ? (previous?.ciclo||'Activa')
+        : (g('c-ciclo').value||'Activa');
       const candidate=normalizeCamp({
         ...previous,id:previous?.id||newCampId,...f,...deliveries,extras,
         marca:g('c-marca').value,nombre:g('c-nombre').value,
         creadorId:creator?.id||null,creador:creatorLabel,
-        industria:selectedIndustry(),titular:g('c-titular').value,ciclo:g('c-ciclo').value,
+        industria:selectedIndustry(),titular:g('c-titular').value,ciclo:selectedCycle,
         pauta:g('c-pauta').value,excl:g('c-excl').value,
         diaspago:own&&type==='Canje'?0:g('c-diaspago').value,
         estado:g('c-estado').value,
@@ -2082,7 +2098,7 @@ init();
       const cashTotal=sum(list,cash),barterTotal=sum(list,barter),total=roundMoney(cashTotal+barterTotal);
       const receivedBarter=sum(list.filter(c=>meta(c).canjeRecibido==='si'),barter);
       const paid=sum(list.filter(c=>cash(c)>0&&c.cobro==='Pagado'),cash),pending=roundMoney(cashTotal-paid);
-      const active=list.filter(c=>c.ciclo==='Activa').length,renewed=list.filter(c=>c.ciclo==='Renovada').length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
+      const active=list.filter(c=>c.ciclo==='Activa'&&!isPipelineStatus(c)).length,renewed=list.filter(c=>c.ciclo==='Renovada'&&!isPipelineStatus(c)).length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
       kp.innerHTML=
         card('hero',icons.income,'Monto total de colaboraciones',money(total),`Ingreso monetario ${money(cashTotal)} · Canjes ${money(barterTotal)}`,'creator-total')+
         card('lilac',icons.income,'Ingreso monetario',money(cashTotal),`${list.filter(c=>cash(c)>0).length} colaboración${list.filter(c=>cash(c)>0).length===1?'':'es'} con pago`,'creator-half')+
@@ -2091,7 +2107,7 @@ init();
         card('lilac',icons.active,'Campañas activas',active+renewed,`Activas ${active}<br>Renovadas ${renewed}<br>Finalizadas ${finalized}`,'creator-third');
     }else if(brievContext==='agency'){
       const fact=sum(list,c=>c.monto),inc=sum(list,comOf);
-      const active=list.filter(c=>c.ciclo==='Activa').length,renewed=list.filter(c=>c.ciclo==='Renovada').length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
+      const active=list.filter(c=>c.ciclo==='Activa'&&!isPipelineStatus(c)).length,renewed=list.filter(c=>c.ciclo==='Renovada'&&!isPipelineStatus(c)).length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
       const paid=sum(list.filter(c=>c.cobro==='Pagado'),comOf),pending=roundMoney(inc-paid),pay=sum(list.filter(c=>c.pagcr!=='si'),c=>c.pago);
       kp.innerHTML=
         card('lilac',icons.amount,'Comisión Briev',money(inc),'Comisión generada por Agencia')+
@@ -2102,7 +2118,7 @@ init();
     }else{
       const b=monetaryBreakdown(list),inc=roundMoney(b.agency+b.personal);
       const amountAgency=sum(list.filter(c=>!isPersonal(c)),c=>c.monto), amountPersonal=sum(list.filter(isPersonal),cash);
-      const active=list.filter(c=>c.ciclo==='Activa').length,renewed=list.filter(c=>c.ciclo==='Renovada').length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
+      const active=list.filter(c=>c.ciclo==='Activa'&&!isPipelineStatus(c)).length,renewed=list.filter(c=>c.ciclo==='Renovada'&&!isPipelineStatus(c)).length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
       const paidAgency=sum(list.filter(c=>!isPersonal(c)&&c.cobro==='Pagado'),comOf);
       const paidPersonal=sum(list.filter(c=>isPersonal(c)&&cash(c)>0&&c.cobro==='Pagado'),cash);
       const paid=roundMoney(paidAgency+paidPersonal),pending=roundMoney(inc-paid),pay=sum(list.filter(c=>!isPersonal(c)&&c.pagcr!=='si'),c=>c.pago);
@@ -2513,8 +2529,8 @@ init();
     const tipo=['Pagada','Canje','Mixta'].includes(x.tipo)?x.tipo:'Pagada';
     return {tipo,canjeDescripcion:String(x.canjeDescripcion||''),canjeValor:tipo==='Pagada'?0:roundMoney(x.canjeValor||0),canjeRecibido:x.canjeRecibido==='si'?'si':'no',canjeFecha:v3Date(x.canjeFecha)};
   };
-  const v3Cash = c => v3Personal(c) ? (v3PersonalMeta(c).tipo==='Canje'?0:roundMoney(c.monto||0)) : 0;
-  const v3Barter = c => v3Personal(c) ? v3PersonalMeta(c).canjeValor : 0;
+  const v3Cash = c => v3Personal(c) && !['Prospecto','Negociación','Propuesta enviada'].includes(c?.estado) ? (v3PersonalMeta(c).tipo==='Canje'?0:roundMoney(c.monto||0)) : 0;
+  const v3Barter = c => v3Personal(c) && !['Prospecto','Negociación','Propuesta enviada'].includes(c?.estado) ? v3PersonalMeta(c).canjeValor : 0;
   const v3StatusText = value => value==='Acuerdo alcanzado'?'Confirmada':value==='Publicado'?'Publicada':value==='Pendiente'?'Pendiente de cobro':value==='Pagado'?'Cobrado':value;
   const v3Context = () => {
     const active=document.querySelector('#briev-camp-context .briev-context-switch button.on')||document.querySelector('#briev-dash-context .briev-context-switch button.on');
@@ -2945,7 +2961,7 @@ init();
   window.showCampaignDetailTab=function(i,tab){v3RenderDetail(i,tab);};
   detail=function(i){v3RenderDetail(i,'summary');open_('ov-det');};
 
-  /* ---------- Excel export ---------- */
+  /* ---------- Campaign export ---------- */
   function v3ExcelBaseList(){
     return camps.filter(passes).sort((a,b)=>(V3_CYCLE_ORDER[a.ciclo]??9)-(V3_CYCLE_ORDER[b.ciclo]??9)||String(a.marca).localeCompare(String(b.marca),'es'));
   }
@@ -3053,6 +3069,111 @@ init();
     }catch(e){alert(e.message||'No se pudo generar el Excel.');}
   };
 
+  function v3ExportFilterSummary(){
+    const selected=new Map();
+    [
+      ['flt-estado','Status'],['flt-creador','Creador'],['flt-marca','Marca'],
+      ['flt-industria','Industria'],['flt-titular','Origen'],['flt-ciclo','Ciclo'],
+      ['excel-brand','Marca'],['excel-creator','Creador'],['excel-cycle','Ciclo']
+    ].forEach(([id,label])=>{
+      const el=g(id);if(!el||!el.value)return;
+      selected.set(label,String(el.options?.[el.selectedIndex]?.textContent||el.value).trim());
+    });
+    return selected.size?[...selected].map(([label,value])=>`${label}: ${value}`).join(' · '):'Sin filtros adicionales';
+  }
+  function v3PdfMetrics(list){
+    const pipeline=c=>['Prospecto','Negociación','Propuesta enviada'].includes(c?.estado);
+    const won=list.filter(c=>!pipeline(c));
+    const agency=won.filter(c=>!v3Personal(c));
+    const personal=won.filter(v3Personal);
+    const sum=(rows,getter)=>roundMoney(rows.reduce((total,row)=>total+(Number(getter(row))||0),0));
+    const common=[['Campañas',String(list.length)],['Pipeline',String(list.filter(pipeline).length)]];
+    if(v3Context()==='agency')return [...common,['Monto campañas',money(sum(agency,c=>c.monto))],['Comisión Briev',money(sum(agency,comOf))],['Por cobrar',money(sum(agency.filter(c=>c.cobro!=='Pagado'),comOf))]];
+    if(v3Context()==='creator')return [...common,['Ingreso monetario',money(sum(personal,v3Cash))],['Valor de canjes',money(sum(personal,v3Barter))],['Valor total',money(sum(personal,c=>v3Cash(c)+v3Barter(c)))]];
+    return [...common,['Monto agencia',money(sum(agency,c=>c.monto))],['Comisión Briev',money(sum(agency,comOf))],['Valor creadora',money(sum(personal,c=>v3Cash(c)+v3Barter(c)))]];
+  }
+  function v3PdfCampaignRows(list){
+    const pipeline=c=>['Prospecto','Negociación','Propuesta enviada'].includes(c?.estado);
+    return list.map(c=>{
+      const personal=v3Personal(c),pm=v3PersonalMeta(c),isPipeline=pipeline(c),last=v3LastPublication(c);
+      const amount=isPipeline?`Potencial ${money(c.monto||0)}`:personal?`${money(v3Cash(c)+v3Barter(c))}\n${pm.tipo}`:money(c.monto||0);
+      const result=isPipeline?'No contabiliza':personal?`${money(v3Cash(c))}${v3Barter(c)?`\nCanje ${money(v3Barter(c))}`:''}`:money(comOf(c));
+      const collection=personal&&pm.tipo==='Canje'?'No aplica':c.cobro==='Pagado'?'Cobrado':c.cobro==='Facturado'?'Facturado':'Pendiente';
+      return [
+        `${c.marca||'—'}\n${c.nombre||'—'}`,
+        `${personal?'Creadora':'Agencia'}\n${personal?V3_SELF_NAME:(creatorName(c)||'—')}`,
+        c.industria||'—',
+        `${v3StatusText(c.estado)||'—'}\n${c.ciclo||'—'}`,
+        amount,result,last?fecha(last):'—',collection
+      ];
+    });
+  }
+  function v3PdfFollowupRows(list){
+    return v3TrackingEvents(list).map(e=>{
+      const timing=v3EventTiming(e);
+      const state=timing.group==='Vencidos'?'Vencido':timing.group;
+      return [e.iso?fecha(e.iso):'—',state,e.action||e.type||'—',`${e.c.marca||'—'}\n${e.c.nombre||'—'}`,v3Personal(e.c)?V3_SELF_NAME:(creatorName(e.c)||'—'),e.amount?money(e.amount):'—'];
+    });
+  }
+  window.downloadCampaignPdf=function(){
+    try{
+      const Pdf=window.jspdf?.jsPDF;
+      if(!Pdf)throw new Error('No se pudo cargar el generador de PDF. Verifica tu conexión a internet y vuelve a intentar.');
+      const list=v3ExcelFiltered();if(!list.length)throw new Error('No hay campañas para exportar con estos filtros.');
+      const doc=new Pdf({orientation:'landscape',unit:'mm',format:'a4',compress:true});
+      if(typeof doc.autoTable!=='function')throw new Error('No se pudo cargar el componente de tablas del PDF. Verifica tu conexión a internet y vuelve a intentar.');
+      const pageW=doc.internal.pageSize.getWidth(),pageH=doc.internal.pageSize.getHeight(),margin=12;
+      const navy=[38,34,79],purple=[182,119,177],blue=[94,196,230],light=[247,246,252],muted=[106,101,135];
+      const context=v3ContextLabel(),filters=v3ExportFilterSummary(),generated=new Date().toLocaleString('es-GT',{dateStyle:'long',timeStyle:'short'});
+      doc.setProperties({title:`Briev · Reporte de campañas · ${context}`,subject:`Campañas filtradas · ${filters}`,author:'Briev Co.',creator:'Briev Co.'});
+      doc.setFillColor(...navy);doc.rect(0,0,pageW,22,'F');
+      doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(15);doc.text('BRIEV CO.',margin,13.5);
+      doc.setFontSize(9);doc.text(`REPORTE DE CAMPAÑAS · ${context.toUpperCase()}`,pageW-margin,13.5,{align:'right'});
+      doc.setTextColor(...navy);doc.setFontSize(15);doc.text('Reporte de campañas',margin,31);
+      doc.setFont('helvetica','normal');doc.setTextColor(...muted);doc.setFontSize(7.5);doc.text(`Generado: ${generated}`,margin,36);
+      const filterLines=doc.splitTextToSize(`Filtros: ${filters}`,pageW-(margin*2));doc.text(filterLines,margin,41);
+      const metrics=v3PdfMetrics(list),metricY=44+(filterLines.length*3.4),gap=2.5,cardW=(pageW-(margin*2)-(gap*(metrics.length-1)))/metrics.length;
+      metrics.forEach(([label,value],index)=>{
+        const x=margin+index*(cardW+gap);doc.setFillColor(...light);doc.roundedRect(x,metricY,cardW,15,2,2,'F');
+        doc.setTextColor(...muted);doc.setFont('helvetica','bold');doc.setFontSize(6.2);doc.text(String(label).toUpperCase(),x+3,metricY+5);
+        doc.setTextColor(...navy);doc.setFontSize(10);doc.text(String(value),x+3,metricY+11.5,{maxWidth:cardW-6});
+      });
+      doc.autoTable({
+        startY:metricY+20,margin:{top:18,right:margin,bottom:15,left:margin},
+        head:[['Marca / campaña','Origen / creador','Industria','Status / ciclo','Monto / valor','Ingreso / comisión','Última publicación','Cobro']],
+        body:v3PdfCampaignRows(list),theme:'grid',showHead:'everyPage',
+        styles:{font:'helvetica',fontSize:6.5,cellPadding:2.2,lineColor:[228,226,238],lineWidth:.15,textColor:navy,valign:'middle',overflow:'linebreak'},
+        headStyles:{fillColor:navy,textColor:[255,255,255],fontStyle:'bold',fontSize:6.3,cellPadding:2.5},
+        alternateRowStyles:{fillColor:[250,249,253]},
+        columnStyles:{0:{cellWidth:39},1:{cellWidth:35},2:{cellWidth:27},3:{cellWidth:31},4:{cellWidth:34},5:{cellWidth:32},6:{cellWidth:28},7:{cellWidth:27}}
+      });
+      const followRows=v3PdfFollowupRows(list);let nextY=doc.lastAutoTable.finalY+9;
+      if(nextY>pageH-38){doc.addPage();nextY=25;}
+      doc.setTextColor(...navy);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('Seguimiento pendiente',margin,nextY);
+      if(followRows.length){
+        doc.autoTable({
+          startY:nextY+4,margin:{top:18,right:margin,bottom:15,left:margin},
+          head:[['Fecha','Estado','Acción','Marca / campaña','Responsable','Monto']],body:followRows,theme:'grid',showHead:'everyPage',
+          styles:{font:'helvetica',fontSize:6.7,cellPadding:2.3,lineColor:[228,226,238],lineWidth:.15,textColor:navy,valign:'middle',overflow:'linebreak'},
+          headStyles:{fillColor:purple,textColor:[255,255,255],fontStyle:'bold',fontSize:6.5},alternateRowStyles:{fillColor:[250,249,253]},
+          columnStyles:{0:{cellWidth:28},1:{cellWidth:27},2:{cellWidth:68},3:{cellWidth:56},4:{cellWidth:52},5:{cellWidth:34,halign:'right'}}
+        });
+      }else{
+        doc.setFont('helvetica','normal');doc.setTextColor(...muted);doc.setFontSize(8);doc.text('No hay hitos pendientes para las campañas incluidas.',margin,nextY+7);
+      }
+      const pages=doc.getNumberOfPages();
+      for(let page=1;page<=pages;page++){
+        doc.setPage(page);
+        if(page>1){doc.setDrawColor(...blue);doc.setLineWidth(.5);doc.line(margin,10,pageW-margin,10);doc.setTextColor(...navy);doc.setFont('helvetica','bold');doc.setFontSize(7);doc.text(`BRIEV CO. · ${context}`,margin,8);}
+        doc.setDrawColor(225,223,235);doc.setLineWidth(.2);doc.line(margin,pageH-9,pageW-margin,pageH-9);
+        doc.setTextColor(...muted);doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.text('Reporte generado desde Briev con la vista y filtros activos.',margin,pageH-5.5);doc.text(`Página ${page} de ${pages}`,pageW-margin,pageH-5.5,{align:'right'});
+      }
+      const slug=context.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9]+/g,'_').replace(/^_|_$/g,'');
+      doc.save(`Briev_Campanas_${slug}_${v3TodayIso()}.pdf`);
+      close_('ov-excel');toast('PDF descargado.');
+    }catch(e){alert(e.message||'No se pudo generar el PDF.');}
+  };
+
   /* ---------- Init / context changes ---------- */
   const v3SetContext=window.setBrievContext;
   window.setBrievContext=function(mode){
@@ -3107,8 +3228,8 @@ init();
   /* Keep pipeline campaigns visible in Cards/Seguimiento/Excel, but never "Activa". */
   const originalNormalizeCamp = window.normalizeCamp;
   if (typeof originalNormalizeCamp === 'function') {
-    window.normalizeCamp = function(c){
-      return normalizePipelineCycle(originalNormalizeCamp(c));
+    window.normalizeCamp = function(...args){
+      return normalizePipelineCycle(originalNormalizeCamp.apply(this,args));
     };
   }
 
