@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="theme-color" content="#26224f">
 <title>Briev Co. · Plataforma de campañas</title>
 <meta name="apple-mobile-web-app-title" content="Briev Co.">
@@ -373,6 +376,16 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 .installment-row .field{margin:0}.installment-row .installment-preview{min-height:44px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 9px;display:flex;flex-direction:column;justify-content:center}
 .installment-preview small{font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.installment-preview strong{font-size:11px;margin-top:2px}.installment-remove{min-height:44px;padding:8px 10px}
 .installment-summary{font-size:11px;font-weight:600;color:var(--navy);background:#ece9f4;border-radius:10px;padding:10px 12px;margin-top:10px}
+.creator-payment-installment-editor{margin-top:14px}
+.creator-payment-installment-row{display:grid;grid-template-columns:minmax(150px,1.35fr) minmax(125px,.9fr) minmax(145px,1fr);gap:9px;align-items:end;padding:11px 0;border-bottom:1px solid var(--line)}
+.creator-payment-installment-row:last-child{border-bottom:0}
+.creator-payment-installment-copy{min-height:44px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;justify-content:center}
+.creator-payment-installment-copy small{font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.creator-payment-installment-copy strong{font-size:12px;color:var(--navy);margin-top:2px}
+.creator-payment-installment-copy span{font-size:9px;color:var(--muted);margin-top:2px}
+.creator-payment-installment-row .field{margin:0}
+@media(max-width:700px){.creator-payment-installment-row{grid-template-columns:1fr 1fr}.creator-payment-installment-copy{grid-column:1/-1}}
+@media(max-width:420px){.creator-payment-installment-row{grid-template-columns:1fr}}
 
 .v3-delivery-row{display:block!important;padding:14px 0!important}
 .delivery-row-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
@@ -617,7 +630,7 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
     <div class="field" id="other-creator-field" hidden><label for="c-other">Nombre del creador sin ficha</label><input id="c-other" maxlength="200" placeholder="Nombre del creador"></div>
     <div class="two">
       <div class="field"><label for="c-titular">Titular (¿a quién ingresa?)</label><select id="c-titular"><option>Agencia</option><option>Propia</option></select></div>
-      <div class="field"><label for="c-ciclo">Ciclo</label><select id="c-ciclo"></select></div>
+      <div class="field"><label for="c-ciclo">Ciclo</label><select id="c-ciclo"></select><p id="c-cycle-help" class="form-hint" hidden>Prospecto y Negociación son oportunidades: todavía no tienen ciclo y no cuentan como campañas activas ni como ingresos.</p></div>
     </div>
     <div class="field"><label for="c-finance-mode">¿Cómo definir tu comisión?</label><select id="c-finance-mode" onchange="cCalc()"><option value="pago">Pago acordado al creador</option><option value="porcentaje">Porcentaje del total</option></select><p class="form-hint">El monto recibido no cambia. En pago acordado, tu comisión es la diferencia; el porcentaje es solo una referencia.</p></div>
     <div class="two">
@@ -680,7 +693,13 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
         <div class="field"><label for="c-pago-creador-desde">Pago al creador</label><select id="c-pago-creador-desde"><option value="cobro_marca">💰 Al cobrar la marca</option><option value="fecha_especifica">📅 Fecha específica</option></select></div>
         <div class="field" id="c-fecha-pago-creador-field"><label for="c-fecha-pago-creador">Fecha de pago al creador</label><input id="c-fecha-pago-creador" type="date"><p class="form-hint">Solo aplica a campañas de Agencia.</p></div>
       </div>
-      <div class="field"><label for="c-pagcr">¿Pagado al creador?</label><select id="c-pagcr"><option value="no">⏳ No</option><option value="si">✅ Sí</option></select></div>
+      <section class="installment-editor creator-payment-installment-editor" id="c-creador-cuotas-editor" aria-labelledby="c-creador-cuotas-title" hidden>
+        <div class="delivery-head"><h4 id="c-creador-cuotas-title">💸 Pagos al creador por cuota</h4></div>
+        <p class="form-hint">Usa el mismo porcentaje y vencimiento de cada cuota de la marca, pero el estado y la fecha real de pago al creador se registran por separado.</p>
+        <div id="c-creador-cuotas-rows"></div>
+        <p class="installment-summary" id="c-creador-cuotas-summary" role="status"></p>
+      </section>
+      <div class="field" id="c-pagcr-field"><label for="c-pagcr">¿Pagado al creador?</label><select id="c-pagcr"><option value="no">⏳ No</option><option value="si">✅ Sí</option></select></div>
     </section>
   </section>
 
@@ -735,6 +754,8 @@ table{font-variant-numeric:tabular-nums}th{background:#f4f2f9;color:#5c557c;font
 /* BRIEV_CONFIG_START */
 window.BRIEV_CONFIG = {"supabaseUrl": "https://nawjceqtvbbxxqqhwmgx.supabase.co", "supabaseKey": "sb_publishable_qu5c-GJQRE1FaoghHFrPSg_6bCnvDsE"};
 /* BRIEV_CONFIG_END */
+window.BRIEV_BUILD = '2026-11-19-exact-23514';
+console.info('Briev build', window.BRIEV_BUILD);
 </script>
 <script>
 'use strict';
@@ -850,7 +871,13 @@ function friendly(e){
   if(isJwtExpiredError(e))return 'La sesión de Supabase venció. Briev intentó renovarla automáticamente; si este aviso continúa, vuelve a iniciar sesión.';
   if(e?.code==='23503')return 'Este creador está vinculado a campañas. Reasígnalas antes de eliminarlo.';
   if(e?.code==='23505')return 'Ya existe un registro con ese identificador o un creador con ese nombre.';
-  if(e?.code==='23514')return 'Revisa los montos, porcentajes y campos obligatorios.';
+  if(e?.code==='23514'){
+    const raw=[e?.message,e?.details,e?.hint].filter(Boolean).join(' · ');
+    const match=raw.match(/constraint\s+["']?([^"'\s]+)["']?/i);
+    const constraint=match?.[1]||'desconocida';
+    const message=String(e?.message||'').replace(/\s+/g,' ').trim();
+    return `ERROR 23514 · Supabase rechazó una restricción de la campaña. Restricción: ${constraint}.${message?` Detalle: ${message}`:''}`;
+  }
   if(e?.code==='42501')return 'Tu sesión no tiene permiso. Inicia sesión de nuevo y verifica la configuración de Supabase.';
   if(e?.code==='42P01'||e?.code==='PGRST205')return 'Faltan las tablas de Briev. Ejecuta el archivo de instalación SQL en tu proyecto Supabase.';
   if(/fetch|network|offline/i.test(e?.message||''))return 'No se pudo conectar. No se confirmó el guardado; revisa tu conexión y vuelve a intentarlo.';
@@ -2008,7 +2035,7 @@ init();
     if(g('flt-creador')?.value && creatorName(c)!==g('flt-creador').value) return false;
     if(g('flt-marca')?.value && c.marca!==g('flt-marca').value) return false;
     if(g('flt-industria')?.value && c.industria!==g('flt-industria').value) return false;
-    if(g('flt-ciclo')?.value && c.ciclo!==g('flt-ciclo').value) return false;
+    if(g('flt-ciclo')?.value && (window.brievIsPipeline?.(c) || c.ciclo!==g('flt-ciclo').value)) return false;
     if(g('flt-titular')?.value){
       const origin=isPersonal(c)?'Personal':'Agencia';
       if(origin!==g('flt-titular').value) return false;
@@ -2193,7 +2220,7 @@ init();
 
       const selectedStatus=g('c-estado').value;
       const selectedCycle=['Prospecto','Negociación','Propuesta enviada'].includes(selectedStatus)
-        ? (previous?.ciclo||'Activa')
+        ? 'Activa' /* almacenamiento interno únicamente; visualmente es Oportunidad y no cuenta como activa */
         : (g('c-ciclo').value||'Activa');
       const candidate=normalizeCamp({
         ...previous,id:previous?.id||newCampId,...f,...deliveries,extras,
@@ -2735,7 +2762,20 @@ init();
   const v3LastPublication = c => v3Date(c?.extras?.fecha_publicacion_ultimo_contenido)||v3LastDeliveryPublication(c);
   const v3FinanceMeta = c => c?.extras?.seguimiento_finanzas_v1&&typeof c.extras.seguimiento_finanzas_v1==='object'?c.extras.seguimiento_finanzas_v1:{};
   const v3ExpectedCollection = c => v3Date(c?.extras?.fecha_estimada_cobro)||v3Date(v3FinanceMeta(c).fechaEstimadaCobro);
-  const v3CreatorPaymentDate = c => v3Date(v3FinanceMeta(c).fechaEstimadaPagoCreador)||v3Date(v3FinanceMeta(c).fechaPagoCreadorEspecifica);
+  const v3SavedCreatorPaymentRows = c => {
+    const rows=v3FinanceMeta(c).pagosCreadorCuotas;
+    return Array.isArray(rows)?rows:[];
+  };
+  const v3CreatorPaymentDate = c => {
+    const rows=v3SavedCreatorPaymentRows(c);
+    if(rows.length){
+      const pending=rows.filter(row=>row.estado!=='Pagado'&&v3Date(row.fechaEstimada)).map(row=>v3Date(row.fechaEstimada)).sort();
+      if(pending.length)return pending[0];
+      const paid=rows.map(row=>v3Date(row.fechaPagoReal)).filter(Boolean).sort();
+      if(paid.length)return paid.at(-1);
+    }
+    return v3Date(v3FinanceMeta(c).fechaEstimadaPagoCreador)||v3Date(v3FinanceMeta(c).fechaPagoCreadorEspecifica);
+  };
   const v3CampaignAmountForCollection = c => v3Personal(c)?v3Cash(c):roundMoney(c.monto||0);
 
   /* ---------- Compact campaign editor ---------- */
@@ -2763,7 +2803,7 @@ init();
     }
   };
 
-  let v3InstallmentDraft=[],v3InstallmentSequence=0;
+  let v3InstallmentDraft=[],v3InstallmentSequence=0,v3CreatorPaymentDraft=[];
   function v3PaymentPlan(c){
     const m=v3FinanceMeta(c||{}),fractional=m.formaCobro==='fraccionado'&&Array.isArray(m.cuotas);
     const cuotas=fractional?m.cuotas.slice(0,24).map(row=>({
@@ -2771,6 +2811,19 @@ init();
       estado:['Pendiente','Facturado','Pagado'].includes(row?.estado)?row.estado:'Pendiente',fechaEstimada:v3Date(row?.fechaEstimada)
     })):[];
     return {formaCobro:fractional?'fraccionado':'unico',cuotas};
+  }
+  function v3CreatorPaymentPlan(c,brandRows=[]){
+    const fm=v3FinanceMeta(c||{}),saved=Array.isArray(fm.pagosCreadorCuotas)?fm.pagosCreadorCuotas:[];
+    const byUid=new Map(saved.filter(row=>row?.uid).map(row=>[String(row.uid),row]));
+    const legacyPaid=!saved.length&&c?.pagcr==='si';
+    return brandRows.map((row,index)=>{
+      const prior=byUid.get(String(row?.uid||''))||saved[index]||{};
+      return {
+        uid:String(row?.uid||prior.uid||uuid()),
+        estado:prior.estado==='Pagado'?'Pagado':legacyPaid?'Pagado':'Pendiente',
+        fechaPagoReal:v3Date(prior.fechaPagoReal)
+      };
+    });
   }
   function v3InstallmentBaseDate(){
     const trigger=g('c-cobro-desde')?.value||'ultima_publicacion';
@@ -2788,6 +2841,39 @@ init();
     const base=v3InstallmentBaseDate();
     return rows.map(row=>({...row,fechaEstimada:base?v3IsoAdd(base,row.dias):''}));
   }
+  function v3SyncCreatorPaymentDraft(){
+    const brandRows=v3InstallmentDates(),byUid=new Map(v3CreatorPaymentDraft.filter(row=>row?.uid).map(row=>[String(row.uid),row]));
+    const fallbackPaid=!v3CreatorPaymentDraft.length&&g('c-pagcr')?.value==='si';
+    v3CreatorPaymentDraft=brandRows.map((row,index)=>{
+      const prior=byUid.get(String(row.uid||''))||v3CreatorPaymentDraft[index]||{};
+      return {uid:String(row.uid||prior.uid||uuid()),estado:prior.estado==='Pagado'?'Pagado':fallbackPaid?'Pagado':'Pendiente',fechaPagoReal:v3Date(prior.fechaPagoReal)};
+    });
+    return brandRows.map((row,index)=>({...row,pagoCreadorEstado:v3CreatorPaymentDraft[index]?.estado||'Pendiente',fechaPagoReal:v3CreatorPaymentDraft[index]?.fechaPagoReal||'',importeCreador:roundMoney(Number(g('c-pago')?.value||0)*(Number(row.porcentaje)||0)/100)}));
+  }
+  function v3UpdateCreatorPaymentSummary(rows=v3SyncCreatorPaymentDraft()){
+    const paidRows=rows.filter(row=>row.pagoCreadorEstado==='Pagado'),paidAmount=roundMoney(paidRows.reduce((sum,row)=>sum+(Number(row.importeCreador)||0),0)),total=roundMoney(Number(g('c-pago')?.value||0));
+    if(g('c-creador-cuotas-summary'))g('c-creador-cuotas-summary').textContent=`${paidRows.length} de ${rows.length} cuota${rows.length===1?'':'s'} pagada${paidRows.length===1?'':'s'} · ${money(paidAmount)} de ${money(total)}`;
+    if(g('c-pagcr'))g('c-pagcr').value=rows.length&&paidRows.length===rows.length?'si':'no';
+  }
+  function v3RenderCreatorPayments(){
+    const personal=g('c-titular')?.value==='Propia',fractional=g('c-forma-cobro')?.value==='fraccionado',linked=g('c-pago-creador-desde')?.value==='cobro_marca';
+    const visible=!personal&&fractional&&linked;
+    if(g('c-creador-cuotas-editor'))g('c-creador-cuotas-editor').hidden=!visible;
+    if(g('c-pagcr-field'))g('c-pagcr-field').hidden=visible||personal;
+    if(!visible){if(g('c-creador-cuotas-rows'))g('c-creador-cuotas-rows').replaceChildren();return;}
+    const rows=v3SyncCreatorPaymentDraft();
+    g('c-creador-cuotas-rows').innerHTML=rows.map((row,index)=>`<div class="creator-payment-installment-row">
+      <div class="creator-payment-installment-copy"><small>Cuota ${index+1}/${rows.length} · ${fmtPct(row.porcentaje)}%</small><strong>${money(row.importeCreador)}</strong><span>${row.fechaEstimada?`Estimado ${fecha(row.fechaEstimada)}`:'Falta fecha base de cobro'}</span></div>
+      <div class="field"><label for="creator-payment-state-${index}">Estado</label><select id="creator-payment-state-${index}" onchange="changeCreatorInstallmentPayment('${v3Esc(row.uid)}','estado',this.value)"><option value="Pendiente"${row.pagoCreadorEstado!=='Pagado'?' selected':''}>⏳ Pendiente</option><option value="Pagado"${row.pagoCreadorEstado==='Pagado'?' selected':''}>✅ Pagado</option></select></div>
+      <div class="field"><label for="creator-payment-date-${index}">Fecha real de pago</label><input id="creator-payment-date-${index}" type="date" value="${v3Esc(row.fechaPagoReal)}" ${row.pagoCreadorEstado==='Pagado'?'required':'disabled'} onchange="changeCreatorInstallmentPayment('${v3Esc(row.uid)}','fechaPagoReal',this.value)"></div>
+    </div>`).join('');
+    v3UpdateCreatorPaymentSummary(rows);
+  }
+  window.changeCreatorInstallmentPayment=function(uid,key,value){
+    const row=v3CreatorPaymentDraft.find(item=>String(item.uid)===String(uid));if(!row)return;
+    if(key==='estado'){row.estado=value==='Pagado'?'Pagado':'Pendiente';if(row.estado!=='Pagado')row.fechaPagoReal='';v3RenderCreatorPayments();return;}
+    if(key==='fechaPagoReal'){row.fechaPagoReal=v3Date(value);v3UpdateCreatorPaymentSummary();}
+  };
   function v3RefreshInstallmentPreview(){
     const rows=v3InstallmentDates(),totalPct=roundMoney(rows.reduce((sum,row)=>sum+(Number(row.porcentaje)||0),0));
     rows.forEach(row=>{
@@ -2798,6 +2884,7 @@ init();
     if(g('c-cobro'))g('c-cobro').value=v3InstallmentOverallStatus(rows);
     const next=rows.filter(row=>row.estado!=='Pagado'&&row.fechaEstimada).sort((a,b)=>a.fechaEstimada.localeCompare(b.fechaEstimada))[0]?.fechaEstimada||rows.map(row=>row.fechaEstimada).filter(Boolean).sort().at(-1)||'';
     if(g('c-fecha-cobro'))g('c-fecha-cobro').value=next;
+    v3RenderCreatorPayments();
   }
   function v3RenderInstallments(focusId=null){
     const container=g('c-cuotas-rows');if(!container)return;
@@ -2830,6 +2917,7 @@ init();
     if(g('c-cuotas-editor'))g('c-cuotas-editor').hidden=!fractional;
     if(g('c-fecha-cobro-label'))g('c-fecha-cobro-label').textContent=fractional?'Próximo cobro estimado':'Fecha estimada de cobro';
     if(fractional)v3RenderInstallments();else v3RefreshFinancePreview();
+    v3RenderCreatorPayments();
   };
 
   /* ---------- Deliverables: compact scope, with legacy tracking preserved but hidden ---------- */
@@ -2945,10 +3033,23 @@ init();
 
     const payTrigger=g('c-pago-creador-desde')?.value||'cobro_marca';
     const paySpecific=v3Date(g('c-fecha-pago-creador')?.value||'');
+    let creatorInstallments=[];
+    if(!own&&hasCash&&payTrigger==='cobro_marca'&&planMode==='fraccionado'&&installments.length){
+      const stateByUid=new Map(v3CreatorPaymentDraft.filter(row=>row?.uid).map(row=>[String(row.uid),row]));
+      creatorInstallments=installments.map((row,index)=>{
+        const saved=stateByUid.get(String(row.uid||''))||v3CreatorPaymentDraft[index]||{};
+        const estado=saved.estado==='Pagado'?'Pagado':'Pendiente',fechaPagoReal=v3Date(saved.fechaPagoReal);
+        if(estado==='Pagado'&&!fechaPagoReal)throw new Error(`Registra la fecha real del pago al creador en la cuota ${index+1}.`);
+        return {uid:String(row.uid||saved.uid||uuid()),porcentaje:roundMoney(row.porcentaje),importe:roundMoney(Number(financeDraft?.pago??g('c-pago')?.value??0)*(Number(row.porcentaje)||0)/100),fechaEstimada:v3Date(row.fechaEstimada),estado,fechaPagoReal};
+      });
+      if(g('c-pagcr'))g('c-pagcr').value=creatorInstallments.every(row=>row.estado==='Pagado')?'si':'no';
+    }
+    const pendingCreatorDates=creatorInstallments.filter(row=>row.estado!=='Pagado'&&row.fechaEstimada).map(row=>row.fechaEstimada).sort();
     const finalInstallmentDate=installments.map(row=>row.fechaEstimada).filter(Boolean).sort().at(-1)||expectedCollection;
-    const expectedCreatorPay=payTrigger==='fecha_especifica'?paySpecific:finalInstallmentDate;
+    const expectedCreatorPay=payTrigger==='fecha_especifica'?paySpecific:(pendingCreatorDates[0]||finalInstallmentDate);
     result.extras.seguimiento_finanzas_v1={
-      version:2,
+      ...prior,
+      version:3,
       ultimaPublicacionFuente:manualPublication?'manual':finalPublication?'entregables':(prior.ultimaPublicacionFuente||''),
       cobroDesde:legacyUntouched?(prior.cobroDesde||'legacy'):trigger,
       fechaBaseCobro:legacyUntouched?(prior.fechaBaseCobro||''):v3Date(g('c-fecha-base-cobro')?.value||''),
@@ -2957,7 +3058,8 @@ init();
       cuotas:installments,
       pagoCreadorDesde:payTrigger,
       fechaPagoCreadorEspecifica:paySpecific,
-      fechaEstimadaPagoCreador:expectedCreatorPay
+      fechaEstimadaPagoCreador:expectedCreatorPay,
+      pagosCreadorCuotas:creatorInstallments
     };
     return result;
   };
@@ -2998,13 +3100,14 @@ init();
     const creatorTracking=g('creator-payment-tracking');if(creatorTracking)creatorTracking.hidden=personal;
     const paySpecific=g('c-pago-creador-desde')?.value==='fecha_especifica';
     if(g('c-fecha-pago-creador-field'))g('c-fecha-pago-creador-field').hidden=personal||!paySpecific;
+    v3RenderCreatorPayments();
   }
 
   const v3OpenCamp=window.openCamp;
   openCamp = function(i){
     v3OpenCamp(i);
     const c=i===undefined?null:camps[i],m=v3FinanceMeta(c||{});
-    const plan=v3PaymentPlan(c||{});v3InstallmentDraft=plan.cuotas;
+    const plan=v3PaymentPlan(c||{});v3InstallmentDraft=plan.cuotas;v3CreatorPaymentDraft=v3CreatorPaymentPlan(c||{},plan.cuotas);
     if(g('c-forma-cobro'))g('c-forma-cobro').value=plan.formaCobro;
     const pub=g('c-fecha-publicacion-final');
     if(pub){
@@ -3109,10 +3212,14 @@ init();
 
       if(!v3Personal(c)&&c.pagcr!=='si'&&Number(c.pago)>0){
         if(fm.pagoCreadorDesde==='cobro_marca'&&installments.length){
+          const creatorRows=Array.isArray(fm.pagosCreadorCuotas)&&fm.pagosCreadorCuotas.length?fm.pagosCreadorCuotas:null;
           installments.forEach((row,index)=>{
-            const pct=Number(row.porcentaje)||0;
-            const creatorAmount=roundMoney(Number(c.pago||0)*pct/100);
-            const e=v3Event(c,'pago_creador',`Pago al creador ${index+1}/${installments.length} · ${fmtPct(pct)}%`,row.fechaEstimada,false,creatorAmount,'💸','Al cobrar la marca');
+            const saved=creatorRows?.find(item=>String(item.uid||'')===String(row.uid||''))||creatorRows?.[index]||null;
+            if(saved?.estado==='Pagado')return;
+            const pct=Number(saved?.porcentaje??row.porcentaje)||0;
+            const creatorAmount=roundMoney(saved?.importe??Number(c.pago||0)*pct/100);
+            const due=v3Date(saved?.fechaEstimada)||v3Date(row.fechaEstimada);
+            const e=v3Event(c,'pago_creador',`Pago al creador ${index+1}/${installments.length} · ${fmtPct(pct)}%`,due,false,creatorAmount,'💸','Al cobrar la marca');
             if(e)events.push(e);
           });
         }else{
@@ -3282,15 +3389,18 @@ init();
     }).join('')}</div>`;
   }
   function v3CreatorPlanDetail(c){
-    const fm=v3FinanceMeta(c),rows=fm.pagoCreadorDesde==='cobro_marca'&&fm.formaCobro==='fraccionado'&&Array.isArray(fm.cuotas)?fm.cuotas:[];
-    if(!rows.length)return '';
-    return `<div class="detail-plan creator-payment-plan"><div class="creator-plan-title">Pago al creador · mismo calendario de cuotas</div>${rows.map((row,index)=>{
-      const pct=Number(row.porcentaje)||0,amount=roundMoney(Number(c.pago||0)*pct/100),due=v3Date(row.fechaEstimada);
-      return `<div class="detail-plan-row"><span class="detail-plan-number">${index+1}/${rows.length}</span><div class="detail-plan-main"><strong>${fmtPct(pct)}% · ${money(amount)}</strong><small>${Number(row.dias)||0} días${due?` · ${fecha(due)}`:' · falta fecha base'}</small></div><div class="detail-plan-state">💸 Pago creador</div></div>`;
+    const fm=v3FinanceMeta(c),brandRows=fm.pagoCreadorDesde==='cobro_marca'&&fm.formaCobro==='fraccionado'&&Array.isArray(fm.cuotas)?fm.cuotas:[];
+    if(!brandRows.length)return '';
+    const saved=Array.isArray(fm.pagosCreadorCuotas)?fm.pagosCreadorCuotas:[];
+    return `<div class="detail-plan creator-payment-plan"><div class="creator-plan-title">Pago al creador · por cuota</div>${brandRows.map((row,index)=>{
+      const payment=saved.find(item=>String(item.uid||'')===String(row.uid||''))||saved[index]||{};
+      const pct=Number(payment.porcentaje??row.porcentaje)||0,amount=roundMoney(payment.importe??Number(c.pago||0)*pct/100),due=v3Date(payment.fechaEstimada)||v3Date(row.fechaEstimada),paid=payment.estado==='Pagado'||(!saved.length&&c.pagcr==='si'),paidDate=v3Date(payment.fechaPagoReal);
+      return `<div class="detail-plan-row"><span class="detail-plan-number">${index+1}/${brandRows.length}</span><div class="detail-plan-main"><strong>${fmtPct(pct)}% · ${money(amount)}</strong><small>${due?`Estimado ${fecha(due)}`:'Falta fecha estimada'}${paidDate?` · pagado ${fecha(paidDate)}`:''}</small></div><div class="detail-plan-state">${paid?'✅ Pagado':'⏳ Pendiente'}</div></div>`;
     }).join('')}</div>`;
   }
   function v3FinanceTab(c){
     const personal=v3Personal(c),m=v3PersonalMeta(c),fm=v3FinanceMeta(c),expected=v3ExpectedCollection(c),creatorPay=v3CreatorPaymentDate(c),fractional=fm.formaCobro==='fraccionado'&&Array.isArray(fm.cuotas)&&fm.cuotas.length>0,plan=v3PlanDetail(c),creatorPlan=v3CreatorPlanDetail(c);
+    const creatorRows=Array.isArray(fm.pagosCreadorCuotas)?fm.pagosCreadorCuotas:[],creatorPaidCount=creatorRows.filter(row=>row.estado==='Pagado').length,creatorPaymentState=c.pagcr==='si'?'✅ Pagado':creatorRows.length&&creatorPaidCount>0?'🌓 Parcialmente pagado':fractional&&fm.pagoCreadorDesde==='cobro_marca'?'⏳ Pendiente por cuotas':'⏳ Pendiente';
     if(personal){
       const total=roundMoney(v3Cash(c)+v3Barter(c));
       return `<div class="detail-finance-hero"><small>Valor total de colaboración</small><strong>${money(total)}</strong></div><div class="detail-summary-grid">
@@ -3310,8 +3420,8 @@ init();
       <div class="detail-mini"><div class="k">Plazo inicia desde</div><div class="v">${v3FinanceTriggerLabel(c)}</div></div>
       <div class="detail-mini"><div class="k">${fractional?'Próximo cobro':'Cobro estimado'}</div><div class="v">${fecha(expected)}</div></div>
       <div class="detail-mini"><div class="k">Estado de cobro</div><div class="v">${c.cobro==='Pagado'?'✅ Cobrado':c.cobro==='Facturado'?'🧾 Facturado':'⏳ Pendiente'}</div></div>
-      <div class="detail-mini"><div class="k">Pago al creador</div><div class="v">${c.pagcr==='si'?'✅ Pagado':fractional&&fm.pagoCreadorDesde==='cobro_marca'?'💸 Mismo calendario de cuotas':'⏳ Pendiente'}</div></div>
-      <div class="detail-mini"><div class="k">${fractional&&fm.pagoCreadorDesde==='cobro_marca'?'Último pago estimado':'Fecha estimada pago creador'}</div><div class="v">${fecha(creatorPay)}</div></div>
+      <div class="detail-mini"><div class="k">Pago al creador</div><div class="v">${creatorPaymentState}</div></div>
+      <div class="detail-mini"><div class="k">${fractional&&fm.pagoCreadorDesde==='cobro_marca'?'Próximo pago / último realizado':'Fecha estimada pago creador'}</div><div class="v">${fecha(creatorPay)}</div></div>
     </div>${plan}${creatorPlan}`;
   }
   function v3RenderDetail(i,tab='summary'){
@@ -3564,6 +3674,7 @@ init();
 })();
 </script>
 <!-- BRIEV_SEGUIMIENTO_V3_END -->
+<!-- BRIEV_CREATOR_INSTALLMENTS_V1: estados y fechas reales por cuota del creador; datos guardados en extras, sin migracion SQL -->
 
 
 
@@ -3588,8 +3699,10 @@ init();
 
   function normalizePipelineCycle(c){
     if (!c) return c;
+    /* Supabase only accepts real cycle values. Pipeline records keep a valid
+       internal cycle for storage, but Briev never counts or displays them as active. */
     if (window.brievIsPipeline(c)) {
-      c.ciclo = '';
+      if (!['Activa','Renovada','Finalizada'].includes(c.ciclo)) c.ciclo = 'Activa';
     } else if (window.brievIsWon(c) && !c.ciclo) {
       c.ciclo = 'Activa';
     }
@@ -3619,13 +3732,25 @@ init();
 
     const pipeline = PIPELINE_STATUSES.has(status.value);
     if (pipeline) {
-      cycle.value = '';
+      /* UX: pipeline has no business cycle yet. Internally we keep a valid
+         storage value so Supabase constraints are satisfied, while every KPI,
+         chart and active-campaign rule continues excluding pipeline records. */
+      cycle.dataset.pipelineUi = '1';
+      cycle.innerHTML = '<option value="Activa">— Sin ciclo · Oportunidad</option>';
+      cycle.value = 'Activa';
       cycle.disabled = true;
-      cycle.title = 'El ciclo comienza cuando la campaña está confirmada o tiene contrato firmado.';
+      cycle.title = 'Prospecto/Negociación todavía es una oportunidad. El ciclo comienza al confirmar la campaña.';
+      const help=document.getElementById('c-cycle-help');if(help)help.hidden=false;
     } else {
+      if (cycle.dataset.pipelineUi === '1') {
+        cycle.innerHTML = opt(CICLOS);
+        delete cycle.dataset.pipelineUi;
+      }
       cycle.disabled = false;
       cycle.title = '';
-      if (WON_STATUSES.has(status.value) && !cycle.value) cycle.value = 'Activa';
+      const help=document.getElementById('c-cycle-help');if(help)help.hidden=true;
+      if (WON_STATUSES.has(status.value)) cycle.value = 'Activa';
+      else if (!cycle.value) cycle.value = 'Activa';
     }
   }
 
@@ -3668,9 +3793,9 @@ init();
   ];
 
   function withPipelineZeroed(fn, ctx, args){
-    if(!Array.isArray(window.camps)) return fn.apply(ctx,args);
+    if(typeof camps==='undefined'||!Array.isArray(camps)) return fn.apply(ctx,args);
     const saved=[];
-    window.camps.forEach(c=>{
+    camps.forEach(c=>{
       if(!window.brievIsPipeline(c)) return;
       saved.push([c,c.monto,c.pago,c.comision,c.comPct]);
       c.monto=0;c.pago=0;c.comision=0;c.comPct=0;
