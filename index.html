@@ -2342,17 +2342,19 @@ init();
         card('soft',icons.creators,'Por pagar a creadores',money(creatorPending),`Pagado ${money(creatorPaid)}<br>Por pagar ${money(creatorPending)}`);
     }else{
       const b=monetaryBreakdown(list),inc=roundMoney(b.agency+b.personal);
-      const amountAgency=sum(list.filter(c=>!isPersonal(c)),c=>c.monto), amountPersonal=sum(list.filter(isPersonal),cash);
+      const agencyList=list.filter(c=>!isPersonal(c)),personalList=list.filter(isPersonal);
+      const amountAgency=sum(agencyList,c=>c.monto), amountPersonal=sum(personalList,cash);
       const active=list.filter(c=>c.ciclo==='Activa'&&!isPipelineStatus(c)).length,renewed=list.filter(c=>c.ciclo==='Renovada'&&!isPipelineStatus(c)).length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
-      const paidAgency=sum(list.filter(c=>!isPersonal(c)),collectedIncome);
-      const paidPersonal=sum(list.filter(isPersonal),collectedIncome);
-      const paid=roundMoney(paidAgency+paidPersonal),pending=roundMoney(inc-paid),pay=sum(list.filter(c=>!isPersonal(c)&&c.pagcr!=='si'),c=>c.pago);
+      const paidAgency=sum(agencyList,collectedCommission);
+      const paidPersonal=sum(personalList,collectedIncome);
+      const paid=roundMoney(paidAgency+paidPersonal),pending=roundMoney(inc-paid);
+      const creatorPaid=sum(agencyList,creatorPaidAmount),creatorPending=sum(agencyList,creatorPendingAmount);
       kp.innerHTML=
-        card('lilac',icons.amount,'Comisión Briev',money(inc),`Agencia ${money(b.agency)}<br>Personal ${money(b.personal)} · Canjes no incluidos`)+
+        card('lilac',icons.amount,'Comisión Briev',money(inc),`Cobrado ${money(paid)}<br>Por cobrar ${money(pending)}<br>Agencia ${money(b.agency)} · Personal ${money(b.personal)} · Canjes no incluidos`)+
         card('hero',icons.income,'Ingresos totales',money(roundMoney(amountAgency+amountPersonal)),`Agencia ${money(amountAgency)} · Personal ${money(amountPersonal)}<br>Canjes no incluidos ${money(b.barter)}`)+
         card('sky',icons.active,'Campañas activas',active+renewed,`Activas ${active}<br>Renovadas ${renewed}<br>Finalizadas ${finalized}`)+
         card('cyan',icons.collection,'Cobrado',money(paid),`Agencia ${money(paidAgency)} · Personal ${money(paidPersonal)}<br>Por cobrar ${money(pending)}`)+
-        card('soft',icons.creators,'Por pagar a creadores',money(pay),'Solo campañas de Agencia');
+        card('soft',icons.creators,'Por pagar a creadores',money(creatorPending),`Pagado ${money(creatorPaid)}<br>Por pagar ${money(creatorPending)}<br>Solo campañas de Agencia`);
     }
     drawCharts();
     renderCollectionFollowup(list);
