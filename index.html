@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- BRIEV_FIX_AGENCY_COLLECTION_GROSS_2026-11-25 -->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
@@ -1900,6 +1902,33 @@ init();
     return c?.cobro==='Pagado'?1:0;
   };
   const collectedIncome = c => roundMoney(income(c)*paidShare(c));
+  // Agencia: el KPI de cobro representa efectivo recibido de la marca (monto bruto),
+  // no la comisión de Briev. Las cuotas parciales respetan el porcentaje pagado.
+  const collectedCampaignAmount = c => roundMoney((isPersonal(c)?cash(c):Number(c?.monto||0))*paidShare(c));
+  const collectedCommission = c => roundMoney(comOf(c)*paidShare(c));
+  const creatorPaidShare = c => {
+    const fm=c?.extras?.seguimiento_finanzas_v1,rows=Array.isArray(fm?.pagosCreadorCuotas)?fm.pagosCreadorCuotas:[];
+    if(rows.length){
+      const paidPct=rows.filter(row=>row?.estado==='Pagado').reduce((sum,row)=>sum+(Number(row?.porcentaje)||0),0);
+      return Math.max(0,Math.min(1,paidPct/100));
+    }
+    return c?.pagcr==='si'?1:0;
+  };
+  const creatorPaidAmount = c => roundMoney((Number(c?.pago)||0)*creatorPaidShare(c));
+  const creatorPendingAmount = c => roundMoney(Math.max(0,(Number(c?.pago)||0)-creatorPaidAmount(c)));
+  const collectionProgressLabel = c => {
+    const share=paidShare(c),fm=c?.extras?.seguimiento_finanzas_v1,rows=fm?.formaCobro==='fraccionado'&&Array.isArray(fm?.cuotas)?fm.cuotas:[];
+    if(share>=.999999)return '✅ Cobrado';
+    if(share>0)return `✅ Cobrado ${fmtPct(share*100)}%`;
+    if(rows.some(row=>row?.estado==='Facturado')||c?.cobro==='Facturado')return '🧾 Facturado';
+    return '⏳ Pendiente de cobro';
+  };
+  const creatorProgressLabel = c => {
+    const share=creatorPaidShare(c);
+    if(share>=.999999)return '✅ Pagado';
+    if(share>0)return `✅ Pagado ${fmtPct(share*100)}%`;
+    return '⏳ Pendiente';
+  };
   const collabIcon = type => COLLABS.find(([v])=>v===type)?.[1]||'💵';
   const collabBadge = c => {
     if (!isPersonal(c)) return '';
@@ -2302,13 +2331,15 @@ init();
     }else if(brievContext==='agency'){
       const fact=sum(list,c=>c.monto),inc=sum(list,comOf);
       const active=list.filter(c=>c.ciclo==='Activa'&&!isPipelineStatus(c)).length,renewed=list.filter(c=>c.ciclo==='Renovada'&&!isPipelineStatus(c)).length,finalized=list.filter(c=>c.ciclo==='Finalizada').length;
-      const paid=sum(list,collectedIncome),pending=roundMoney(inc-paid),pay=sum(list.filter(c=>c.pagcr!=='si'),c=>c.pago);
+      const paid=sum(list,collectedCampaignAmount),pending=roundMoney(fact-paid);
+      const commissionPaid=sum(list,collectedCommission),commissionPending=roundMoney(inc-commissionPaid);
+      const creatorPaid=sum(list,creatorPaidAmount),creatorPending=sum(list,creatorPendingAmount);
       kp.innerHTML=
-        card('lilac',icons.amount,'Comisión Briev',money(inc),'Comisión generada por Agencia')+
+        card('lilac',icons.amount,'Comisión Briev',money(inc),`Cobrado ${money(commissionPaid)}<br>Por cobrar ${money(commissionPending)}`)+
         card('hero',icons.income,'Ingresos totales',money(fact),`${list.length} campañas de agencia`)+
         card('sky',icons.active,'Campañas activas',active+renewed,`Activas ${active}<br>Renovadas ${renewed}<br>Finalizadas ${finalized}`)+
-        card('cyan',icons.collection,'Cobrado',money(paid),`Por cobrar ${money(pending)} · ${pct(paid,inc)} del total`)+
-        card('soft',icons.creators,'Por pagar a creadores',money(pay),'Pagos pendientes a creadores');
+        card('cyan',icons.collection,'Cobrado',money(paid),`Por cobrar ${money(pending)} · ${pct(paid,fact)} del monto total`)+
+        card('soft',icons.creators,'Por pagar a creadores',money(creatorPending),`Pagado ${money(creatorPaid)}<br>Por pagar ${money(creatorPending)}`);
     }else{
       const b=monetaryBreakdown(list),inc=roundMoney(b.agency+b.personal);
       const amountAgency=sum(list.filter(c=>!isPersonal(c)),c=>c.monto), amountPersonal=sum(list.filter(isPersonal),cash);
@@ -2395,7 +2426,10 @@ init();
     ring('dash-industry',industryRows(list));
     if(creator) ring('dash-collab',collabRows(list));
 
-    const totalIncome=sum(list,income),paid=sum(list,collectedIncome),pending=roundMoney(totalIncome-paid);
+    const agencyCollection=brievContext==='agency';
+    const totalIncome=agencyCollection?sum(list,c=>Number(c?.monto||0)):sum(list,income);
+    const paid=agencyCollection?sum(list,collectedCampaignAmount):sum(list,collectedIncome);
+    const pending=roundMoney(totalIncome-paid);
     ring('collection',[
       {label:'Cobrado',icon:'✅',value:paid,color:'#5ec4e6'},
       {label:'Por cobrar',icon:'⏳',value:pending,color:'#b677b1'}
@@ -2406,7 +2440,7 @@ init();
     else if(general&&collectNote){
       const b=monetaryBreakdown(list);
       collectNote.textContent=`Ingreso monetario total · Agencia ${money(b.agency)} · Personal ${money(b.personal)}.`;
-    }else if(collectNote) collectNote.textContent='Comisión de Agencia · monto y porcentaje.';
+    }else if(collectNote) collectNote.textContent='Cobros de Agencia · monto total recibido de las marcas, incluyendo cuotas parciales.';
 
     if(general) annotateGeneral(list);
 
@@ -2568,7 +2602,7 @@ init();
       <div class="cc-meta"><span class="tag">${indTag(c.industria)}</span><span class="tag">👤 ${esc(creatorName(c))}</span>${cycleBadge(c)}</div>
       <div class="cc-det"><div class="d full"><div class="l">Entregables</div><div class="v">${esc(c.entregables||'—')}</div></div><div class="d"><div class="l">Inicio acuerdo / contrato</div><div class="v">${fecha(c.inicioAcuerdo)}</div></div><div class="d"><div class="l">Inicio campaña</div><div class="v">${fecha(c.inicioCampana)}</div></div><div class="d"><div class="l">Días de pago</div><div class="v">${c.diaspago?c.diaspago+' días':'—'}</div></div><div class="d"><div class="l">Exclusividad</div><div class="v">${c.excl>0?c.excl+' días':'—'}</div></div></div>
       <div class="cc-com"><div><div class="c">${money(comOf(c))}</div><div class="t">comisión · ${fmtPct(c.comPct)}% · monto ${money(c.monto)}</div></div></div>
-      <div class="cc-pills"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></div>
+      <div class="cc-pills"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span><span class="pill ${paidShare(c)>0?'pagado':'pend'}">${esc(collectionProgressLabel(c))}</span>${creatorPaidShare(c)>0?`<span class="pill ${creatorPaidShare(c)>=.999999?'pagado':'pend'}">${esc(creatorProgressLabel(c))}</span>`:''}</div>
     </div>`;
   }
 
@@ -2600,7 +2634,7 @@ init();
         <td data-label="Campaña"><b>${esc(c.marca)}</b><div style="font-size:11px;color:var(--muted)">${esc(c.nombre||'—')}</div></td>
         <td data-label="Ciclo">${cycleBadge(c)}</td><td data-label="Mes">${mesCorto(c.inicioAcuerdo)}</td><td data-label="Creador">${esc(creatorName(c))}</td>
         <td data-label="Industria"><span class="tag">${indTag(c.industria)}</span></td><td data-label="Monto" class="num-r money">${money(c.monto)}</td><td data-label="% comisión" class="num-r">${fmtPct(c.comPct)}%</td><td data-label="Comisión Briev" class="num-r mine">${money(comOf(c))}</td>
-        <td data-label="Status"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></td><td data-label="Estado de cobro"><span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${esc(cobroText(c.cobro))}</span></td>
+        <td data-label="Status"><span class="pill">${statusIcon(c.estado)} ${esc(statusText(c.estado))}</span></td><td data-label="Estado de cobro"><span class="pill ${paidShare(c)>0?'pagado':'pend'}">${esc(collectionProgressLabel(c))}</span></td>
       </tr>`;}).join(''):'<tr><td colspan="10" class="empty">No hay campañas.</td></tr>';
     }else if(brievContext==='creator'){
       head.innerHTML='<th>Marca / Campaña</th><th>Ciclo</th><th>Tipo</th><th>Mes</th><th>Industria</th><th class="num-r">Ingreso $</th><th class="num-r">Valor canje</th><th class="num-r">Valor total</th><th>Status</th><th>Cobro / canje</th>';
@@ -3334,7 +3368,7 @@ init();
     const personal=v3Personal(c),m=v3PersonalMeta(c),last=v3LastPublication(c);
     const yn=v=>Number(v)>0?`✅ ${Number(v)} días`:'—';
     const status=`<span class="pill">${em(ESTADOS,c.estado)} ${v3Esc(v3StatusText(c.estado))}</span>`;
-    const collection=personal&&m.tipo==='Canje'?'No aplica':`<span class="pill ${c.cobro==='Pagado'?'pagado':'pend'}">${em(COBROS,c.cobro)} ${v3Esc(c.cobro==='Pagado'?'Cobrado':c.cobro==='Facturado'?'Facturado':'Pendiente de cobro')}</span>`;
+    const collection=personal&&m.tipo==='Canje'?'No aplica':`<span class="pill ${paidShare(c)>0?'pagado':'pend'}">${v3Esc(collectionProgressLabel(c))}</span>`;
     if(personal){
       return `<div class="det-com approved-det-com"><span>Valor total de colaboración</span><span class="v">${money(roundMoney(v3Cash(c)+v3Barter(c)))}</span></div>
         <div class="det-row"><span class="k">Creadora</span><span class="v">👤 ${v3Esc(V3_SELF_NAME)}</span></div>
@@ -3364,7 +3398,7 @@ init();
       <div class="det-row"><span class="k">Ciclo</span><span class="v">${window.brievIsPipeline?.(c)?'○ Oportunidad':`${em(CICLOS,c.ciclo||'Activa')} ${v3Esc(c.ciclo||'Activa')}`}</span></div>
       <div class="det-row"><span class="k">Status</span><span class="v">${status}</span></div>
       <div class="det-row"><span class="k">Estado de cobro</span><span class="v">${collection}</span></div>
-      <div class="det-row"><span class="k">Pagado al creador</span><span class="v">${c.pagcr==='si'?'✅ Sí':'⏳ No'}</span></div>
+      <div class="det-row"><span class="k">Pago al creador</span><span class="v">${v3Esc(creatorProgressLabel(c))}</span></div>
       <div class="det-row"><span class="k">Brief</span><span class="v">${c.brief==='si'?'✅ Recibido':'❌ No recibido'}</span></div>
       ${v3AttachmentRows(c,i)}`;
   }
@@ -3400,7 +3434,7 @@ init();
   }
   function v3FinanceTab(c){
     const personal=v3Personal(c),m=v3PersonalMeta(c),fm=v3FinanceMeta(c),expected=v3ExpectedCollection(c),creatorPay=v3CreatorPaymentDate(c),fractional=fm.formaCobro==='fraccionado'&&Array.isArray(fm.cuotas)&&fm.cuotas.length>0,plan=v3PlanDetail(c),creatorPlan=v3CreatorPlanDetail(c);
-    const creatorRows=Array.isArray(fm.pagosCreadorCuotas)?fm.pagosCreadorCuotas:[],creatorPaidCount=creatorRows.filter(row=>row.estado==='Pagado').length,creatorPaymentState=c.pagcr==='si'?'✅ Pagado':creatorRows.length&&creatorPaidCount>0?'🌓 Parcialmente pagado':fractional&&fm.pagoCreadorDesde==='cobro_marca'?'⏳ Pendiente por cuotas':'⏳ Pendiente';
+    const creatorPaymentState=creatorProgressLabel(c);
     if(personal){
       const total=roundMoney(v3Cash(c)+v3Barter(c));
       return `<div class="detail-finance-hero"><small>Valor total de colaboración</small><strong>${money(total)}</strong></div><div class="detail-summary-grid">
@@ -3409,7 +3443,7 @@ init();
         <div class="detail-mini"><div class="k">Forma de cobro</div><div class="v">${fractional?`${fm.cuotas.length} cuotas`:'Pago único'}</div></div>
         <div class="detail-mini"><div class="k">Plazo inicia desde</div><div class="v">${v3Cash(c)>0?v3FinanceTriggerLabel(c):'No aplica'}</div></div>
         <div class="detail-mini"><div class="k">${fractional?'Próximo cobro':'Cobro estimado'}</div><div class="v">${v3Cash(c)>0?fecha(expected):'No aplica'}</div></div>
-        <div class="detail-mini"><div class="k">Estado de cobro</div><div class="v">${v3Cash(c)>0?(c.cobro==='Pagado'?'✅ Cobrado':c.cobro==='Facturado'?'🧾 Facturado':'⏳ Pendiente'):'No aplica'}</div></div>
+        <div class="detail-mini"><div class="k">Estado de cobro</div><div class="v">${v3Cash(c)>0?v3Esc(collectionProgressLabel(c)):'No aplica'}</div></div>
         ${m.tipo!=='Pagada'?`<div class="detail-mini full"><div class="k">Canje</div><div class="v">${v3Esc(m.canjeDescripcion||'—')} · ${m.canjeRecibido==='si'?'✅ Recibido':'⏳ Pendiente de recibir'}</div></div>`:''}
       </div>${plan}`;
     }
@@ -3419,7 +3453,7 @@ init();
       <div class="detail-mini"><div class="k">Forma de cobro</div><div class="v">${fractional?`${fm.cuotas.length} cuotas`:'Pago único'}</div></div>
       <div class="detail-mini"><div class="k">Plazo inicia desde</div><div class="v">${v3FinanceTriggerLabel(c)}</div></div>
       <div class="detail-mini"><div class="k">${fractional?'Próximo cobro':'Cobro estimado'}</div><div class="v">${fecha(expected)}</div></div>
-      <div class="detail-mini"><div class="k">Estado de cobro</div><div class="v">${c.cobro==='Pagado'?'✅ Cobrado':c.cobro==='Facturado'?'🧾 Facturado':'⏳ Pendiente'}</div></div>
+      <div class="detail-mini"><div class="k">Estado de cobro</div><div class="v">${v3Esc(collectionProgressLabel(c))}</div></div>
       <div class="detail-mini"><div class="k">Pago al creador</div><div class="v">${creatorPaymentState}</div></div>
       <div class="detail-mini"><div class="k">${fractional&&fm.pagoCreadorDesde==='cobro_marca'?'Próximo pago / último realizado':'Fecha estimada pago creador'}</div><div class="v">${fecha(creatorPay)}</div></div>
     </div>${plan}${creatorPlan}`;
